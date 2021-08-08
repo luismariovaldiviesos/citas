@@ -38,22 +38,26 @@
                                         </span>
                                     </td> --}}
                                     <td>
+
+
                                         <a href="javascript:void(0)"
                                         wire:click="Edit({{$tratamiento->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+
                                         <a href="javascript:void(0)"
-                                        onClick="Confirm()"
+                                        onClick="Confirm({{ $tratamiento->id }}, '{{ $tratamiento->citas->count() }}')"
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
+
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    Pagination
+                    {{$tratamientos->links()}}
                 </div>
 
             </div>
@@ -71,6 +75,47 @@
 
     document.addEventListener('DOMContentLoaded', function(){
 
+        // evento que viene desde el Edit
+        window.livewire.on('show-modal', msg=>{
+            $('#theModal').modal('show');
+        });
+
+        // evento que viene desde el Store
+        window.livewire.on('tratamiento-added', msg=>{
+            $('#theModal').modal('hide');
+        });
+
+         // evento que viene desde el Update
+         window.livewire.on('tratamiento-updated', msg=>{
+            $('#theModal').modal('hide');
+        });
+
     });
+
+     // para eliminar envia un emit con el id al fornt donde se debe cachar en los listeners
+
+     function Confirm(id, tratamientos)
+     {
+         if(tratamientos > 0){
+            swal('NO SE PUEDE ELIMINAR EL TRATAMIENTO, TIENE CITAS RELACIONADAS ');
+             return;
+         }
+         swal({
+             title: 'CONFIRMAR',
+             text: '¿ DESEA ELIMINAR EL REGISTRO ?',
+             type: 'warning',
+             showCancelButton: true,
+             cancelButtonText: 'Cerrar',
+             cancelButtonColor: '#fff',
+             confirmButtonColor: '#3B3F5C',
+             confirmButtonText: 'Aceptar'
+         }).then(function(result){
+             if(result.value)
+             {
+                 window.livewire.emit('deleteRow', id) //deleteRow va al listener del controller
+                 swal.close()
+             }
+         })
+     }
 
 </script>

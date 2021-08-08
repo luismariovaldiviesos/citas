@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cita extends Model
 {
     use HasFactory;
+
+
+    public function tratamiento()
+    {
+        return $this->belongsTo(Tratamiento::class);
+    }
 }
