@@ -15,7 +15,8 @@ class CreatePagosTable extends Migration
     {
         Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->enum('nombre',['PAGADO','PENDIENTE','CANCELADO'])->default('PENDIENTE');
+            $table->string('nombre')->unique();
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }

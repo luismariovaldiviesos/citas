@@ -15,12 +15,15 @@ class PagoSeeder extends Seeder
     public function run()
     {
         Pago::create([
-            'nombre' => 'PAGADO'
+            'nombre' => 'PAGADO',
+            'observaciones' => 'cita pagada'
         ]);
 
         Pago::create([
-            'nombre' => 'PENDIENTE'
+            'nombre' => 'PENDIENTE',
+            'observaciones' => 'cita pendiente de pago'
         ]);
+
 
     }
 }
