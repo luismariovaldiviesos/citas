@@ -22,8 +22,7 @@ class CreateMedicosTable extends Migration
             $table->string('imagen',255)->nullable();
             $table->string('direccion',255)->nullable();
 
-            $table->unsignedBigInteger('especialidad_id');
-            $table->foreign('especialidad_id')->references('id')->on('especialidads');
+            $table->timestamps();
 
         });
     }

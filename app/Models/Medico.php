@@ -10,4 +10,9 @@ class Medico extends Model
     use HasFactory;
 
     protected $fillable = ['nombre','ci','telefono','email','imagen','direccion','especialidad_id'];
+
+    public function especialidad()
+    {
+        return $this->hasOne(Especialidad::class);
+    }
 }

@@ -18,6 +18,11 @@ class PagosController extends Component
         $this->componentName = "Tipos de Pagos";
     }
 
+    public function paginationView()
+    {
+        return 'vendor.livewire.bootstrap';
+    }
+
 
     public function render()
     {

@@ -22,16 +22,16 @@
                     <table class="table mt-1 table-bordered table-striped">
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
+                                <th class="text-white table-th">ID</th>
                                 <th class="text-white table-th">NOMBRE</th>
-                                <th class="text-white table-th">PRECIO</th>
                                 <th class="text-white table-th">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($tratamientos as $tratamiento)
+                            @foreach($estados as $estado)
                                 <tr>
-                                    <td><h6>{{$tratamiento->nombre}}</h6></td>
-                                    <td><h6> $ {{$tratamiento->precio}}</h6></td>
+                                    <td><h6>{{$estado->id}}</h6></td>
+                                    <td><h6> {{$estado->nombre}}</h6></td>
                                     {{-- <td class="text-center">
                                         <span>
                                             <img src="" alt="imagen de ejemplo" height="70" width="80" class="rounded">
@@ -41,13 +41,13 @@
 
 
                                         <a href="javascript:void(0)"
-                                        wire:click="Edit({{$tratamiento->id}})"
+                                        wire:click="Edit({{$estado->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
                                         <a href="javascript:void(0)"
-                                        onClick="Confirm({{ $tratamiento->id }}, '{{ $tratamiento->citas->count() }}')"
+                                        onClick="Confirm({{ $estado->id }}, '{{ $estado->citas->count() }}')"
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -57,7 +57,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{$tratamientos->links()}}
+                    {{$estados->links()}}
                 </div>
 
             </div>
@@ -66,7 +66,7 @@
 
     </div>
 
-    @include('livewire.tratamiento.form')
+    @include('livewire.estados.form')
 
 </div>
 
@@ -81,12 +81,12 @@
         });
 
         // evento que viene desde el Store
-        window.livewire.on('tratamiento-added', msg=>{
+        window.livewire.on('estado-added', msg=>{
             $('#theModal').modal('hide');
         });
 
          // evento que viene desde el Update
-         window.livewire.on('tratamiento-updated', msg=>{
+         window.livewire.on('estado-updated', msg=>{
             $('#theModal').modal('hide');
         });
 
@@ -94,10 +94,10 @@
 
      // para eliminar envia un emit con el id al fornt donde se debe cachar en los listeners
 
-     function Confirm(id, tratamientos)
+     function Confirm(id, estados)
      {
-         if(tratamientos > 0){
-            swal('NO SE PUEDE ELIMINAR EL TRATAMIENTO, TIENE CITAS RELACIONADAS ');
+         if(estados > 0){
+            swal('NO SE PUEDE ELIMINAR EL ESTADO, TIENE CITAS RELACIONADAS ');
              return;
          }
          swal({

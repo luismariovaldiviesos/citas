@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TratamientosController;
 use App\Http\Livewire\PagosController;
+use App\Http\Livewire\EstadosController;
+use App\Http\Livewire\MedicosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/tratamientos', TratamientosController::class);
 Route::get('/pagos', PagosController::class);
+Route::get('/estados', EstadosController::class);
+Route::get('/medicos', MedicosController::class);
+
+

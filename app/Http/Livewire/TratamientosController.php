@@ -43,7 +43,7 @@ class TratamientosController extends Component
             ->paginate($this->pagination);
         }
 
-        return view('livewire.tratamiento.tratamientos', ['tratamientos' => $data])
+        return view('livewire.tratamientos.tratamientos', ['tratamientos' => $data])
         ->extends('layouts.theme.app')
         ->section('content');
     }

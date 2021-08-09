@@ -15,7 +15,7 @@ class CreateEstadosTable extends Migration
     {
         Schema::create('estados', function (Blueprint $table) {
             $table->id();
-            $table->enum('nombre',['ATENDIDO','PENDIENTE','CANCELADO','NO ASISTE'])->default('PENDIENTE');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
