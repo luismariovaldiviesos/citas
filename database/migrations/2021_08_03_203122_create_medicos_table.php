@@ -19,7 +19,6 @@ class CreateMedicosTable extends Migration
             $table->string('ci',13)->nullable();
             $table->string('telefono',10);
             $table->string('email',255)->unique()->nullable();
-            $table->string('imagen',255)->nullable();
             $table->string('direccion',255)->nullable();
 
             $table->timestamps();

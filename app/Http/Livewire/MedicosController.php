@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Medico;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 
@@ -11,8 +13,9 @@ class MedicosController extends Component
 {
 
     use WithPagination;
+    use WithFileUploads;
 
-    public  $nombre, $ci, $telefono, $email,$imagen, $direccion;
+    public  $nombre, $ci, $telefono, $email, $direccion;
     public  $search, $selected_id, $pageTitle, $componentName;
     private $pagination = 5;
 
@@ -50,12 +53,11 @@ class MedicosController extends Component
     public function Edit($id)
     {
 
-        $record = Medico::find($id, ['id','nombre','ci', 'telefono',  'email','imagen','direccion']);
+        $record = Medico::find($id, ['id','nombre','ci', 'telefono',  'email','direccion']);
         $this->nombre = $record->nombre;
         $this->ci = $record->ci;
         $this->telefono = $record->telefono;
         $this->email = $record->email;
-        $this->imagen = $record->imagen;
         $this->direccion = $record->direccion;
         $this->selected_id = $record->id;
 
@@ -69,27 +71,90 @@ class MedicosController extends Component
     public function Store()
     {
         $rules = [
-            'nombre' => 'required|unique:medicos|min:3',
-            'ci' => 'required|unique:medicos|min:10',
+            'nombre' => 'required|unique:medicos,nombre|min:3',
+            'telefono' => 'required|max:10'
 
         ];
 
         $messages = [
-            'nombre.required' => 'El nombre del estado es requerido',
-            'nombre.unique' => 'El nombre del estado ya esta en uso ',
-            'nombre.min' => 'El nombre del estado debe tener mínimo tres caracteres'
+            'nombre.required' => 'El nombre del medic@ es requerido',
+            'nombre.unique' => 'El nombre del medic@ ya esta en uso ',
+            'nombre.min' => 'El nombre del medic@ debe tener mínimo tres caracteres',
+
+            'telefono.required' => 'El telefono del medic@ es requerido',
+            'telefono.max' => 'El telefono del medic@ debe tener máximo diez caracteres'
         ];
 
         $this->validate($rules,$messages);
-        $estado = Estado::create([
+        $medico = Medico::create([
 
-            'nombre' => $this->nombre
+            'nombre' => $this->nombre,
+            'ci' => $this->ci,
+            'telefono' => $this->telefono,
+            'email' => $this->email,
+            'direccion' => $this->direccion
+
         ]);
 
-        $estado->save();
+       $medico->save();
         $this->resetUI();
-        $this->emit('estado-added','estado registrado correctamente');
+        $this->emit('medico-added','medic@ registrado correctamente');
 
     }
+
+    public function  Update()
+    {
+        $rules = [
+            'nombre' => "required|min:3|unique:medicos,nombre,{$this->selected_id}",
+            'telefono' => 'required|max:10'
+        ];
+        $messages = [
+            'nombre.required' => 'Nombre del medic@ es requerido',
+            'nombre.unique' => 'Nombre del medic@ ya existe',
+            'nombre.min' => 'Nombre del medic@ debe tener al menos tres caracteres'
+        ];
+
+        $this->validate($rules,$messages);
+
+        $medico= Medico::find($this->selected_id);
+        $medico->update([
+            'nombre' =>$this->nombre,
+            'ci' =>$this->ci,
+            'telefono' =>$this->telefono,
+            'email' =>$this->email,
+            'direccion' =>$this->direccion,
+        ]);
+
+
+        $this->resetUI();
+        $this->emit('medico-updated', 'Medico Actualizada ');
+
+
+    }
+
+    public function resetUI()
+    {
+        $this->nombre ='';
+        $this->ci ='';
+        $this->telefono ='';
+        $this->email ='';
+        $this->direccion ='';
+        $this->search='';
+        $this->selected_id=0;
+    }
+
+    protected $listeners = [
+
+        'deleteRow' => 'Destroy'
+    ];
+
+    public function Destroy(Medico $medico)
+    {
+        //$tratamiento = Tratamiento::find($id);
+        $medico->delete();
+        $this->resetUI();
+        $this->emit('medico-deleted','Medic@ eliminado correctamente');
+    }
+
 
 }

@@ -24,30 +24,30 @@
                             <tr>
                                 <th class="text-white table-th">ID</th>
                                 <th class="text-white table-th">NOMBRE</th>
+                                <th class="text-white table-th">TELÉFONO</th>
+                                <th class="text-white table-th">CORREO</th>
                                 <th class="text-white table-th">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($estados as $estado)
+                            @foreach($medicos as $medico)
                                 <tr>
-                                    <td><h6>{{$estado->id}}</h6></td>
-                                    <td><h6> {{$estado->nombre}}</h6></td>
-                                    {{-- <td class="text-center">
-                                        <span>
-                                            <img src="" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td> --}}
+                                    <td><h6>{{$medico->id}}</h6></td>
+                                    <td><h6> {{$medico->nombre}}</h6></td>
+                                    <td><h6> {{$medico->telefono}}</h6></td>
+                                    <td><h6> {{$medico->email}}</h6></td>
+
                                     <td>
 
 
                                         <a href="javascript:void(0)"
-                                        wire:click="Edit({{$estado->id}})"
+                                        wire:click="Edit({{$medico->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
                                         <a href="javascript:void(0)"
-                                        onClick="Confirm({{ $estado->id }}, '{{ $estado->citas->count() }}')"
+                                        onClick="Confirm({{ $medico->id }})"
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -57,7 +57,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{$estados->links()}}
+                    {{$medicos->links()}}
                 </div>
 
             </div>
@@ -66,7 +66,7 @@
 
     </div>
 
-    @include('livewire.estados.form')
+    @include('livewire.medicos.form')
 
 </div>
 
@@ -81,12 +81,12 @@
         });
 
         // evento que viene desde el Store
-        window.livewire.on('estado-added', msg=>{
+        window.livewire.on('medico-added', msg=>{
             $('#theModal').modal('hide');
         });
 
          // evento que viene desde el Update
-         window.livewire.on('estado-updated', msg=>{
+         window.livewire.on('medico-updated', msg=>{
             $('#theModal').modal('hide');
         });
 
@@ -94,12 +94,8 @@
 
      // para eliminar envia un emit con el id al fornt donde se debe cachar en los listeners
 
-     function Confirm(id, estados)
+     function Confirm(id)
      {
-         if(estados > 0){
-            swal('NO SE PUEDE ELIMINAR EL ESTADO, TIENE CITAS RELACIONADAS ');
-             return;
-         }
          swal({
              title: 'CONFIRMAR',
              text: '¿ DESEA ELIMINAR EL REGISTRO ?',

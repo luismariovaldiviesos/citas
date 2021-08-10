@@ -19,7 +19,6 @@ class MedicoSeeder extends Seeder
             'ci' => '01045677',
             'telefono' => '072255181',
             'email' => 'medico@gmail.com',
-            'imagen' => '',
             'direccion' => 'centro',
 
         ]);
@@ -29,7 +28,6 @@ class MedicoSeeder extends Seeder
             'ci' => '01045677',
             'telefono' => '072255181',
             'email' => 'lucero@gmail.com',
-            'imagen' => '',
             'direccion' => 'centro',
 
         ]);
