@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name'=> 'Luis Mario',
             'phone' => '2255181',
             'email' => 'admin@mail.com',
-            'profile' => 'ADMIN',
+            'profile' => 'administrador',
             'status' => 'ACTIVE',
             'password' => bcrypt('administrador')
         ]);
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'name'=> 'joaquin valdivieso',
             'phone' => '2255181',
             'email' => 'joaquis@mail.com',
-            'profile' => 'ADMIN',
+            'profile' => 'administrador',
             'status' => 'ACTIVE',
             'password' => bcrypt('administrador')
         ]);
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'name'=> 'ximena chhocho',
             'phone' => '2255181',
             'email' => 'ximena@mail.com',
-            'profile' => 'EMPLOYEE',
+            'profile' => 'empleado',
             'status' => 'ACTIVE',
             'password' => bcrypt('empleado')
         ]);
