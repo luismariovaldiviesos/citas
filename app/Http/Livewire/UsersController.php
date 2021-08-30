@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Component
 {
@@ -39,7 +40,8 @@ class UsersController extends Component
 
 
        return view('livewire.usuarios.component',[
-        'data' => $data
+        'data' => $data,
+        'roles' => Role::orderBy('name','asc')->get()
     ])
        ->extends('layouts.theme.app')
        ->section('content');
@@ -115,7 +117,7 @@ $user = User::create([
 ]);
 
 // $user->syncRoles(['Admin','Empelado']); // asi seria si queremos apsarle mas roles
-// $user->syncRoles($this->profile);
+$user->syncRoles($this->profile);
 
 if($this->image)
 {
@@ -164,7 +166,7 @@ public function Update()
         'password' => strlen($this->password) > 0 ? bcrypt($this->password) : $user->password
     ]);
 
-    // $user->syncRoles($this->profile);
+     $user->syncRoles($this->profile);
 
 
     if($this->image)
@@ -194,19 +196,20 @@ public function Update()
 
 public function destroy(User $user)
 {
- if($user) {
-    $sales = Sale::where('user_id', $user->id)->count();
-    if($sales > 0)  {
-        $this->emit('user-withsales','No es posible eliminar el usuario porque tiene ventas registradas');
-    } else {
-        $user->delete();
-        $this->resetUI();
-        $this->emit('user-deleted','Usuario Eliminado');
-    }
-}
+    //  if($user) {
+    //     $sales = Sale::where('user_id', $user->id)->count();
+    //     if($sales > 0)  {
+    //         $this->emit('user-withsales','No es posible eliminar el usuario porque tiene ventas registradas');
+    //     } else {
+    //         $user->delete();
+    //         $this->resetUI();
+    //         $this->emit('user-deleted','Usuario Eliminado');
+    //     }
+    // }
 
-
-
+    $user->delete();
+    $this->resetUI();
+    $this->emit('user-deleted','Usuario Eliminado');
 }
 
 }

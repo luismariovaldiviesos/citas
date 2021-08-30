@@ -50,9 +50,9 @@
             <label >Asiganar Rol</label>
             <select wire:model.lazy="profile" class="form-control">
                 <option value="Elegir" selected>Elegir</option>
-                {{-- @foreach ($roles as $role )
+                @foreach ($roles as $role )
                 <option value="{{$role->name}}" >{{$role->name}}</option>
-                @endforeach --}}
+                @endforeach
             </select>
             @error('profile') <span class="text-danger er">{{ $message }}</span> @enderror
         </div>

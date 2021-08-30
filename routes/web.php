@@ -7,6 +7,8 @@ use App\Http\Livewire\EstadosController;
 use App\Http\Livewire\MedicosController;
 use App\Http\Livewire\UsersController;
 use App\Http\Livewire\RolesController;
+use App\Http\Livewire\PermisosController;
+use App\Http\Livewire\AsignarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +36,8 @@ Route::get('/medicos', MedicosController::class);
 Route::get('/usuarios', UsersController::class);
 
 Route::get('roles', RolesController::class);
+Route::get('permisos', PermisosController::class);
+
+Route::get('asignar', AsignarController::class);
 
 
