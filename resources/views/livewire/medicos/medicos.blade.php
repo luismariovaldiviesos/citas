@@ -18,7 +18,7 @@
 
             <div class="widget-content">
 
-                <div class="table-reponsive">
+                <div class="table-responsive">
                     <table class="table mt-1 table-bordered table-striped">
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
