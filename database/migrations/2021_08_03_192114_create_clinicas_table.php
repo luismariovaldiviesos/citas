@@ -20,6 +20,7 @@ class CreateClinicasTable extends Migration
             $table->string('telefono',10);
             $table->string('ruc',13);
             $table->string('email',255)->unique();
+            $table->string('imagen',50)->nullable();
             $table->timestamps();
         });
     }

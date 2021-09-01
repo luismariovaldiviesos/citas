@@ -19,7 +19,8 @@ class ClinicaSeeder extends Seeder
             'direccion' => 'Gualaceo',
             'telefono' => '2255183',
             'ruc' => '0102649843001',
-            'email' => 'meldental@gmail'
+            'email' => 'meldental@gmail',
+            'imagen' => 'noimg.jpg'
         ]);
     }
 }
