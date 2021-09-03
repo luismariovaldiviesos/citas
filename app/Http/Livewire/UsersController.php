@@ -82,55 +82,55 @@ class UsersController extends Component
     ];
 
     public function Store()
-{
- $rules =[
-    'name' => 'required|min:3',
-    'email' => 'required|unique:users|email',
-    'status' => 'required|not_in:Elegir',
-    'profile' => 'required|not_in:Elegir',
-    'password' => 'required|min:3'
-];
+    {
+        $rules =[
+            'name' => 'required|min:3',
+            'email' => 'required|unique:users|email',
+            'status' => 'required|not_in:Elegir',
+            'profile' => 'required|not_in:Elegir',
+            'password' => 'required|min:3'
+        ];
 
-$messages =[
-    'name.required' => 'Ingresa el nombre',
-    'name.min' => 'El nombre del usuario debe tener al menos 3 caracteres',
-    'email.required' => 'Ingresa el correo ',
-    'email.email' => 'Ingresa un correo válido',
-    'email.unique' => 'El email ya existe en sistema',
-    'status.required' => 'Selecciona el estatus del usuario',
-    'status.not_in' => 'Selecciona el estatus',
-    'profile.required' => 'Selecciona el perfil/role del usuario',
-    'profile.not_in' => 'Selecciona un perfil/role distinto a Elegir',
-    'password.required' => 'Ingresa el password',
-    'password.min' => 'El password debe tener al menos 3 caracteres'
-];
+        $messages =[
+            'name.required' => 'Ingresa el nombre',
+            'name.min' => 'El nombre del usuario debe tener al menos 3 caracteres',
+            'email.required' => 'Ingresa el correo ',
+            'email.email' => 'Ingresa un correo válido',
+            'email.unique' => 'El email ya existe en sistema',
+            'status.required' => 'Selecciona el estatus del usuario',
+            'status.not_in' => 'Selecciona el estatus',
+            'profile.required' => 'Selecciona el perfil/role del usuario',
+            'profile.not_in' => 'Selecciona un perfil/role distinto a Elegir',
+            'password.required' => 'Ingresa el password',
+            'password.min' => 'El password debe tener al menos 3 caracteres'
+        ];
 
-$this->validate($rules, $messages);
+        $this->validate($rules, $messages);
 
-$user = User::create([
-    'name' => $this->name,
-    'email' => $this->email,
-    'phone' => $this->phone,
-    'status' => $this->status,
-    'profile' => $this->profile,
-    'password' => bcrypt($this->password)
-]);
+        $user = User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'status' => $this->status,
+            'profile' => $this->profile,
+            'password' => bcrypt($this->password)
+        ]);
 
-// $user->syncRoles(['Admin','Empelado']); // asi seria si queremos apsarle mas roles
-$user->syncRoles($this->profile);
+        // $user->syncRoles(['Admin','Empelado']); // asi seria si queremos apsarle mas roles
+        $user->syncRoles($this->profile);
 
-if($this->image)
-{
-    $customFileName = uniqid() . ' _.' . $this->image->extension();
-    $this->image->storeAs('public/users', $customFileName);
-    $user->image = $customFileName;
-    $user->save();
-}
+        if($this->image)
+        {
+            $customFileName = uniqid() . ' _.' . $this->image->extension();
+            $this->image->storeAs('public/users', $customFileName);
+            $user->image = $customFileName;
+            $user->save();
+        }
 
-$this->resetUI();
-$this->emit('user-added','Usuario Registrado');
+        $this->resetUI();
+        $this->emit('user-added','Usuario Registrado');
 
-}
+    }
 
 public function Update()
 {

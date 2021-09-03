@@ -32,7 +32,7 @@ class PermisosController extends Component
         if(strlen($this->search) > 0)
             $permisos =  Permission::where('name','like','%'. $this->search. '%')->paginate($this->pagination);
         else
-            $permisos =  Permission::orderBy('name','asc')->paginate($this->pagination);
+            $permisos =  Permission::orderBy('id','asc')->paginate($this->pagination);
 
         return view('livewire.permisos.component', [
             'permisos' => $permisos

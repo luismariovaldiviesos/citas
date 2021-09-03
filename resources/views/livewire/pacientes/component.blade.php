@@ -23,33 +23,28 @@
                     <table class="table mt-1 table-bordered table-striped">
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
-                                <th class="text-white table-th">USUARIO</th>
+                                <th class="text-white table-th">NOMBRE</th>
                                 <th class="text-center text-white table-th">TELÉFONO</th>
                                 <th class="text-center text-white table-th">EMAIL</th>
-                                <th class="text-center text-white table-th">PERFIL</th>
-                                <th class="text-center text-white table-th">ESTATUS</th>
                                 <th class="text-center text-white table-th">IMÁGEN</th>
+                                <th class="text-center text-white table-th">DIRECCION</th>
                                 <th class="text-center text-white table-th">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data as $r )
                                 <tr>
-                                    <td><h6>{{$r->name}}</h6></td>
-                                    <td class="text-center"><h6>{{$r->phone}}</h6></td>
+                                    <td><h6>{{$r->nombre}}</h6></td>
+                                    <td class="text-center"><h6>{{$r->telefono}}</h6></td>
                                     <td class="text-center"><h6>{{$r->email}}</h6></td>
-                                    <td class="text-center"><h6>{{$r->profile}}</h6></td>
-                                    <td class="text-center">
-                                        <span class="badge {{$r->status == 'ACTIVE' ? 'badge-success' : 'badge-danger'}} text-uppercase">
-                                            {{$r->status}}
-                                        </span>
-
-                                    </td>
                                     <td class="text-center">
                                         <span>
-                                            <img src="{{ asset('storage/users/' . $r->imagen ) }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
+                                            <img src="{{ asset('storage/pacientes/' . $r->imagen ) }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                         </span>
                                      </td>
+                                    <td class="text-center"><h6>{{$r->direccion}}</h6></td>
+
+
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
                                         wire:click="edit({{$r->id}})"
@@ -61,6 +56,10 @@
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        <button wire:click.prevent="getDetails({{$r->id}})"
+                                            class="btn btn-dark btn-sm">
+                                                <i class="fas fa-list"></i>
+                                            </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -75,7 +74,7 @@
 
     </div>
 
-  @include('livewire.usuarios.form')
+  @include('livewire.pacientes.form')
 
 </div>
 
@@ -84,15 +83,15 @@
 
     document.addEventListener('DOMContentLoaded', function(){
 
-        window.livewire.on('user-added', Msg =>{
+        window.livewire.on('paciente-added', Msg =>{
             $('#theModal').modal('hide')
             noty(Msg)
         })
-        window.livewire.on('user-updated', Msg =>{
+        window.livewire.on('paciente-updated', Msg =>{
             $('#theModal').modal('hide')
             noty(Msg)
         })
-        window.livewire.on('user-deleted', Msg =>{
+        window.livewire.on('paciente-deleted', Msg =>{
            noty(Msg)
         })
         window.livewire.on('hide-modal', Msg =>{

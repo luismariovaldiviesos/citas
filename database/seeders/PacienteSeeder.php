@@ -16,10 +16,10 @@ class PacienteSeeder extends Seeder
     {
         Paciente::create([
             'nombre' => 'paciente 0',
-            'ci' => '01045677',
+            'ci' => '0104649841',
             'telefono' => '072255181',
             'email' => 'paciente0@gmail.com',
-            'imagen' => '',
+            'image' => '',
             'direccion' => 'centro',
             'enfermedad' => "",
             'medicamentos' => "",
@@ -28,10 +28,10 @@ class PacienteSeeder extends Seeder
 
         Paciente::create([
             'nombre' => 'paciente 1',
-            'ci' => '01045677',
+            'ci' => '0104649842',
             'telefono' => '072255181',
             'email' => 'paciente1@gmail.com',
-            'imagen' => '',
+            'image' => '',
             'direccion' => 'centro',
             'enfermedad' => "",
             'medicamentos' => "",
@@ -40,10 +40,10 @@ class PacienteSeeder extends Seeder
 
         Paciente::create([
             'nombre' => 'paciente 2',
-            'ci' => '01045677',
+            'ci' => '0104649844',
             'telefono' => '072255181',
             'email' => 'paciente2@gmail.com',
-            'imagen' => '',
+            'image' => '',
             'direccion' => 'centro',
             'enfermedad' => "",
             'medicamentos' => "",

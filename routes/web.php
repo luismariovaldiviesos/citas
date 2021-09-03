@@ -10,7 +10,7 @@ use App\Http\Livewire\RolesController;
 use App\Http\Livewire\PermisosController;
 use App\Http\Livewire\AsignarController;
 use App\Http\Livewire\ClinicaController;
-
+use App\Http\Livewire\PacientesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +36,8 @@ Route::get('/pagos', PagosController::class);
 Route::get('/estados', EstadosController::class);
 Route::get('/medicos', MedicosController::class);
 Route::get('/usuarios', UsersController::class);
+
+Route::get('/pacientes', PacientesController::class);
 
 Route::get('roles', RolesController::class);
 Route::get('permisos', PermisosController::class);
