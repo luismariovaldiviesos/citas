@@ -1,0 +1,8 @@
+no poder eleiminar paciente si tiene citas
+detalle del paciente
+no poder eliminar citas si tiene pendieente algo (ver)
+actualizazion de paciente (cedula unique ), revisar imagenes pacientes
+fechas anteriores , bloquear
+
+
+fecha de pago  en citas en la base

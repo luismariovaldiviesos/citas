@@ -68,4 +68,10 @@ class User extends Authenticatable
                 */
 
     }
+
+     // un  usuario (que crea) pued estar en muchas citas
+     public function citas()
+     {
+         return $this->hasMany(Cita::class);
+     }
 }

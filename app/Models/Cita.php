@@ -9,6 +9,12 @@ class Cita extends Model
 {
     use HasFactory;
 
+    protected $fillable =
+    [
+        'descripcion','fecha_ini','fecha_fin','paciente_id','medico_id',
+        'receta','user_id','tratamiento_id','pago_id','estado_id'
+    ];
+
     //tien ujn tratamiento
     public function tratamiento()
     {
@@ -26,4 +32,26 @@ class Cita extends Model
      {
          return $this->belongsTo(Estado::class);
      }
+
+     // TIENE UN PACIENTE
+
+     public function paciente()
+     {
+         return $this->belongsTo(Paciente::class);
+     }
+
+      // TIENE UN USUARIO
+
+      public function user()
+      {
+          return $this->belongsTo(User::class);
+      }
+
+    //   public function citasPendientes()
+    //   {
+    //       $estadoCita =  $this->estado();
+    //       //$citPendiente =  Cita::where('estado_id','=',$this->estado)->orderBy('id','asc')->paginate(10);
+    //       //return $citPendiente;
+    //       dd($estadoCita) ;
+    //   }
 }

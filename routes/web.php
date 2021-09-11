@@ -9,6 +9,7 @@ use App\Http\Livewire\UsersController;
 use App\Http\Livewire\RolesController;
 use App\Http\Livewire\PermisosController;
 use App\Http\Livewire\AsignarController;
+use App\Http\Livewire\CitasController;
 use App\Http\Livewire\ClinicaController;
 use App\Http\Livewire\PacientesController;
 
@@ -45,5 +46,7 @@ Route::get('permisos', PermisosController::class);
 Route::get('asignar', AsignarController::class);
 
 Route::get('clinica', ClinicaController::class);
+
+Route::get('citas', CitasController::class);
 
 

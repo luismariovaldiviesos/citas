@@ -1,6 +1,5 @@
 <div class="row justify-content-between">
     <div class="col-lg-4 col-md-4 col-sm-12">
-
         <div class="mb-4 input-group">
             <div class="input group-prepend">
                 <span class="input-group-text input-gp">

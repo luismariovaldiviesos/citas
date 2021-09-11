@@ -33,4 +33,12 @@ class Paciente extends Model
 
     }
 
+     // un  paciente pued estar en muchas citas
+     public function citas()
+     {
+         return $this->hasMany(Cita::class);
+     }
+
+
+
 }
