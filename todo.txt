@@ -6,3 +6,5 @@ fechas anteriores , bloquear
 
 
 fecha de pago  en citas en la base
+
+tratamientos no modificar (valor) si hay  con ese tratamiento
