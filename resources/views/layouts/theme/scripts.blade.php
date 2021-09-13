@@ -13,6 +13,8 @@
     <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
     <script src="{{ asset('plugins/nicescroll/nicescroll.js')}}"></script>
     <script src="{{ asset('plugins/currency/currency.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
 
     <script>
         function noty(msg, option = 1)
@@ -29,4 +31,6 @@
     <script src="{{ asset('plugins/flatpickr/flatpickr.js')}}"></script>
 
 @livewireScripts
+{{-- esto de abajo es para el fullcalendar (?) --}}
+@stack('script')
 
