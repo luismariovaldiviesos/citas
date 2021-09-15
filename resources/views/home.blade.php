@@ -2,7 +2,7 @@
 
 @section('content')
 <br><br>
-<div class="container" id="calendar">
+<div class="container" id="calendar" wire:ignore>
     {{-- <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -23,7 +23,13 @@
             </div>
         </div>
     </div> --}}
+
+
 </div>
+
+
+
+
 @push('script')
 
     <script>

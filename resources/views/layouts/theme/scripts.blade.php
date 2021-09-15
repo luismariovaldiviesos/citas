@@ -13,8 +13,16 @@
     <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
     <script src="{{ asset('plugins/nicescroll/nicescroll.js')}}"></script>
     <script src="{{ asset('plugins/currency/currency.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
+
+    {{-- calendario web --}}
+     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
+    {{-- calendario web --}}
+
+    {{-- full calendario local --}}
+    <script src="{{ asset('plugins/fullcalendar/locales-all.min.js')}}"></script>
+    <script src="{{ asset('plugins/fullcalendar/main.min.js')}}"></script>
+    {{-- full calendario local --}}
 
     <script>
         function noty(msg, option = 1)

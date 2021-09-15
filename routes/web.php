@@ -12,6 +12,7 @@ use App\Http\Livewire\AsignarController;
 use App\Http\Livewire\CitasController;
 use App\Http\Livewire\ClinicaController;
 use App\Http\Livewire\PacientesController;
+use App\Http\Livewire\CalendarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,5 +49,7 @@ Route::get('asignar', AsignarController::class);
 Route::get('clinica', ClinicaController::class);
 
 Route::get('citas', CitasController::class);
+
+Route::get('calendario', CalendarioController::class);
 
 
