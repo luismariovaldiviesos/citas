@@ -8,3 +8,7 @@ fechas anteriores , bloquear
 fecha de pago  en citas en la base
 
 tratamientos no modificar (valor) si hay  con ese tratamiento
+
+
+// calendario ver si se agenda ahi o no
+mostrar los datos en el calendario
