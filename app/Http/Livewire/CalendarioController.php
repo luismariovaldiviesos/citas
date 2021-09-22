@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 class CalendarioController extends Component
 {
     public $descripcion, $fecha_ini, $fecha_fin, $medico_id, $receta, $user_id, $buscar_paciente,
-    $tratamiento_id, $pago_id, $citas ;
+    $tratamiento_id, $pago_id, $citas, $estado ;
 
 
     public function mount()
@@ -30,8 +30,8 @@ class CalendarioController extends Component
     }
     public function save()
     {
-        // dd($this->fecha_ini, $this->fecha_fin, $this->buscar_paciente, $this->descripcion, $this->medico_id, $this->receta,
-        //  $this->user_id, $this->tratamiento_id, $this->pago_id);
+         dd($this->fecha_ini, $this->fecha_fin, $this->buscar_paciente, $this->descripcion, $this->medico_id, $this->receta,
+          $this->user_id, $this->tratamiento_id, $this->pago_id, $this->estado);
     }
 
     public function render()

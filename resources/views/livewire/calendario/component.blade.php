@@ -82,10 +82,10 @@
                             <div class="form-group">
                                 <label >Medico</label>
                                 <select wire:model.lazy="medico_id" class="form-control">
-                                    {{-- <option value="Elegir" selected>Elegir</option>
+                                    <option value="Elegir" selected>Elegir</option>
                                     @foreach ($medicos as $m )
                                     <option value="{{ $m->id }}" >{{ $m->nombre }}</option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
                                 @error('medico_id') <span class="text-danger er">{{ $message }}</span> @enderror
                             </div>
@@ -104,9 +104,9 @@
                                     <label >Tratamiento</label>
                                     <select wire:model.lazy="tratamiento_id" class="form-control">
                                         <option value="Elegir" selected>Elegir</option>
-                                        {{-- @foreach ($tratamientos as $t )
+                                        @foreach ($tratamientos as $t )
                                         <option value="{{ $t->id }}" >{{ $t->nombre }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                     @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
                                 </div>
@@ -117,9 +117,9 @@
                                     <label >Pagos</label>
                                     <select wire:model.lazy="pago_id" class="form-control">
                                         <option value="Elegir" selected>Elegir</option>
-                                        {{-- @foreach ($pagos as $p)
+                                        @foreach ($pagos as $p)
                                         <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                     @error('pago_id') <span class="text-danger er">{{ $message }}</span> @enderror
                                 </div>
@@ -130,9 +130,9 @@
                                     <label >Estado Cita</label>
                                     <select wire:model.lazy="estado" class="form-control">
                                         <option value="Elegir" selected>Elegir</option>
-                                        {{-- @foreach ($estados as $e)
+                                        @foreach ($estados as $e)
                                         <option value="{{ $e->id }}" >{{ $e->nombre }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                     @error('estado') <span class="text-danger er">{{ $message }}</span> @enderror
                                 </div>
