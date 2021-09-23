@@ -180,9 +180,24 @@
                $('#theModal').modal('toggle');
             }
         });
-
         calendar.render();
-      });
+        // document.addEventListener('event', event => {
+
+        //     alert('Name updated to: ' + event.detail.newName);
+        // })
+        // detail es el nombre de la variable que esta dentro del objeto event y que tiene un valor
+        // 'closeModalCreate' => true definido en el metodo del controller
+        document.addEventListener('eventoEnviar', function({detail}) {
+
+           //console.log(detail);
+           if(detail.closeModalCreate){
+            $('#theModal').modal('toggle');
+           }
+
+        })
+      })
+
+
 
       flatpickr(document.getElementsByClassName('flatpickr'), {
             enableTime: true,

@@ -30,8 +30,27 @@ class CalendarioController extends Component
     }
     public function save()
     {
-         dd($this->fecha_ini, $this->fecha_fin, $this->buscar_paciente, $this->descripcion, $this->medico_id, $this->receta,
-          $this->user_id, $this->tratamiento_id, $this->pago_id, $this->estado);
+        //  dd($this->fecha_ini, $this->fecha_fin, $this->buscar_paciente, $this->descripcion, $this->medico_id, $this->receta,
+        //   $this->user_id, $this->tratamiento_id, $this->pago_id, $this->estado);
+
+          // despues que se grabe hay que setear
+          //$this->resetFields();
+          // para cerrra el modal
+          $this->dispatchBrowserEvent('eventoEnviar', ['closeModalCreate' => true]);
+    }
+
+    protected function resetFields()
+    {
+        $this->fecha_ini = null;
+        $this->fecha_fin =  null;
+        $this->buscar_paciente = null;
+        $this->descripcion = null;
+        $this->medico_id = null;
+        $this->receta = null;
+        $this->user_id = null;
+        $this->tratamiento_id = null;
+        $this->pago_id = null;
+        $this->estado = null;
     }
 
     public function render()
@@ -48,6 +67,8 @@ class CalendarioController extends Component
         ])
         ->extends('layouts.theme.app')
         ->section('content');
+
+
     }
 
 }
