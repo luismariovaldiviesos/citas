@@ -50,6 +50,5 @@ Route::get('clinica', ClinicaController::class);
 
 Route::get('citas', CitasController::class);
 
-Route::get('calendario', CalendarioController::class);
 
 
