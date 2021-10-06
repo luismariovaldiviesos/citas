@@ -1,5 +1,5 @@
 
-<div class="container" >
+<div class="container"  wire:ignore>
 
     <div id='calendar-container'>
 
@@ -21,11 +21,18 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                ...
+
+                    <label for="" >PaACIENTE</label>
+                    <input type="text" wire:model.defer="title" class="form-control" >
+                    <label for="" >DE:</label>
+                    <input type="text" wire:model.defer="start" disabled class="form-control" >
+                    <label for="" >A:</label>
+                    <input type="text" wire:model.defer="end" disabled class="form-control" >
+
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+
                 </div>
             </div>
             </div>
@@ -57,16 +64,28 @@
                    select: function(){
                     //$('#theModal').modal('toggle');
                    },
-                    //  dateClick(info) {
-                    //      var titulo = prompt('ingrese el titulo');
-                    //      var date = new Date(info.dateStr + 'T00:00:00');
-                    //         console.log(events);
-                    //  },
+                     dateClick(info) {
+                         var titulo = prompt('ingrese el titulo');
+                         var date = new Date(info.dateStr + 'T00:00:00');
+                            console.log(info.dateStr);
+                     },
+
 
                     eventClick: function(info){
                         //alert('Paciente: ' + info.event.title);
+                        var hi =  info.event.start.getHours();
+                        var mi = info.event.start.getMinutes();
+                        var hf =  info.event.end.getHours();
+                        var mf = info.event.end.getMinutes();
+                        @this.title =  info.event.title;
+                        @this.start = ""+hi+":"+mi;
+                        @this.end =  ""+hf+":"+mf;
                         $('#theModal').modal('toggle');
+                        console.log(""+h+":"+m);
+
                     },
+
+
 
                    });
                 calendar.render();

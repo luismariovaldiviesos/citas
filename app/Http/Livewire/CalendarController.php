@@ -8,6 +8,8 @@ use Livewire\Component;
 class CalendarController extends Component
 {
     public $events ;
+    public $title, $start, $end;
+
     public function render()
     {
         //$events = Cita::select('id','descripcion AS title','fecha_ini AS start','fecha_fin AS end')->get();
