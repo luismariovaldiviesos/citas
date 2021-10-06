@@ -71,18 +71,24 @@
                      },
 
 
-                    eventClick: function(info){
-                        //alert('Paciente: ' + info.event.title);
-                        var hi =  info.event.start.getHours();
-                        var mi = info.event.start.getMinutes();
-                        var hf =  info.event.end.getHours();
-                        var mf = info.event.end.getMinutes();
-                        @this.title =  info.event.title;
-                        @this.start = ""+hi+":"+mi;
-                        @this.end =  ""+hf+":"+mf;
-                        $('#theModal').modal('toggle');
-                        console.log(""+h+":"+m);
+                    // eventClick: function(info){
+                    //     //alert('Paciente: ' + info.event.title);
+                    //     var hi =  info.event.start.getHours();
+                    //     var mi = info.event.start.getMinutes();
+                    //     var hf =  info.event.end.getHours();
+                    //     var mf = info.event.end.getMinutes();
+                    //     @this.title =  info.event.title;
+                    //     @this.start = ""+hi+":"+mi;
+                    //     @this.end =  ""+hf+":"+mf;
+                    //     $('#theModal').modal('toggle');
+                    //     console.log(""+h+":"+m);
 
+                    // },
+
+                    eventClick: function(info){
+
+                        console.log(event);
+                        alert(info.event.extendedProps.estado);
                     },
 
 
