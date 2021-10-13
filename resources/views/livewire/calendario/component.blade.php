@@ -81,10 +81,15 @@
                        center: 'title',
                        right: 'dayGridMonth, timeGridWeek,listWeek,timeGridDay'
                    },
+                   dayMaxEventRows: true,
+                   views: {
+                       timeGrid: {
+                        dayMaxEventRows: 1
+                       }
+                   },
+
                    selectable:true,
                    events: JSON.parse(data), // carga data del metodo
-
-
 
                    eventColor: '#378006',
                    select: function(){
