@@ -1,6 +1,19 @@
 
 <div class="container"  wire:ignore>
 
+    <style>
+        .pendiente {
+            background-color: #17771723  !important;
+        }
+        .parcialmente {
+            background-color: #bdd456  !important;
+        }
+        .finalizado {
+            background-color: #282bcf  !important;
+        }
+
+    </style>
+
     <div id='calendar-container'>
 
         <br>
@@ -28,6 +41,12 @@
                     <input type="text" wire:model.defer="start" disabled class="form-control" >
                     <label for="" >A:</label>
                     <input type="text" wire:model.defer="end" disabled class="form-control" >
+                    <label for="" >tratamiento</label>
+                    <input type="text" wire:model.defer="tratamiento" disabled class="form-control" >
+                    <label for="" >pago</label>
+                    <input type="text" wire:model.defer="pago" disabled class="form-control" >
+                    <label for="" >estado</label>
+                    <input type="text" wire:model.defer="estado" disabled class="form-control" >
 
                 </div>
                 <div class="modal-footer">
@@ -44,6 +63,9 @@
 
       <script>
 
+
+
+
             window.addEventListener('livewire:load', function() {
                 var Calendar = FullCalendar.Calendar;
                 var Draggable = FullCalendar.Draggable;
@@ -51,7 +73,7 @@
                 var data =   @this.events;
                 var calendar = new Calendar(calendarEl,
                  {
-                   initialView: 'dayGridMonth',
+                   initialView: 'dayGridMonth',  //dayGridMonth timeGridWeek
                    locale: "es",
                    timeZone: 'local',
                    headerToolbar: {
@@ -61,35 +83,43 @@
                    },
                    selectable:true,
                    events: JSON.parse(data), // carga data del metodo
+
+
+
+                   eventColor: '#378006',
                    select: function(){
                     //$('#theModal').modal('toggle');
                    },
-                     dateClick(info) {
-                         var titulo = prompt('ingrese el titulo');
-                         var date = new Date(info.dateStr + 'T00:00:00');
-                            console.log(info.dateStr);
-                     },
 
+                   dateClick(info) {
+                        //  var titulo = prompt('ingrese el titulo');
+                        //  var date = new Date(info.dateStr + 'T00:00:00');
+                            console.log(info.events);
 
-                    // eventClick: function(info){
-                    //     //alert('Paciente: ' + info.event.title);
-                    //     var hi =  info.event.start.getHours();
-                    //     var mi = info.event.start.getMinutes();
-                    //     var hf =  info.event.end.getHours();
-                    //     var mf = info.event.end.getMinutes();
-                    //     @this.title =  info.event.title;
-                    //     @this.start = ""+hi+":"+mi;
-                    //     @this.end =  ""+hf+":"+mf;
-                    //     $('#theModal').modal('toggle');
-                    //     console.log(""+h+":"+m);
-
-                    // },
-
+                    },
                     eventClick: function(info){
 
-                        console.log(event);
-                        alert(info.event.extendedProps.estado);
+                        var hi =  info.event.start.getHours();
+                        var mi = info.event.start.getMinutes();
+                        var hf =  info.event.end.getHours();
+                        var mf = info.event.end.getMinutes();
+                        @this.title =  info.event.title;
+                        @this.start = ""+hi+":"+mi;
+                        @this.end =  ""+hf+":"+mf;
+                        @this.tratamiento =  info.event.extendedProps.tratamiento;
+                        @this.pago =  info.event.extendedProps.pago;
+                        @this.estado =  info.event.extendedProps.estado;
+                        $('#theModal').modal('toggle');
+                        console.log(info);
+
                     },
+
+                    // eventClick: function(info){
+
+                    //     console.log(info.event.start);
+                    //     alert(info.event.extendedProps.estado);
+
+                    // },
 
 
 

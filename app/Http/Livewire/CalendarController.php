@@ -8,7 +8,7 @@ use Livewire\Component;
 class CalendarController extends Component
 {
     public $events ;
-    public $title, $start, $end;
+    public $title, $start, $end, $tratamiento, $pago, $estado;
 
     public function render()
     {
