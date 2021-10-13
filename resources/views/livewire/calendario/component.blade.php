@@ -9,7 +9,7 @@
             background-color: #bdd456  !important;
         }
         .finalizado {
-            background-color: #282bcf  !important;
+            background-color: #101011  !important;
         }
 
     </style>
@@ -63,16 +63,15 @@
 
       <script>
 
-
-
-
             window.addEventListener('livewire:load', function() {
                 var Calendar = FullCalendar.Calendar;
                 var Draggable = FullCalendar.Draggable;
                 var calendarEl = document.getElementById('calendar');
                 var data =   @this.events;
+
                 var calendar = new Calendar(calendarEl,
                  {
+
                    initialView: 'dayGridMonth',  //dayGridMonth timeGridWeek
                    locale: "es",
                    timeZone: 'local',
@@ -91,7 +90,7 @@
                    selectable:true,
                    events: JSON.parse(data), // carga data del metodo
 
-                   eventColor: '#378006',
+
                    select: function(){
                     //$('#theModal').modal('toggle');
                    },
@@ -119,16 +118,10 @@
 
                     },
 
-                    // eventClick: function(info){
-
-                    //     console.log(info.event.start);
-                    //     alert(info.event.extendedProps.estado);
-
-                    // },
+             });
 
 
 
-                   });
                 calendar.render();
 
             });
