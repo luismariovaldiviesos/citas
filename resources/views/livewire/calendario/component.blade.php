@@ -12,6 +12,8 @@
             background-color: #101011  !important;
         }
 
+
+
     </style>
 
     <div id='calendar-container'>
@@ -23,7 +25,7 @@
         </div>
         {{-- MODAL --}}
 
-        <!-- Modal -->
+        <!-- Modal ver citas -->
         <div class="modal fade" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -56,6 +58,148 @@
             </div>
             </div>
         </div>
+        <!-- Modal agnedar citas -->
+
+        <div wire:ignore.self class="modal fade" id="modalAgendar" tabindex="-1" role="dialog" >
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-dark">
+                  <h5 class="text-white modal-title">
+                      <b>Componente</b>
+                  </h5>
+                  <h6 class="text-center text warning" wire:loading>POR FAVOR ESPERE</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label >Paciente</label>
+                                <div class="form-group">
+
+                                    <select wire:model.lazy="paciente_id" class="form-control">
+                                        <option value="Elegir" selected>Elegir</option>
+                                        @foreach ($pacientes as $p )
+                                        <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('medico_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                           <div class="mt-2 col-sm-6">
+                                <h6>Fecha Inicio</h6>
+                                <div class="form-group">
+                                    <input type="text" wire:model='fecha_ini'
+                                    class="form-control flatpickr"
+                                    placeholder="Click para elegir">
+                                </div>
+                            </div>
+
+                            <div class="mt-2 col-sm-6">
+                                <h6>Fecha Final</h6>
+                                <div class="form-group">
+                                    <input type="text" wire:model='fecha_fin'
+                                    class="form-control flatpickr"
+                                    placeholder="Click para elegir">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label >Descripción</label>
+                                    <input type="text" wire:model.lazy="descripcion" class="form-control" >
+                                    @error('descripcion') <span class="text-danger er">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label >Medico</label>
+                                    <select wire:model.lazy="medico_id" class="form-control">
+                                        <option value="Elegir" selected>Elegir</option>
+                                        @foreach ($medicos as $m )
+                                        <option value="{{ $m->id }}" >{{ $m->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('medico_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label >Receta</label>
+                                        <textarea wire:model.lazy='receta' class="form-control"  rows="3"></textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label >Tratamiento</label>
+                                        <select wire:model.lazy="tratamiento_id" class="form-control">
+                                            <option value="Elegir" selected>Elegir</option>
+                                            @foreach ($tratamientos as $t )
+                                            <option value="{{ $t->id }}" >{{ $t->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label >Pagos</label>
+                                        <select wire:model.lazy="pago_id" class="form-control">
+                                            <option value="Elegir" selected>Elegir</option>
+                                            @foreach ($pagos as $p)
+                                            <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('pago_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label >Estado Cita</label>
+                                        <select wire:model.lazy="estado" class="form-control">
+                                            <option value="Elegir" selected>Elegir</option>
+                                            @foreach ($estados as $e)
+                                            <option value="{{ $e->id }}" >{{ $e->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('estado') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" wire:click.prevent="resetUI()" class="btn btn-dark close-btn text-info"
+                        data-dismiss="modal">
+                        CERRAR
+                    </button>
+
+                    {{-- @if ($selected_id < 1) --}}
+                        <button type="button" wire:click.prevent="Store()" class="btn btn-dark close-modal">
+                            GUARDAR
+                        </button>
+                    {{-- @else --}}
+                        <button type="button" wire:click.prevent="Update()" class="btn btn-dark close-modal">
+                            ACTUALIZAR
+                        </button>
+                    {{-- @endif --}}
+
+                </div>
+            </div>
+            </div>
+        </div>
+
+
 
 
       <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.1/main.min.js'></script>
@@ -87,12 +231,20 @@
                        }
                    },
 
+                   hiddenDays: [ 0 ], //oculta domingo
+                   businessHours: {
+                    daysOfWeek: [ 1, 2, 3, 5, 6, 7 ], // Monday, Tuesday, Wednesday
+                    startTime: '08:00', // 8am
+                    endTime: '18:00' // 6pm
+                    },
+                    allDaySlot: false,
+                    slotDuration: '00:30' ,// 2 hours
                    selectable:true,
                    events: JSON.parse(data), // carga data del metodo
 
 
                    select: function(){
-                    //$('#theModal').modal('toggle');
+                    $('#modalAgendar').modal('toggle');
                    },
 
                    dateClick(info) {
@@ -125,6 +277,97 @@
                 calendar.render();
 
             });
+
+
+
+            //
+            document.addEventListener('DOMContentLoaded', function(){
+
+flatpickr(document.getElementsByClassName('flatpickr'), {
+    enableTime: true,
+    dateFormat: 'Y-m-d H:i',
+    locale: {
+        firtsDayofWeek: 1,
+        weekdays: {
+            shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+            longhand: [
+            "Domingo",
+            "Lunes",
+            "Martes",
+            "Miércoles",
+            "Jueves",
+            "Viernes",
+            "Sábado",
+            ],
+        },
+            months: {
+            shorthand: [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dic",
+            ],
+            longhand: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+            ],
+        },
+    }
+})
+
+//eventos
+
+window.livewire.on('cita-added', Msg =>{
+    $('#theModal').modal('hide')
+    noty(Msg)
+})
+window.livewire.on('cita-updated', Msg =>{
+    $('#theModal').modal('hide')
+    noty(Msg)
+})
+window.livewire.on('user-updated', Msg =>{
+    $('#theModal').modal('hide')
+    noty(Msg)
+})
+window.livewire.on('user-deleted', Msg =>{
+   noty(Msg)
+})
+window.livewire.on('hide-modal', Msg =>{
+    $('#theModal').modal('hide')
+
+
+})
+window.livewire.on('show-modal', Msg =>{
+    $('#theModal').modal('show')
+})
+
+window.livewire.on('sin-resultados', Msg =>{
+    noty(Msg)
+})
+window.livewire.on('cita-error', Msg =>{
+    noty(Msg)
+})
+
+});
+
 
 
       </script>
