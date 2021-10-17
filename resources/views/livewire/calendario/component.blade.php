@@ -188,12 +188,6 @@
                         <button type="button" wire:click.prevent="Store()" class="btn btn-dark close-modal">
                             GUARDAR
                         </button>
-                    {{-- @else --}}
-                        <button type="button" wire:click.prevent="Update()" class="btn btn-dark close-modal">
-                            ACTUALIZAR
-                        </button>
-                    {{-- @endif --}}
-
                 </div>
             </div>
             </div>
@@ -242,16 +236,23 @@
                    selectable:true,
                    events: JSON.parse(data), // carga data del metodo
 
-
-                   select: function(){
+                   select: function(startStr, end){
                     $('#modalAgendar').modal('toggle');
+                    console.log(startStr);
+
                    },
 
                    dateClick(info) {
                         //  var titulo = prompt('ingrese el titulo');
                         //  var date = new Date(info.dateStr + 'T00:00:00');
-                            console.log(info.events);
-
+                            var actual = new Date();
+                            if(info.date >= actual){
+                                info.dayEl.style.backgroundColor = 'yellow';
+                                $("#exampleModal").modal();
+                                document.getElementById("dia").innerHTML= info.dateStr;
+                            }else{
+                                alert("Error: No se puede solicitar una cita en una fecha vencida");
+                            }
                     },
                     eventClick: function(info){
 

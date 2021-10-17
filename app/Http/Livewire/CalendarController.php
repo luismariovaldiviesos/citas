@@ -8,10 +8,14 @@ use App\Models\Medico;
 use App\Models\Paciente;
 use App\Models\Pago;
 use App\Models\Tratamiento;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class CalendarController extends Component
 {
+    use WithPagination, WithFileUploads;
     public $events ;
     public $title, $start, $end, $tratamiento, $pago, $estado;
 
@@ -23,6 +27,11 @@ class CalendarController extends Component
     public $medicos, $tratamientos, $pagos, $estados, $pacientes, $buscar_paciente;
 
     public $editar ="no";
+
+    public function paginationView()
+    {
+        return 'vendor.livewire.bootstrap';
+    }
 
 
     public function render()
@@ -50,24 +59,83 @@ class CalendarController extends Component
 
     public function Store()
     {
-        dd(  $this->descripcion,$this->fecha_ini, $this->fecha_fin, $this->paciente_id, $this->medico_id, $this->receta,
-                $this->tratamiento_id, $this->pago_id,$this->estado
-            );
+        // dd(  $this->descripcion,$this->fecha_ini, $this->fecha_fin, $this->paciente_id, $this->medico_id, $this->receta,
+        //         $this->tratamiento_id, $this->pago_id,$this->estado
+        //     );
+
+        $this->validaFechas();
+
+        $rules = [
+            'descripcion' => 'required',
+            'buscar_paciente' => 'required',
+            'medico_id' => 'required',
+            'tratamiento_id' => 'required',
+            'pago_id' => 'required',
+            'estado' => 'required'
+
+        ];
+        $messages =[
+            'descripcion.required' => 'Ingresa una descripción de la cita',
+            'buscar_paciente.required' => 'Ingresa un paciente',
+            'medico_id.required' => 'Ingresa un medico',
+            'tratamiento_id.required' => 'Ingresa un tratamiento',
+            'pago_id.required' => 'Ingresa un pago',
+            'estado.required' => 'Ingresa un estado'
+
+        ];
+
+        $this->validate($rules, $messages);
+        $cita = Cita::create([
+            'descripcion' => $this->descripcion,
+            'fecha_ini' => $this->fecha_ini,
+            'fecha_fin' => $this->fecha_fin,
+            'paciente_id' => $this->paciente_id,
+            'medico_id' => $this->medico_id,
+            'receta' => $this->receta,
+            'user_id' => Auth::user()->id,
+            'tratamiento_id' => $this->tratamiento_id,
+            'pago_id' => $this->pago_id,
+            'estado_id' => $this->estado
+        ]);
+        $cita->save();
+        $this->resetUI();
+        $this->emit('cita-added','cita registrada correctamente');
+
+
     }
 
     public function resetUI(){
 
+        $this->descripcion ='';
+        $this->fecha_ini = '';
+        $this->fecha_fin = '';
+        $this->medico_id ='';
+        $this->receta = "";
+        $this->tratamiento_id ='';
+        $this->pago_id='';
+        $this->estado='';
+        $this->resetValidation();
+        $this->resetPage();
+
     }
 
-    public function cargarPaciente($paciente)
+    public function validaFechas()
     {
-        $pacienteJson =json_decode($paciente);
-        $this->buscar_paciente = $pacienteJson->nombre;
-        $this->paciente_id = $pacienteJson->id;
+        if($this->fecha_ini == null || $this->fecha_fin == null)
+       {
+        $this->emit('cita-error','Selecciona una fecha válida');
+        return;
+       }
+       else
+       {
+        if($this->fecha_fin <= $this->fecha_ini)
+        {
+            $this->emit('cita-error','Fecha final debe ser mayor a fecha inicial');
+            return;
+        }
 
-
-        //dd($paciente);
-
-
+       }
     }
+
+
 }
