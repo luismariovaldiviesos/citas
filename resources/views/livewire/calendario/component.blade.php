@@ -236,11 +236,43 @@
                    selectable:true,
                    events: JSON.parse(data), // carga data del metodo
 
-                   select: function(startStr, end){
-                    $('#modalAgendar').modal('toggle');
-                    console.log(startStr);
+                //    select: function(){
+                //     $('#modalAgendar').modal('toggle');
+                //     console.log(startStr);
 
-                   },
+                //    },
+
+                select: function(date, allDay, jsEvent, view,startStr) {
+                    var hoy = new Date();
+                    var seleccionado = date.start;
+                    var diasAdicionales = 1;
+
+                    if ( seleccionado < hoy ) {
+                        alert("NO SE PUEDE AGENDAR EN ESTA FECHA");
+
+                    }
+
+                    else{
+                        $('#modalAgendar').modal('toggle');
+                    }
+
+
+
+                    console.log('dia actual' + '  ' + hoy.getDay());
+                    console.log('dia agenda ' +  '  ' +seleccionado);
+
+                    //myDate.setDate(myDate.getDate());
+
+                    // if (date < myDate) {
+                    //     //TRUE Clicked date smaller than today + daysToadd
+                    //     alert("You cannot book on this day!");
+                    // } else {
+                    //     //FLASE Clicked date larger than today + daysToadd
+                    //     alert("Excellent choice! We can book today..");
+                    // }
+
+                    },
+
 
                    dateClick(info) {
                         //  var titulo = prompt('ingrese el titulo');
