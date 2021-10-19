@@ -63,7 +63,7 @@ class CalendarController extends Component
         //         $this->tratamiento_id, $this->pago_id,$this->estado
         //     );
 
-        $this->validaCampos();
+
         $this->validaFechas();
 
         $rules = [
@@ -137,14 +137,6 @@ class CalendarController extends Component
         }
 
        }
-    }
-
-    public function validaCampos(){
-        if($this->paciente_id == 'Elegir')
-        {
-            $this->emit('cita-error','Elige un paciente');
-            return;
-        }
     }
 
 

@@ -3,6 +3,7 @@ detalle del paciente (citas o historial esto se puede hacer con las reclaciones 
 no poder eliminar citas si tiene pendieente algo (ver)
 actualizazion de paciente (cedula unique ), revisar imagenes pacientes
 fechas anteriores , bloquear
+revisar validaciones de cita en agenda
 
 
 fecha de pago  en citas en la base
