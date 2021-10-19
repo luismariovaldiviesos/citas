@@ -245,7 +245,7 @@
                 select: function(date, allDay, jsEvent, view,startStr) {
                     var hoy = new Date();
                     var seleccionado = date.start;
-                    var diasAdicionales = 1;
+
 
                     if ( seleccionado < hoy ) {
                         alert("NO SE PUEDE AGENDAR EN ESTA FECHA");
