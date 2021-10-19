@@ -114,6 +114,7 @@
 
         flatpickr(document.getElementsByClassName('flatpickr'), {
             enableTime: true,
+            static: true,
             dateFormat: 'Y-m-d H:i',
             locale: {
                 firtsDayofWeek: 1,

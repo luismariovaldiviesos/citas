@@ -63,11 +63,12 @@ class CalendarController extends Component
         //         $this->tratamiento_id, $this->pago_id,$this->estado
         //     );
 
+        $this->validaCampos();
         $this->validaFechas();
 
         $rules = [
+            'paciente_id' => 'required',
             'descripcion' => 'required',
-            'buscar_paciente' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
             'pago_id' => 'required',
@@ -75,8 +76,8 @@ class CalendarController extends Component
 
         ];
         $messages =[
+            'paciente_id.required' => 'Ingresa un paciente',
             'descripcion.required' => 'Ingresa una descripción de la cita',
-            'buscar_paciente.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
             'pago_id.required' => 'Ingresa un pago',
@@ -84,7 +85,7 @@ class CalendarController extends Component
 
         ];
 
-        $this->validate($rules, $messages);
+        $this->validate($rules,$messages);
         $cita = Cita::create([
             'descripcion' => $this->descripcion,
             'fecha_ini' => $this->fecha_ini,
@@ -100,6 +101,7 @@ class CalendarController extends Component
         $cita->save();
         $this->resetUI();
         $this->emit('cita-added','cita registrada correctamente');
+
 
 
     }
@@ -135,6 +137,14 @@ class CalendarController extends Component
         }
 
        }
+    }
+
+    public function validaCampos(){
+        if($this->paciente_id == 'Elegir')
+        {
+            $this->emit('cita-error','Elige un paciente');
+            return;
+        }
     }
 
 

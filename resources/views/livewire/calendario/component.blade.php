@@ -65,9 +65,9 @@
               <div class="modal-content">
                 <div class="modal-header bg-dark">
                   <h5 class="text-white modal-title">
-                      <b>Componente</b>
+                      <b>Agendar cita</b>
                   </h5>
-                  <h6 class="text-center text warning" wire:loading>POR FAVOR ESPERE</h6>
+
                 </div>
                 <div class="modal-body">
 
@@ -77,13 +77,13 @@
                                 <label >Paciente</label>
                                 <div class="form-group">
 
-                                    <select wire:model.lazy="paciente_id" class="form-control">
+                                    <select wire:model="paciente_id" class="form-control">
                                         <option value="Elegir" selected>Elegir</option>
                                         @foreach ($pacientes as $p )
                                         <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
                                         @endforeach
                                     </select>
-                                    @error('medico_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    @error('paciente_id') <span class="error">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -245,14 +245,14 @@
                    dateClick(info) {
                         //  var titulo = prompt('ingrese el titulo');
                         //  var date = new Date(info.dateStr + 'T00:00:00');
-                            var actual = new Date();
-                            if(info.date >= actual){
-                                info.dayEl.style.backgroundColor = 'yellow';
-                                $("#exampleModal").modal();
-                                document.getElementById("dia").innerHTML= info.dateStr;
-                            }else{
-                                alert("Error: No se puede solicitar una cita en una fecha vencida");
-                            }
+                            // var actual = new Date();
+                            // if(info.date >= actual){
+                            //     info.dayEl.style.backgroundColor = 'yellow';
+                            //     $("#exampleModal").modal();
+                            //     document.getElementById("dia").innerHTML= info.dateStr;
+                            // }else{
+                            //     alert("Error: No se puede solicitar una cita en una fecha vencida");
+                            // }
                     },
                     eventClick: function(info){
 
@@ -282,62 +282,63 @@
 
 
             //
-            document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('DOMContentLoaded', function(){
 
-flatpickr(document.getElementsByClassName('flatpickr'), {
-    enableTime: true,
-    dateFormat: 'Y-m-d H:i',
-    locale: {
-        firtsDayofWeek: 1,
-        weekdays: {
-            shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-            longhand: [
-            "Domingo",
-            "Lunes",
-            "Martes",
-            "Miércoles",
-            "Jueves",
-            "Viernes",
-            "Sábado",
-            ],
-        },
-            months: {
-            shorthand: [
-            "Ene",
-            "Feb",
-            "Mar",
-            "Abr",
-            "May",
-            "Jun",
-            "Jul",
-            "Ago",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dic",
-            ],
-            longhand: [
-            "Enero",
-            "Febrero",
-            "Marzo",
-            "Abril",
-            "Mayo",
-            "Junio",
-            "Julio",
-            "Agosto",
-            "Septiembre",
-            "Octubre",
-            "Noviembre",
-            "Diciembre",
-            ],
-        },
-    }
-})
+                flatpickr(document.getElementsByClassName('flatpickr'), {
+                    enableTime: true,
+                    static: true,
+                    dateFormat: 'Y-m-d H:i',
+                    locale: {
+                        firtsDayofWeek: 1,
+                        weekdays: {
+                            shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                            longhand: [
+                            "Domingo",
+                            "Lunes",
+                            "Martes",
+                            "Miércoles",
+                            "Jueves",
+                            "Viernes",
+                            "Sábado",
+                            ],
+                        },
+                            months: {
+                            shorthand: [
+                            "Ene",
+                            "Feb",
+                            "Mar",
+                            "Abr",
+                            "May",
+                            "Jun",
+                            "Jul",
+                            "Ago",
+                            "Sep",
+                            "Oct",
+                            "Nov",
+                            "Dic",
+                            ],
+                            longhand: [
+                            "Enero",
+                            "Febrero",
+                            "Marzo",
+                            "Abril",
+                            "Mayo",
+                            "Junio",
+                            "Julio",
+                            "Agosto",
+                            "Septiembre",
+                            "Octubre",
+                            "Noviembre",
+                            "Diciembre",
+                            ],
+                        },
+                    }
+                })
 
 //eventos
 
 window.livewire.on('cita-added', Msg =>{
-    $('#theModal').modal('hide')
+    $('#modalAgendar').modal('hide')
     noty(Msg)
 })
 window.livewire.on('cita-updated', Msg =>{
