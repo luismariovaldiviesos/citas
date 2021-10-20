@@ -2,8 +2,9 @@ no poder eleiminar paciente si tiene citas
 detalle del paciente (citas o historial esto se puede hacer con las reclaciones )
 no poder eliminar citas si tiene pendieente algo (ver)
 actualizazion de paciente (cedula unique ), revisar imagenes pacientes
-fechas anteriores , bloquear
+
 revisar validaciones de cita en agenda
+editar cita en agenda
 
 
 fecha de pago  en citas en la base
@@ -11,58 +12,7 @@ fecha de pago  en citas en la base
 tratamientos no modificar (valor) si hay  con ese tratamiento
 
 
-// calendario ver si se agenda ahi o no
-mostrar los datos en el calendario
 
 
 
-
------------------------------------------------------------------------------------------------------
-
-                //    $(document).ready(function () {
-
-                //         var events = @this.events;
-                //     //    var eventsArray = [];
-                //          console.log('e',events);
-
-                //         }),
-
-                $.each(JSON.parse(data), function (i,v) {
-                    //console.log(v);
-                    // i id, v evento (estado (ATENDIDO,PENDIENTE,CANCELADO,NO ASISTE) Y pago(PAGADO,PENDIENTE))
-                    // end: "2021-10-06 18:00:00"
-                    // estado: "PENDIENTE"
-                    // id: 9
-                    // pago: "PENDIENTE"
-                    // start: "2021-10-06 17:30:00"
-                    // title: "pedro montero"
-                    // tratamiento: "diagnostico"
-
-                    var taskEvents =[];
-                    if (v.estado == 'ATENDIDO' && v.pago== 'PAGADO') {
-                        var colorEvent = 'parcialmente';
-                    } else if(v.estado == 'PENDIENTE' && v.pago== 'PENDIENTE'){
-                        var colorEvent = 'parcialmente';
-                    }
-
-                    let taskEvent = {
-                        title: v.title,
-                        start:  v.start,
-                        end:  v.end,
-                        className: colorEvent,
-                    };
-                    taskEvents.push(taskEvent);
-                    console.log(taskEvent);
-
-                });
-
----------------------------------------------------------------------------------------------------------------------------
-
-  // eventClick: function(info){
-
-                    //     console.log(info.event.start);
-                    //     alert(info.event.extendedProps.estado);
-
-                    // },
------------------------------------------------------------------------------------------------------------------------------
 https://feathericons.com/

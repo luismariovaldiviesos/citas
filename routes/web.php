@@ -30,19 +30,21 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // ESTADISTICAS
+Route::get('/calendario', CalendarController::class); //AGENDA
+Route::get('citas', CitasController::class);
+Route::get('/pacientes', PacientesController::class);
 Route::get('/tratamientos', TratamientosController::class);
-Route::get('/pagos', PagosController::class);
+// AQUI VA PAGOS EXTRAS
+//AQUI VA REPORTES
 Route::get('/estados', EstadosController::class);
+Route::get('/pagos', PagosController::class); // TIPOS PAGOS
 Route::get('/medicos', MedicosController::class);
 Route::get('/usuarios', UsersController::class);
-Route::get('/pacientes', PacientesController::class);
 Route::get('roles', RolesController::class);
 Route::get('permisos', PermisosController::class);
 Route::get('asignar', AsignarController::class);
 Route::get('clinica', ClinicaController::class);
-Route::get('citas', CitasController::class);
-Route::get('/calendario', CalendarController::class);
+
+
 
