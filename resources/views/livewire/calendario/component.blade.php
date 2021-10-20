@@ -245,31 +245,22 @@
                 select: function(date, allDay, jsEvent, view,startStr) {
                     var hoy = new Date();
                     var seleccionado = date.start;
+                    hoy.setHours(0,0,0,0);
+                    seleccionado.setHours(0,0,0,0);
 
 
                     if ( seleccionado < hoy ) {
-                        alert("NO SE PUEDE AGENDAR EN ESTA FECHA");
+                        //alert("NO SE PUEDE AGENDAR EN ESTA FECHA");
 
                     }
 
-                    else{
+                    if (seleccionado.getTime() == hoy.getTime()) {
                         $('#modalAgendar').modal('toggle');
                     }
 
-
-
-                    console.log('dia actual' + '  ' + hoy.getDay());
-                    console.log('dia agenda ' +  '  ' +seleccionado);
-
-                    //myDate.setDate(myDate.getDate());
-
-                    // if (date < myDate) {
-                    //     //TRUE Clicked date smaller than today + daysToadd
-                    //     alert("You cannot book on this day!");
-                    // } else {
-                    //     //FLASE Clicked date larger than today + daysToadd
-                    //     alert("Excellent choice! We can book today..");
-                    // }
+                    if (seleccionado > hoy) {
+                        $('#modalAgendar').modal('toggle');
+                    }
 
                     },
 
