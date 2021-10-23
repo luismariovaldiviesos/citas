@@ -26,7 +26,7 @@
         {{-- MODAL --}}
 
         <!-- Modal ver citas -->
-        <div class="modal fade" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -37,11 +37,11 @@
                 </div>
                 <div class="modal-body">
 
-                    <label for="" >PaACIENTE</label>
+                    <label for="" >PACIENTE</label>
                     <input type="text" wire:model.defer="title" class="form-control" >
-                    <label for="" >DE:</label>
+                    <label for="" >HORA INICIO:</label>
                     <input type="text" wire:model.defer="start" disabled class="form-control" >
-                    <label for="" >A:</label>
+                    <label for="" >HORA FIN:</label>
                     <input type="text" wire:model.defer="end" disabled class="form-control" >
                     <label for="" >tratamiento</label>
                     <input type="text" wire:model.defer="tratamiento" disabled class="form-control" >
@@ -50,6 +50,7 @@
                     <label for="" >estado</label>
                     <input type="text" wire:model.defer="estado" disabled class="form-control" >
 
+
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -57,7 +58,99 @@
                 </div>
             </div>
             </div>
+        </div> --}}
+        <div wire:ignore.self class="modal fade" id="theModal" tabindex="-1" role="dialog" >
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-dark">
+                  <h5 class="text-white modal-title">
+                      <b>Información de cita</b>
+                  </h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label >Paciente</label>
+                                <div class="form-group">
+                                    <input type="text" wire:model.defer="title" class="form-control" disabled >
+                                </div>
+                            </div>
+                        </div>
+                           <div class="mt-2 col-sm-6">
+                                <h6>Hora Inicio</h6>
+                                <div class="form-group">
+                                    <input type="text" wire:model.defer="start" disabled class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="mt-2 col-sm-6">
+                                <h6>Hora Fin</h6>
+                                <div class="form-group">
+                                    <input type="text" wire:model.defer="end" disabled class="form-control" >
+                                </div>
+                            </div>
+
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label >Tratamiento</label>
+                                        <select wire:model.lazy="tratamiento_id" class="form-control">
+                                            <option value="Elegir" selected>Elegir</option>
+                                            @foreach ($tratamientos as $t )
+                                            <option value="{{ $t->id }}" >{{ $t->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label >Pagos</label>
+                                        <select wire:model.lazy="pago_id" class="form-control">
+                                            <option value="Elegir" selected>Elegir</option>
+                                            @foreach ($pagos as $p)
+                                            <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('pago_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label >Estado Cita</label>
+                                        <select wire:model.lazy="estado" class="form-control">
+                                            <option value="Elegir" selected>Elegir</option>
+                                            @foreach ($estados as $e)
+                                            <option value="{{ $e->id }}" >{{ $e->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('estado') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" wire:click.prevent="resetUI()" class="btn btn-dark close-btn text-info"
+                        data-dismiss="modal">
+                        CERRAR
+                    </button>
+
+                    {{-- @if ($selected_id < 1) --}}
+                        <button type="button" wire:click.prevent="Update()" class="btn btn-dark close-modal">
+                            EDITAR
+                        </button>
+                </div>
+            </div>
+            </div>
         </div>
+
+
         <!-- Modal agnedar citas -->
 
         <div wire:ignore.self class="modal fade" id="modalAgendar" tabindex="-1" role="dialog" >
@@ -234,7 +327,13 @@
                     allDaySlot: false,
                     slotDuration: '00:30' ,// 2 hours
                    selectable:true,
-                   events: JSON.parse(data), // carga data del metodo
+
+                   //***** FORMA UNO QUE FUNCIONO ****///
+                  // events: JSON.parse(data), // carga data del metodo
+
+                  eventSources: [{
+                    url: '/api/calendario/citas',
+                  }],
 
                 //    select: function(){
                 //     $('#modalAgendar').modal('toggle');
@@ -279,26 +378,23 @@
                     },
                     eventClick: function(info){
 
-                        var hi =  info.event.start.getHours();
-                        var mi = info.event.start.getMinutes();
-                        var hf =  info.event.end.getHours();
-                        var mf = info.event.end.getMinutes();
+
+                        var inicio = dayjs(info.event.start).format('HH:mm');
+                        var fin = dayjs(info.event.end).format('HH:mm');
                         @this.title =  info.event.title;
-                        @this.start = ""+hi+":"+mi;
-                        @this.end =  ""+hf+":"+mf;
+                        @this.start = inicio;
+                        @this.end =  fin;
                         @this.tratamiento =  info.event.extendedProps.tratamiento;
                         @this.pago =  info.event.extendedProps.pago;
                         @this.estado =  info.event.extendedProps.estado;
                         $('#theModal').modal('toggle');
-                        console.log(info);
+                        //console.log(prueba);
 
                     },
 
              });
 
-
-
-                calendar.render();
+            calendar.render();
 
             });
 
@@ -396,6 +492,7 @@ window.livewire.on('cita-error', Msg =>{
 
 
       </script>
+      <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.1/main.min.css' rel='stylesheet' />
 
 

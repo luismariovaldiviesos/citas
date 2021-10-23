@@ -39,12 +39,12 @@ class CalendarController extends Component
         //$events = Cita::select('id','descripcion AS title','fecha_ini AS start','fecha_fin AS end')->get();
         //dd($events);
 
-        $events = Cita::join('pacientes as p', 'p.id','citas.paciente_id')
-        ->join('tratamientos as t', 't.id','citas.tratamiento_id')
-        ->join('pagos as pa', 'pa.id','citas.pago_id')
-        ->join('estados as e', 'e.id','citas.estado_id')
-        ->select('p.nombre as title','citas.id','fecha_ini AS start','fecha_fin AS end',
-                't.nombre as tratamiento','pa.nombre as pago', 'e.nombre as estado')->get();
+        // $events = Cita::join('pacientes as p', 'p.id','citas.paciente_id')
+        // ->join('tratamientos as t', 't.id','citas.tratamiento_id')
+        // ->join('pagos as pa', 'pa.id','citas.pago_id')
+        // ->join('estados as e', 'e.id','citas.estado_id')
+        // ->select('p.nombre as title','citas.id','fecha_ini AS start','fecha_fin AS end',
+        //         't.nombre as tratamiento','pa.nombre as pago', 'e.nombre as estado')->get();
         //dd($events);
         $this->medicos = Medico::all();
         $this->tratamientos = Tratamiento::all();
@@ -52,7 +52,7 @@ class CalendarController extends Component
         $this->estados =Estado::all();
         $this->pacientes = Paciente::all();
         //dd($this->pacientes);
-        $this->events = json_encode($events);
+        //$this->events = json_encode($events);
         return view('livewire.calendario.component')->extends('layouts.theme.app')
         ->section('content');
     }
@@ -106,6 +106,16 @@ class CalendarController extends Component
 
     }
 
+
+    public function Update()
+    {
+        dd(
+                $this->title, $this->start, $this->end, $this->tratamiento, $this->pago, $this->estado
+            );
+            // $this->descripcion,$this->fecha_ini, $this->fecha_fin, $this->paciente_id, $this->medico_id, $this->receta,
+            //     $this->tratamiento_id, $this->pago_id,$this->estado
+    }
+
     public function resetUI(){
 
         $this->descripcion ='';
@@ -138,6 +148,8 @@ class CalendarController extends Component
 
        }
     }
+
+
 
 
 }
