@@ -87,6 +87,8 @@ class CitasController extends Component
     {
         $this->estado_id =0;
         $this->fechasearch = null;
+        return redirect('citas');
+
     }
 
     public function citasTipo()
@@ -100,6 +102,7 @@ class CitasController extends Component
             $fi =  Carbon::parse($date)->format('Y-m-01') . ' 00:00:00';
             $this->citas =  Cita::where('fecha_ini','>=',$fi)->orderBy('fecha_ini','asc')
              ->paginate($this->pagination);
+             $this->resetPage();
 
 
         }
@@ -175,6 +178,7 @@ class CitasController extends Component
         ];
 
         $this->validate($rules, $messages);
+
 
             // dd($this->fecha_ini,
             // $this->fecha_fin,
@@ -262,7 +266,6 @@ class CitasController extends Component
         $this->descripcion =  $cita->descripcion;
         $this->fecha_ini =  $cita->fecha_ini;
         $this->fecha_fin =  $cita->fecha_fin;
-        $this->fecha_ini =  $cita->fecha_ini;
         $this->paciente_id = $cita->paciente_id;
         $this->medico_id = $cita->medico_id;
         $this->receta = $cita->receta;

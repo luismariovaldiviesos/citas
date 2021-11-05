@@ -18,6 +18,12 @@
 
     <div id='calendar-container'>
 
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+
         <br>
         <br>
         <div id='calendar'>
@@ -73,6 +79,14 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <div class="form-group">
+                                <label >id cita</label>
+                                <div class="form-group">
+                                    <input type="text" wire:model.defer="id_cita" class="form-control" disabled >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
                                 <label >Paciente</label>
                                 <div class="form-group">
                                     <input type="text" wire:model.defer="title" class="form-control" disabled >
@@ -95,7 +109,10 @@
 
                                 <div class="col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label >Tratamiento</label>
+                                        <label for="">Tratamiento actual:</label>
+                                        <input type="text" wire:model.defer="tratamiento" disabled class="form-control" >
+                                        <br>
+                                        <label for="">CAMBIAR TRATAMIENTO:</label>
                                         <select wire:model.lazy="tratamiento_id" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
                                             @foreach ($tratamientos as $t )
@@ -108,7 +125,10 @@
 
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label >Pagos</label>
+                                        <label for="">Estado pago:</label>
+                                        <input type="text" wire:model.defer="pago" disabled class="form-control" >
+                                        <br>
+                                        <label for="">CAMBIAR PAGO:</label>
                                         <select wire:model.lazy="pago_id" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
                                             @foreach ($pagos as $p)
@@ -121,8 +141,11 @@
 
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label >Estado Cita</label>
-                                        <select wire:model.lazy="estado" class="form-control">
+                                        <label for="">Estado cita:</label>
+                                        <input type="text" wire:model.defer="estado" disabled class="form-control" >
+                                        <br>
+                                        <label for="">CAMBIAR ESTADO:</label>
+                                        <select wire:model.lazy="estado_id" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
                                             @foreach ($estados as $e)
                                             <option value="{{ $e->id }}" >{{ $e->nombre }}</option>
@@ -142,7 +165,7 @@
                     </button>
 
                     {{-- @if ($selected_id < 1) --}}
-                        <button type="button" wire:click.prevent="Update()" class="btn btn-dark close-modal">
+                        <button type="button" id="buttonEditar" wire:click.prevent="Update()" class="btn btn-dark close-modal">
                             EDITAR
                         </button>
                 </div>
@@ -376,20 +399,27 @@
                             //     alert("Error: No se puede solicitar una cita en una fecha vencida");
                             // }
                     },
-                    eventClick: function(info){
+                    eventClick: function(info, date){
 
 
                         var inicio = dayjs(info.event.start).format('HH:mm');
                         var fin = dayjs(info.event.end).format('HH:mm');
+                        var fecha_ini = dayjs(info.event.start).format('YYYY:mm:dd');
+                        var fin = dayjs(info.event.end).format('HH:mm');
+                        var id_cita;
+                        @this.fecha_ini = info.event.start;
+                        @this.fecha_fin = info.event.end;
                         @this.title =  info.event.title;
                         @this.start = inicio;
                         @this.end =  fin;
                         @this.tratamiento =  info.event.extendedProps.tratamiento;
                         @this.pago =  info.event.extendedProps.pago;
                         @this.estado =  info.event.extendedProps.estado;
+                        @this.id_cita = info.event.extendedProps.id_cita;
                         $('#theModal').modal('toggle');
-                        //console.log(prueba);
-
+                        // $('#buttonEditar').prop('disabled', true);
+                        // date = Date.now();
+                        //console.log(date);
                     },
 
              });

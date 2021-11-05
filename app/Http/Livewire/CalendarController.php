@@ -8,6 +8,7 @@ use App\Models\Medico;
 use App\Models\Paciente;
 use App\Models\Pago;
 use App\Models\Tratamiento;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,16 +18,22 @@ class CalendarController extends Component
 {
     use WithPagination, WithFileUploads;
     public $events ;
-    public $title, $start, $end, $tratamiento, $pago, $estado;
+    public $title, $start, $end, $tratamiento, $pago, $estado , $id_cita;
 
 
     // para agendar
     public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta, $tratamiento_id, $pago_id, $estado_id, $paciente_id;
 
     // datos para cita
-    public $medicos, $tratamientos, $pagos, $estados, $pacientes, $buscar_paciente;
+    public $medicos, $tratamientos, $pagos, $estados, $pacientes;
 
-    public $editar ="no";
+    public $editar ="si", $hoy;
+
+
+    public function mount()
+    {
+
+    }
 
     public function paginationView()
     {
@@ -100,20 +107,49 @@ class CalendarController extends Component
         ]);
         $cita->save();
         $this->resetUI();
-        $this->emit('cita-added','cita registrada correctamente');
+        session()->flash('message', 'CITA AGENDADA CORRECTAMENTE');
+         return redirect()->to('/calendario');
+        //$this->emit('cita-added','cita registrada correctamente');
 
 
 
     }
 
 
+
+
     public function Update()
     {
-        dd(
-                $this->title, $this->start, $this->end, $this->tratamiento, $this->pago, $this->estado
-            );
-            // $this->descripcion,$this->fecha_ini, $this->fecha_fin, $this->paciente_id, $this->medico_id, $this->receta,
-            //     $this->tratamiento_id, $this->pago_id,$this->estado
+
+            $cita = Cita::find($this->id_cita);
+            //dd($cita->fecha_ini) ;
+            if($this->tratamiento_id == null || $this->tratamiento_id == 'Elegir')
+            {
+                $this->tratamiento_id = $cita->tratamiento_id;
+            }
+            if($this->pago_id == null || $this->pago_id == 'Elegir')
+            {
+                $this->pago_id = $cita->pago_id;
+            }
+            if($this->estado_id == null || $this->estado_id == 'Elegir')
+            {
+                $this->estado_id = $cita->estado_id;
+            }
+
+            $cita->update([
+                'descripcion' => $this->title,
+                'fecha_ini' => $cita->fecha_ini,
+                'fecha_fin' => $cita->fecha_fin,
+                'paciente_id' => $cita->paciente_id,
+                'medico_id' => $cita->medico_id,
+                'receta' => $this->receta,
+                'user_id' => Auth::user()->id,
+                'tratamiento_id' => $this->tratamiento_id,
+                'pago_id' => $this->pago_id,
+                'estado_id' => $this->estado_id
+            ]);
+            $this->resetUI();
+            $this->emit('cita-updated', 'Cita Actualizada ');
     }
 
     public function resetUI(){
