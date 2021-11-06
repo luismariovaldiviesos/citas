@@ -32,7 +32,7 @@
         @endif
         </div>
     </div>
-   <div class="mt-2 col-sm-6">
+   <div wire:ignore class="mt-2 col-sm-6">
         <h6>Fecha Inicio</h6>
         <div class="form-group">
             <input type="text" wire:model='fecha_ini'
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="mt-2 col-sm-6">
+    <div wire:ignore class="mt-2 col-sm-6">
         <h6>Fecha Final</h6>
         <div class="form-group">
             <input type="text" wire:model='fecha_fin'

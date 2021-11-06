@@ -77,14 +77,14 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-12">
+                        {{-- <div class="col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label >id cita</label>
                                 <div class="form-group">
                                     <input type="text" wire:model.defer="id_cita" class="form-control" disabled >
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label >Paciente</label>

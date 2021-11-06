@@ -149,7 +149,8 @@ class CalendarController extends Component
                 'estado_id' => $this->estado_id
             ]);
             $this->resetUI();
-            $this->emit('cita-updated', 'Cita Actualizada ');
+            session()->flash('message', 'CITA ACTUALIZADA CORRECTAMENTE');
+            return redirect()->to('/calendario');
     }
 
     public function resetUI(){
