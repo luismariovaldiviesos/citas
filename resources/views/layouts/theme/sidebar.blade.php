@@ -88,7 +88,7 @@
                    </div>
                </a>
            </li>
-           <li class="">
+           {{-- <li class="">
             <a href="{{url('pagos')}}" class="menu-toggle" data-active="false">
                 <div class="base-menu">
                     <div class="base-icons">
@@ -97,7 +97,7 @@
                     <span> TIPOS PAGOS</span>
                 </div>
             </a>
-        </li>
+        </li> --}}
            <li class="">
             <a href="{{ url('medicos') }}" class="menu-toggle" data-active="false">
                 <div class="base-menu">

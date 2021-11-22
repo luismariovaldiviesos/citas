@@ -41,7 +41,7 @@
                                     <td>
 
 
-                                        <a href="javascript:void(0)"
+                                        {{-- <a href="javascript:void(0)"
                                         wire:click="Edit({{$pago->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
@@ -51,7 +51,7 @@
                                         onClick="Confirm({{ $pago->id }} , '{{ $pago->citas->count() }}')"
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </a> --}}
 
                                     </td>
                                 </tr>
