@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Livewire;
+
+use App\Models\Cita;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Paciente;
@@ -15,7 +17,13 @@ class PacientesController extends Component
 
     public $nombre,$ci,$telefono,$email,$image,$direccion,$enfermedad,$medicamentos,$alergias,$selected_id;
     public $pageTitle, $componentName, $search;
-    private $pagination = 3;
+    private $pagination = 10;
+
+    public $citas = [];
+
+    public $total = 0;
+    public $pendiente = 0;
+
 
     public function paginationView()
     {
@@ -128,81 +136,90 @@ class PacientesController extends Component
 
     ];
 
-    public function Update()
+    public function detallePaciente (Paciente $paciente)
     {
-        $rules =[
-            'nombre' => 'required|min:3',
-            'ci' => "unique:pacientes,ci,{$this->selected_id}",
-            'telefono' => 'required|max:10',
-            'email' => "unique:pacientes,email,{$this->selected_id}"
-
-        ];
-        $messages =[
-            'nombre.required' => 'Ingresa el nombre',
-            'nombre.min' => 'El nombre del paciente debe tener al menos 3 caracteres',
-            'ci.unique' => 'El núemro de cédula ya existe en sistema',
-            'ci.required' => 'Ingresa número de cédula',
-            'telefono.required' => 'Ingresa el telefono',
-            'telefono.max' => 'El teléfono debe tener máximo 10 caracteres',
-            'email.unique' => 'El email ya existe en sistema',
-            'email.email' => 'Ingresa una dirección de correo válida'
-        ];
-
-        $this->validate($rules,$messages);
-
-        $paciente =  Paciente::find($this->selected_id);
-        //dd($paciente);
-        $paciente->update([
-            'nombre' => $this->nombre,
-            'ci' => $this->ci,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
-            'direccion' => $this->direccion,
-            'enfermedad' => $this->enfermedad,
-            'medicamentos' => $this->medicamentos,
-            'alergias' => $this->alergias
-        ]);
-
-        if($this->image)
-    {
-        $customFileName = uniqid() . ' _.' . $this->image->extension();
-        $this->image->storeAs('public/pacientes', $customFileName);
-        $imageTemp = $paciente->image;
-
-        $paciente->image = $customFileName;
-        $paciente->save();
-
-        if($imageTemp !=null)
-        {
-            if(file_exists('storage/pacientes/' . $imageTemp)) {
-                unlink('storage/pacientes/' . $imageTemp);
-            }
-        }
+        $cit = $paciente->citas;
+        $this->citas = $cit;
+        $this->emit('show-detail','details loaded');
 
 
     }
 
-    $this->resetUI();
-    $this->emit('paciente-updated','Paciente Actualizado');
+    public function Update()
+    {
+            $rules =[
+                'nombre' => 'required|min:3',
+                'ci' => "unique:pacientes,ci,{$this->selected_id}",
+                'telefono' => 'required|max:10',
+                'email' => "unique:pacientes,email,{$this->selected_id}"
+
+            ];
+            $messages =[
+                'nombre.required' => 'Ingresa el nombre',
+                'nombre.min' => 'El nombre del paciente debe tener al menos 3 caracteres',
+                'ci.unique' => 'El núemro de cédula ya existe en sistema',
+                'ci.required' => 'Ingresa número de cédula',
+                'telefono.required' => 'Ingresa el telefono',
+                'telefono.max' => 'El teléfono debe tener máximo 10 caracteres',
+                'email.unique' => 'El email ya existe en sistema',
+                'email.email' => 'Ingresa una dirección de correo válida'
+            ];
+
+            $this->validate($rules,$messages);
+
+            $paciente =  Paciente::find($this->selected_id);
+            //dd($paciente);
+            $paciente->update([
+                'nombre' => $this->nombre,
+                'ci' => $this->ci,
+                'telefono' => $this->telefono,
+                'email' => $this->email,
+                'direccion' => $this->direccion,
+                'enfermedad' => $this->enfermedad,
+                'medicamentos' => $this->medicamentos,
+                'alergias' => $this->alergias
+            ]);
+
+            if($this->image)
+        {
+            $customFileName = uniqid() . ' _.' . $this->image->extension();
+            $this->image->storeAs('public/pacientes', $customFileName);
+            $imageTemp = $paciente->image;
+
+            $paciente->image = $customFileName;
+            $paciente->save();
+
+            if($imageTemp !=null)
+            {
+                if(file_exists('storage/pacientes/' . $imageTemp)) {
+                    unlink('storage/pacientes/' . $imageTemp);
+                }
+            }
+
+
+        }
+
+        $this->resetUI();
+        $this->emit('paciente-updated','Paciente Actualizado');
 
     }
 
     public  function destroy(Paciente $paciente)
-    {
-        //  if($user) {
-    //     $sales = Sale::where('user_id', $user->id)->count();
-    //     if($sales > 0)  {
-    //         $this->emit('user-withsales','No es posible eliminar el usuario porque tiene ventas registradas');
-    //     } else {
-    //         $user->delete();
-    //         $this->resetUI();
-    //         $this->emit('user-deleted','Usuario Eliminado');
-    //     }
-    // }
+        {
+            //  if($user) {
+        //     $sales = Sale::where('user_id', $user->id)->count();
+        //     if($sales > 0)  {
+        //         $this->emit('user-withsales','No es posible eliminar el usuario porque tiene ventas registradas');
+        //     } else {
+        //         $user->delete();
+        //         $this->resetUI();
+        //         $this->emit('user-deleted','Usuario Eliminado');
+        //     }
+        // }
 
-    $paciente->delete();
-    $this->resetUI();
-    $this->emit('paciente-deleted','Paciente Eliminado');
+        $paciente->delete();
+        $this->resetUI();
+        $this->emit('paciente-deleted','Paciente Eliminado');
 
     }
 

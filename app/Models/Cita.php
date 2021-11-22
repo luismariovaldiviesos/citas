@@ -47,6 +47,13 @@ class Cita extends Model
           return $this->belongsTo(User::class);
       }
 
+       // TIENE UN medico
+
+       public function medico()
+       {
+           return $this->belongsTo(Medico::class);
+       }
+
     //   public function citasPendientes()
     //   {
     //       $estadoCita =  $this->estado();

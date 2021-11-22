@@ -17,6 +17,7 @@
             </div>
             @include('common.searchbox')
 
+            @include('livewire.pacientes.detallepaciente')
             <div class="widget-content">
 
                 <div class="table-responsive">
@@ -51,15 +52,23 @@
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+
                                         <a href="javascript:void(0)"
-                                        onclick="Confirm('{{$r->id}}')"
+                                        onclick="Confirm({{$r->id}} ,  {{ $r->citas->count() }})"
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                        <button wire:click.prevent="getDetails({{$r->id}})"
+
+                                        {{-- <button wire:click.prevent="detallePaciente({{$r->id}})"
                                             class="btn btn-dark btn-sm">
                                                 <i class="fas fa-list"></i>
-                                            </button>
+                                        </button> --}}
+
+                                        <a href="javascript:void(0)"
+                                        wire:click="detallePaciente({{$r->id}})"
+                                        class="btn btn-dark mtmobile" title="Edit">
+                                            <i class="fas fa-list"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -75,6 +84,7 @@
     </div>
 
   @include('livewire.pacientes.form')
+
 
 </div>
 
@@ -101,14 +111,19 @@
             $('#theModal').modal('show')
         })
 
-        window.livewire.on('user-withsales', Msg =>{
-            noty(Msg)
+        window.livewire.on('show-detail', Msg =>{
+            $('#modalDetails').modal('show')
         })
 
     });
 
-    function Confirm(id)
+    function Confirm(id, citas)
      {
+         if(citas > 0)
+         {
+            swal('NO SE PUEDE ELIMINAR EL PACIENTE, TIENE CITAS ASIGNADAS')
+             return ;
+         }
 
          swal({
              title: 'CONFIRMAR',
