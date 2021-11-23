@@ -23,6 +23,7 @@ class PacientesController extends Component
 
     public $total = 0;
     public $pendiente = 0;
+    public $pacientes = 0;
 
 
     public function paginationView()
@@ -35,19 +36,29 @@ class PacientesController extends Component
         $this->pageTitle ='Listado';
         $this->componentName ='Pacientes';
         $this->status ='Elegir';
+
+
+
     }
     public function render()
     {
+        $total = Paciente::all();
+        $this->pacientes = count($total);
+
         if(strlen($this->search) > 0)
             $data = Paciente::where('nombre', 'like', '%' . $this->search . '%')
             ->select('*')->orderBy('id','asc')->paginate($this->pagination);
         else
            $data = Paciente::select('*')->orderBy('id','asc')->paginate($this->pagination);
+           $total =  $data->count();
+
 
         return view('livewire.pacientes.component', [
             'data' => $data
         ])
         ->extends('layouts.theme.app')->section('content');
+
+        //dd($total);
     }
 
     public function resetUI()
