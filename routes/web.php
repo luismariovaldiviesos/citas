@@ -37,6 +37,10 @@ Route::get('/pacientes', PacientesController::class);
 Route::get('/tratamientos', TratamientosController::class);
 // AQUI VA PAGOS EXTRAS
 //AQUI VA REPORTES
+Route::get('/reports', App\Http\Livewire\ReportsController::class);
+
+
+
 Route::get('/estados', EstadosController::class);
 Route::get('/pagos', PagosController::class); // TIPOS PAGOS
 Route::get('/medicos', MedicosController::class);
