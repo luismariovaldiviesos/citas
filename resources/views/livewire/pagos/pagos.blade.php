@@ -9,10 +9,10 @@
                     <b>{{$componentName}} | {{$pageTitle}}</b>
                 </h4>
                 <ul class="tabs tab-pills">
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
                          data-target="#theModal">Agregar</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             @include('common.searchbox')
