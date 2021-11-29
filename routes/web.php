@@ -37,7 +37,8 @@ Route::get('/pacientes', PacientesController::class);
 Route::get('/tratamientos', TratamientosController::class);
 // AQUI VA PAGOS EXTRAS
 //AQUI VA REPORTES
-Route::get('/reports', App\Http\Livewire\ReportsController::class);
+Route::get('/diario', [App\Http\Livewire\ReportsController::class, 'reporteDiario'])->name('diario');
+Route::get('/fechas', [App\Http\Livewire\ReportsController::class, 'reporteFechas'])->name('fechas');
 
 
 

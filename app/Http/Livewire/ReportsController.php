@@ -73,4 +73,13 @@ class ReportsController extends Component
         }
     }
 
+    public function reporteDiario(){
+        return "diario reporte";
+    }
+
+    public function reporteFechas(){
+        return " reporte fechas";
+    }
+
+
 }
