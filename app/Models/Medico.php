@@ -12,4 +12,10 @@ class Medico extends Model
     protected $fillable = ['nombre','ci','telefono','email','direccion'];
 
 
+    public  function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
+
 }

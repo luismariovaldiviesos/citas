@@ -20,7 +20,7 @@
                                     </select>
                                 </div>
                             </div>
-
+{{--
                             <div class="col-sm-12">
                                 <h6>Elige el tipo de reporte</h6>
                                 <div class="form-group">
@@ -29,39 +29,38 @@
                                         <option value="1">Ventas por fecha</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-sm-12 mt-2">
+                            {{-- <div class="col-sm-12 mt-2">
                                 <h6>Fecha desde</h6>
                                 <div class="form-group">
                                     <input type="text" wire:model='dateFrom'
                                     class="form-control flatpickr"
                                     placeholder="Click para elegir">
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-sm-12 mt-2">
+                            {{-- <div class="col-sm-12 mt-2">
                                 <h6>Fecha desde</h6>
                                 <div class="form-group">
                                     <input type="text" wire:model='dateTo'
                                     class="form-control flatpickr"
                                     placeholder="Click para elegir">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-sm-12">
-                                <button wire:click="$refresh" class="btn btn-dark btn-block">
+                                {{-- <button wire:click="$refresh" class="btn btn-dark btn-block">
                                     Consultar
-                                </button>
+                                </button> --}}
 
-                                {{-- <a class="btn btn-dark btn-block {{count($data) < 1 ? 'disable' : '' }}"
-                                href="{{ url('report/pdf' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}" target="_blank">
+                               <a class="btn btn-dark btn-block {{count($data) < 1 ? 'disable' : '' }}"
+                                href="{{ url('report/pdf' . '/' . $medico_id) }}" target="_blank">
                                 Generar PDF
                                 </a>
-
                                 <a class="btn btn-dark btn-block {{count($data) < 1 ? 'disable' : '' }}"
-                                href="{{ url('report/excel' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}" target="_blank">
-                                Exportar a Excel
-                                </a> --}}
+                                href="{{ url('report/excel' . '/' . $medico_id . '/'  . $dateFrom . '/' . $dateTo) }}" target="_blank">
+                                Generar EXCEL
+                                </a>
 
                             </div>
                         </div>
@@ -75,9 +74,7 @@
                                     <tr>
                                         <th class="text-white table-th text-center">PACIENTE</th>
                                         <th class="text-white table-th text-center">TRATAMIENTO</th>
-                                        <th class="text-white table-th text-center">TOTAL</th>
                                         <th class="text-white table-th text-center">MÉDIC@</th>
-                                        <th class="text-white table-th text-center">FECHA</th>
                                         <th class="text-white table-th text-center">PAGO EXTRAS</th>
                                         {{-- <th class="text-white table-th text-center">USUARIO</th>
                                         <th class="text-white table-th text-center">FECHA</th>
@@ -92,17 +89,17 @@
                                         <tr>
                                              <td class="text-center"><h6>{{$d->paciente->nombre}}</h6></td>
                                              <td class="text-center"><h6>{{$d->tratamiento->nombre}}</h6></td>
-                                            <td class="text-center"><h6>${{$d->tratamiento->precio}}</h6></td>
-                                            <td class="text-center"><h6>${{$d->medico->nombre}}</h6></td>
-                                            {{--<td class="text-center"><h6>{{$d->items}}</h6></td>
+                                             <td hidden><h6>{{$total_diario = $total_diario+$d->tratamiento->precio }}</h6></td>
+                                            <td class="text-center"><h6>{{$d->medico}}</h6></td>
+                                            {{-- <td class="text-center"><h6>{{$d->items}}</h6></td>
                                             <td class="text-center"><h6>{{$d->status}}</h6></td>
-                                            <td class="text-center"><h6>{{$d->user}}</h6></td>
-                                            <td class="text-center">
+                                            <td class="text-center"><h6>{{$d->user}}</h6></td> --}}
+                                            {{-- <td class="text-center">
                                                 <h6>
                                                     {{\Carbon\Carbon::parse($d->created_at)->format('d-m-Y')}}
                                                 </h6>
-                                            </td>
-                                            <td class="text-center" width="50px">
+                                            </td> --}}
+                                            {{-- <td class="text-center" width="50px">
                                                <button wire:click.prevent="getDetails({{$d->id}})"
                                                class="btn btn-dark btn-sm">
                                                    <i class="fas fa-list"></i>
@@ -111,6 +108,16 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot class="p-3 mb-2 bg-white text-dark">
+                                    <tr>
+                                        {{-- <th><h3 class="badge badge-primary">CAJA:  {{$total_diario}}</h3></th> --}}
+                                        <th>
+                                            <h2 class="">CAJA:  {{$total_diario}} </h2>
+                                        </th>
+
+                                    </tr>
+
+                                </tfoot>
                             </table>
 
                         </div>
