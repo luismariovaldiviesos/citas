@@ -45,14 +45,16 @@
 
           {{-- table --}}
         <section style="margin-top: -110px">
+            <h4 class="card-title text-center"><b>Reporte de Citas  </b></h4>
             <table cellpadding ="0" cellspacing="0" class="table-items" width="100%">
                 <thead>
                     <tr>
                         <th width="10%">PACIENTE</th>
                         <th width="12%">TRATAMIENTO</th>
-                        <th width="12%">PRECIO</th>
                         <th width="10%">MEDICO</th>
-                        <th width="12%">PAGOS EXTRAS</th>
+                        <th width="12%">VALOR TRATAMIENTO</th>
+
+
                         {{-- <th>USUARIO</th>
                         <th width="18%">FECHA</th> --}}
                     </tr>
@@ -62,8 +64,9 @@
                     <tr>
                         <td align="center">{{$d->paciente->nombre}}</td>
                         <td align="center">{{$d->tratamiento->nombre}}</td>
-                        <td align="center">{{$d->tratamiento->precio }}</td>
                         <td align="center">{{$d->medico}}</td>
+                        <td align="center">{{$d->tratamiento->precio }}</td>
+
                         @php
                             $total_diario = $total_diario+$d->tratamiento->precio
                         @endphp
@@ -75,11 +78,49 @@
                 <tfoot>
                     <tr>
                         <th>
-                            <h2 class="">CAJA:  {{$total_diario}} </h2>
+                            <h2 class="">CAJA:  $ {{$total_diario}} </h2>
                         </th>
                     </tr>
                 </tfoot>
             </table>
+
+
+            {{-- TABLA DE PAGOS EXTRAS  --}}
+            <h4 class="card-title text-center"><b>Pagos extras</b></h4>
+            <table cellpadding ="0" cellspacing="0" class="table-items" width="100%">
+                <thead>
+                    <tr>
+                        <th width="10%">DESCRIPCION DEL PAGO</th>
+                        <th width="12%">PACIENTE</th>
+                        <th width="10%">MONTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pagosextras as $pe )
+                    <tr>
+                        <td align="center">{{$pe->descripcion}}</td>
+                        <td align="center">{{$pe->paciente->nombre}}</td>
+                        <td align="center">{{$pe->monto}}</td>
+
+                        @php
+                            $extras = $extras+$pe->monto
+                        @endphp
+
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            <h2 class="">PAGOS EXTRAS: $ {{$extras}} </h2>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+            <h2>TOTAL HOY: $ {{ $total_diario + $extras }}</h2>
+
         </section>
 
         <section class="footer">

@@ -75,7 +75,7 @@
                                         <th class="text-white table-th text-center">PACIENTE</th>
                                         <th class="text-white table-th text-center">TRATAMIENTO</th>
                                         <th class="text-white table-th text-center">MÉDIC@</th>
-                                        <th class="text-white table-th text-center">PAGO EXTRAS</th>
+                                        <th class="text-white table-th text-center">VALOR TRATAMIENTO</th>
                                         {{-- <th class="text-white table-th text-center">USUARIO</th>
                                         <th class="text-white table-th text-center">FECHA</th>
                                         <th class="text-white table-th text-center" width="50px">ACTIONS</th> --}}
@@ -91,6 +91,7 @@
                                              <td class="text-center"><h6>{{$d->tratamiento->nombre}}</h6></td>
                                              <td hidden><h6>{{$total_diario = $total_diario+$d->tratamiento->precio }}</h6></td>
                                             <td class="text-center"><h6>{{$d->medico}}</h6></td>
+                                            <td class="text-center"><h6>{{$d->tratamiento->precio}}</h6></td>
                                             {{-- <td class="text-center"><h6>{{$d->items}}</h6></td>
                                             <td class="text-center"><h6>{{$d->status}}</h6></td>
                                             <td class="text-center"><h6>{{$d->user}}</h6></td> --}}
@@ -112,8 +113,10 @@
                                     <tr>
                                         {{-- <th><h3 class="badge badge-primary">CAJA:  {{$total_diario}}</h3></th> --}}
                                         <th>
-                                            <h2 class="">CAJA:  {{$total_diario}} </h2>
+                                            <h4 class="">CAJA:  {{$total_diario}} </h4>
+
                                         </th>
+
 
                                     </tr>
 
@@ -121,7 +124,52 @@
                             </table>
 
                         </div>
+                         <!--TABLA PAGOS EXTRAS  -->
+                        <div class="table-responsive">
+                            <table class="table mt-1 table-bordered table-striped">
+                                <h4 class="card-title text-center"><b>Pagos extras</b></h4>
+                                <thead class="text-white" style="background: #3B3F5C">
+                                    <tr>
+                                        <th class="text-white table-th text-center">DESCRIPCION DEL PAGO</th>
+                                        <th class="text-white table-th text-center">PACIENTE</th>
+                                        <th class="text-white table-th text-center">MONTO</th>
+                                        {{-- <th class="text-white table-th text-center">USUARIO</th>
+                                        <th class="text-white table-th text-center">FECHA</th>
+                                        <th class="text-white table-th text-center" width="50px">ACTIONS</th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(count($data) <1)
+                                        <tr><td colspan="7"><h5>Sin Resultados</h5></td></tr>
+                                    @endif
+                                    @foreach ($pagosextras as $pe )
+                                        <tr>
+                                             <td class="text-center"><h6>{{$pe->descripcion}}</h6></td>
+                                             <td class="text-center"><h6>{{$pe->paciente->nombre}}</h6></td>
+                                             <td class="text-center"><h6>{{$pe->monto}}</h6></td>
+                                             <td hidden><h6>{{$extras = $extras+$pe->monto }}</h6></td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot class="p-3 mb-2 bg-white text-dark">
+                                    <tr>
+
+                                        <th>
+                                            <h4 class="">PAGOS EXTRAS:  {{$extras}} </h4>
+                                        </th>
+
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+
+                            <h2>TOTAL HOY: {{ $total_diario + $extras }}</h2>
+
+                        </div>
                     </div>
+
+
 
                 </div>
             </div>

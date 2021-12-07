@@ -6,13 +6,14 @@ use Livewire\Component;
 use App\Models\Medico;
 use App\Models\Cita;
 use App\Models\Pago;
+use App\Models\PagoExtra;
 use Carbon\Carbon;
 
 
 class ReportsController extends Component
 {
 
-    public $componentName, $data,$medico_id, $dateFrom, $dateTo, $cita_id, $pago_id, $total_diario;
+    public $componentName, $data,$medico_id, $dateFrom, $dateTo, $cita_id, $pago_id, $total_diario, $extras;
 
     public function mount()
     {
@@ -30,9 +31,17 @@ class ReportsController extends Component
     public function render()
     {
         $this->citasPorFecha();
+
+        // para sacqar pagos extras
+        $fi =  Carbon::parse( Carbon::today())->format('Y-m-d') . ' 00:00:00';
+        $ff =  Carbon::parse( Carbon::today())->format('Y-m-d') . ' 23:59:59';
+        $pagosextras = PagoExtra::whereBetween('created_at',[$fi,$ff])->get();
+        //dd($pagosextras);
+
         return view('livewire.reportes.component', [
             'medicos' => Medico::orderBy('nombre','asc')->get(),
-            'pagos' => Pago::orderBy('nombre','asc')->get()
+            'pagos' => Pago::orderBy('nombre','asc')->get(),
+            'pagosextras' => $pagosextras
 
         ])->extends('layouts.theme.app')
         ->section('content');
