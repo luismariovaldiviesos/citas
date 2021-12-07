@@ -7,7 +7,7 @@
                     <i class="fas fa-calendar fa-2x"></i>
                 </span><br>
             </div>
-            <input type="text" wire:model.lazy='fechasearch'
+            <input type="text" wire:model='fechasearch'
             class="form-control flatpickr"
             placeholder="Click para elegir">
         </div>

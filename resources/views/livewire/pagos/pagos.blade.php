@@ -25,7 +25,7 @@
                             <tr>
                                 <th class="text-white table-th">ID</th>
                                 <th class="text-white table-th">NOMBRE</th>
-                                <th class="text-white table-th">ACCIONES</th>
+                                {{-- <th class="text-white table-th">ACCIONES</th> --}}
                             </tr>
                         </thead>
                         <tbody>

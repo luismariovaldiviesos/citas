@@ -8,11 +8,15 @@
                     </span>
                 </span>
             </div>
-            <input type="text" wire:model.lazy="nombre" class="form-control" placeholder="nombre del pago">
+            <input type="text" wire:model.lazy="nombre" class="form-control" placeholder="Descripción">
              @error('nombre') <span class="text-danger er">{{ $message }}</span> @enderror
         </div>
     </div>
 
+    <br><br><br>
+
+
+    <br><br><br>
     <div class="col-sm-12">
         <div class="input-group">
             <div class="input-group-prepend">

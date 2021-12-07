@@ -39,6 +39,11 @@ class Paciente extends Model
          return $this->hasMany(Cita::class);
      }
 
+     public function pagoextras()
+     {
+        return $this->hasMany(PagoExtra::class);
+     }
+
 
 
 }

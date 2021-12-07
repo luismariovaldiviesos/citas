@@ -13,6 +13,7 @@ use App\Http\Livewire\CitasController;
 use App\Http\Livewire\ClinicaController;
 use App\Http\Livewire\PacientesController;
 use App\Http\Livewire\CalendarController;
+use App\Http\Livewire\PagosExtrasController;
 use App\Http\Livewire\ReportsController;
 
 /*
@@ -56,6 +57,7 @@ Route::get('roles', RolesController::class);
 Route::get('permisos', PermisosController::class);
 Route::get('asignar', AsignarController::class);
 Route::get('clinica', ClinicaController::class);
+Route::get('/pagosextras', PagosExtrasController::class);
 
 
 
