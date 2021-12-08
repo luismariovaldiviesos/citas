@@ -48,7 +48,7 @@
                 </a>
             </li>
             <li class="">
-                <a href="{{url('reportes')}}" data-active="false" class="menu-toggle">
+                <a href="{{url('reportes')}}" class="menu-toggle" data-active="false">
                     <div class="base-menu">
                         <div class="base-icons">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
@@ -56,8 +56,8 @@
                         <span>Diario</span>
                     </div>
                 </a>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </li>
+
             <li class="menu">
                 <a href="#users" data-active="false" class="menu-toggle">
                     <div class="base-menu">
