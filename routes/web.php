@@ -15,6 +15,7 @@ use App\Http\Livewire\PacientesController;
 use App\Http\Livewire\CalendarController;
 use App\Http\Livewire\PagosExtrasController;
 use App\Http\Livewire\ReportsController;
+use App\Http\Livewire\ReportsFechasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,16 @@ Route::get('/tratamientos', TratamientosController::class);
 // ruta  para mostrar en vista lo que se va a reportar (pilas ctm)
 Route::get('/reportes', ReportsController::class);
 
+//reportesfechas
+Route::get('/reportesfechas', ReportsFechasController::class);
+
 
 Route::get('report/pdf/{medico}', [App\Http\Controllers\ExportController::class, 'reportPDF']); // por dia
+
+Route::get('crearpdf/pdf/{medico_id}/{type}/{f1}/{f2}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
+Route::get('crearpdf/pdf/{medico_id}/{type}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
+
+
 
 
 Route::get('/estados', EstadosController::class);
