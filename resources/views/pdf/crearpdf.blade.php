@@ -26,13 +26,16 @@
 
                     <td width="70%"  class="text-left text-company"  style="vertical-align: top; padding-top: 10px;">
                         @if ($reportType == 0)
-                            <span style="font-size: 16px"><strong>Recaudación del Día</strong></span>
+                            <span style="font-size: 16px"><strong>Reporte del Día</strong></span>
                         @else
-                            <span style="font-size: 16px"><strong>Reporte de ventas por fechas</strong></span>
+                            <span style="font-size: 16px"><strong>Reporte por fechas</strong></span>
                         @endif
                         <br>
                         @if ($reportType !=0)
-                            <span style="font-size: 16px"><strong>Fecha de Consulta : {{$dateFrom}} al {{$dateTo}}</strong></span>
+                            <span style="font-size: 16px">
+                                <strong>Fecha de Consulta: <br>
+                                             {{\Carbon\Carbon::parse($dateFrom)->isoFormat('LL')}}
+                                        al  {{\Carbon\Carbon::parse($dateTo)->isoFormat('LL')}}</strong></span>
                         @else
                             <span style="font-size: 16px"><strong>Fecha de Consulta : {{\Carbon\Carbon::now()->format('d-M-Y')}}</strong></span>
                         @endif
