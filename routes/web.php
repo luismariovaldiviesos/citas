@@ -33,16 +33,26 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // ESTADISTICAS
-Route::get('/calendario', CalendarController::class); //AGENDA
-Route::get('citas', CitasController::class);
-Route::get('/pacientes', PacientesController::class);
-Route::get('/tratamientos', TratamientosController::class);
-// AQUI VA PAGOS EXTRAS
+
+Route::middleware(['auth'])->group(function(){
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // ESTADISTICAS
+    Route::get('/calendario', CalendarController::class); //AGENDA
+    Route::get('citas', CitasController::class);
+    Route::get('/pacientes', PacientesController::class);
+    Route::get('/tratamientos', TratamientosController::class);
+    Route::get('/estados', EstadosController::class);
+    Route::get('/pagos', PagosController::class); // TIPOS PAGOS
+    Route::get('/medicos', MedicosController::class);
+    Route::get('/usuarios', UsersController::class);
+    Route::get('roles', RolesController::class);
+    Route::get('permisos', PermisosController::class);
+    Route::get('asignar', AsignarController::class);
+    Route::get('clinica', ClinicaController::class);
+    Route::get('/pagosextras', PagosExtrasController::class);
 
 
-
-//AQUI VA REPORTES
+    //AQUI VA REPORTES
 // ruta  para mostrar en vista lo que se va a reportar (pilas ctm)
 Route::get('/reportes', ReportsController::class);
 
@@ -55,18 +65,12 @@ Route::get('report/pdf/{medico}', [App\Http\Controllers\ExportController::class,
 Route::get('crearpdf/pdf/{medico_id}/{type}/{f1}/{f2}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
 Route::get('crearpdf/pdf/{medico_id}/{type}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
 
+});
 
 
 
-Route::get('/estados', EstadosController::class);
-Route::get('/pagos', PagosController::class); // TIPOS PAGOS
-Route::get('/medicos', MedicosController::class);
-Route::get('/usuarios', UsersController::class);
-Route::get('roles', RolesController::class);
-Route::get('permisos', PermisosController::class);
-Route::get('asignar', AsignarController::class);
-Route::get('clinica', ClinicaController::class);
-Route::get('/pagosextras', PagosExtrasController::class);
+
+
 
 
 

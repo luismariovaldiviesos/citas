@@ -34,15 +34,16 @@
                     <i class="far fa-user text-dark"></i>
                 </a>
                 <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
-                    {{-- <div class="user-profile-section">
+                    <div class="user-profile-section">
                         <div class="media mx-auto">
-                            <img src="assets/img/lara_logo.png" class="img-fluid mr-2" alt="avatar">
+                            {{-- <img src="assets/img/lara_logo.png" class="img-fluid mr-2" alt="avatar"> --}}
                             <div class="media-body">
-                                <h5>Luis Fax</h5>
-                                <p>Developer</p>
+                                <h5>{{auth()->user()->name}}</h5>
+                                <p>{{auth()->user()->profile}}</p>
                             </div>
                         </div>
                     </div>
+                    {{--
                     <div class="dropdown-item">
                         <a href="user_profile.html">
                             <i class="fas fa-user"></i>

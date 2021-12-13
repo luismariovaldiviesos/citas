@@ -6,24 +6,26 @@
         <div class="widget widget-chart-one">
             <div class="widget-heading">
                 <h4 class="card-title">
-                    {{-- <b>{{$componentName}} | {{$pageTitle}}</b> --}}
+                    <b>{{$componentName}} | {{$pageTitle}}</b>
                 </h4>
+               @can('crear_pagoextra')
                 <ul class="tabs tab-pills">
                     <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
-                         data-target="#theModal">Agregar</a>
+                        data-target="#theModal">Agregar</a>
                     </li>
                 </ul>
+               @endcan
             </div>
             <div class="col-sm-12 col-md-3">
+                @can('buscar_pagoextra')
                 <div class="form-group">
                     <h6>Fecha cita</h6>
                     @include('livewire.citas.fechasearch')
                 </div>
+                @endcan
             </div>
-
             <div class="widget-content">
-
                 <div class="table-responsive">
                     <table class="table mt-1 table-bordered table-striped">
                         <thead class="text-white" style="background: #3B3F5C">
@@ -37,31 +39,40 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            @can('ver_pagoextra')
                             @foreach($pagosextras as $pago)
-                                <tr>
-                                    <td><h6>{{$pago->id}}</h6></td>
-                                    <td><h6>{{$pago->descripcion}}</h6></td>
-                                    <td><h6>{{$pago->paciente->nombre}}</h6></td>
-                                    <td><h6>{{\Carbon\Carbon::parse($pago->created_at)->isoFormat('LL')}}</h6></td>
-                                    <td><h6>{{$pago->monto}}</h6></td>
-                                    <td>
+                            <tr>
+                                <td><h6>{{$pago->id}}</h6></td>
+                                <td><h6>{{$pago->descripcion}}</h6></td>
+                                <td><h6>{{$pago->paciente->nombre}}</h6></td>
+                                <td><h6>{{\Carbon\Carbon::parse($pago->created_at)->isoFormat('LL')}}</h6></td>
+                                <td><h6>{{$pago->monto}}</h6></td>
+                                <td>
 
 
-                                        <a href="javascript:void(0)"
-                                        wire:click="Edit({{$pago->id}})"
-                                        class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                   @can('editar_pagoextra')
+                                    <a href="javascript:void(0)"
+                                    wire:click="Edit({{$pago->id}})"
+                                    class="btn btn-dark mtmobile" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                   @endcan
 
-                                        <a href="javascript:void(0)"
-                                        onClick="Confirm({{ $pago->id }})"
-                                        class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                   @can('eliminar_pagoextra')
+                                   <a href="javascript:void(0)"
+                                   onClick="Confirm({{ $pago->id }})"
+                                   class="btn btn-dark " title="Delete">
+                                       <i class="fas fa-trash"></i>
+                                   </a>
+                                   @endcan
 
-                                    </td>
-                                </tr>
-                            @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+                            @endcan
+
+
                         </tbody>
                     </table>
                     {{$pagosextras->links()}}

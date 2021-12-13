@@ -1,4 +1,8 @@
 
+  @can('ver_calendario')
+
+
+
 <div class="container"  wire:ignore>
 
     <style>
@@ -15,6 +19,7 @@
 
 
     </style>
+
 
     <div id='calendar-container'>
 
@@ -529,6 +534,7 @@ window.livewire.on('cita-error', Msg =>{
     </div>
 
 </div>
+@endcan
 
 
 

@@ -50,7 +50,7 @@ class RoleSeeder extends Seeder
             'guard_name' => 'web',
         ]);
         Permission::create([
-            'name' => 'eliminar_cita',
+            'name' => 'PACIENTE',
             'guard_name' => 'web',
         ]);
 
@@ -144,29 +144,33 @@ class RoleSeeder extends Seeder
             'name' => 'eliminar_paciente',
             'guard_name' => 'web',
         ]);
+        Permission::create([
+            'name' => 'detalle_paciente',
+            'guard_name' => 'web',
+        ]);
 
-         // permisos pago
+         // permisos pago deshabilitado
 
-         Permission::create([
-            'name' => 'crear_pago',
-            'guard_name' => 'web',
-        ]);
-        Permission::create([
-            'name' => 'ver_pago',
-            'guard_name' => 'web',
-        ]);
-        Permission::create([
-            'name' => 'buscar_pago',
-            'guard_name' => 'web',
-        ]);
-        Permission::create([
-            'name' => 'editar_pago',
-            'guard_name' => 'web',
-        ]);
-        Permission::create([
-            'name' => 'eliminar_pago',
-            'guard_name' => 'web',
-        ]);
+        //  Permission::create([
+        //     'name' => 'crear_pago',
+        //     'guard_name' => 'web',
+        // ]);
+        // Permission::create([
+        //     'name' => 'ver_pago',
+        //     'guard_name' => 'web',
+        // ]);
+        // Permission::create([
+        //     'name' => 'buscar_pago',
+        //     'guard_name' => 'web',
+        // ]);
+        // Permission::create([
+        //     'name' => 'editar_pago',
+        //     'guard_name' => 'web',
+        // ]);
+        // Permission::create([
+        //     'name' => 'eliminar_pago',
+        //     'guard_name' => 'web',
+        // ]);
 
         // permisos tratamiento
 
@@ -213,6 +217,106 @@ class RoleSeeder extends Seeder
             'name' => 'eliminar_usuario',
             'guard_name' => 'web',
         ]);
+
+        // pagos extras
+
+         Permission::create([
+            'name' => 'crear_pagoextra',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'ver_pagoextra',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'buscar_pagoextra',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'editar_pagoextra',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'eliminar_pagoextra',
+            'guard_name' => 'web',
+        ]);
+
+        // roles
+
+        Permission::create([
+            'name' => 'crear_rol',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'ver_rol',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'buscar_rol',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'editar_rol',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'eliminar_rol',
+            'guard_name' => 'web',
+        ]);
+
+         // permisos
+
+         Permission::create([
+            'name' => 'crear_permiso',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'ver_permiso',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'buscar_permiso',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'editar_permiso',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'eliminar_permiso',
+            'guard_name' => 'web',
+        ]);
+
+        //asignar
+        Permission::create([
+            'name' => 'ver_asignar',
+            'guard_name' => 'web',
+        ]);
+
+        //agenda
+
+        Permission::create([
+            'name' => 'ver_calendario',
+            'guard_name' => 'web',
+        ]);
+
+        //reportes
+
+        Permission::create([
+            'name' => 'ver_reporte',
+            'guard_name' => 'web',
+        ]);
+
+        // estadisticas
+
+        Permission::create([
+            'name' => 'ver_estadistica',
+            'guard_name' => 'web',
+        ]);
+
+
+
+
 
 
     }

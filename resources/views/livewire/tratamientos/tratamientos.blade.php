@@ -7,14 +7,22 @@
                 <h4 class="card-title">
                     <b>{{$componentName}} | {{$pageTitle}}</b>
                 </h4>
+
+                @can('crear_tratamiento')
                 <ul class="tabs tab-pills">
                     <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
                          data-target="#theModal">Agregar</a>
                     </li>
                 </ul>
+                @endcan
+
             </div>
+
+            @can('buscar_tratamiento')
             @include('common.searchbox')
+            @endcan
+
 
             <div class="widget-content">
 
@@ -28,32 +36,34 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($tratamientos as $tratamiento)
-                                <tr>
-                                    <td><h6>{{$tratamiento->nombre}}</h6></td>
-                                    <td><h6> $ {{$tratamiento->precio}}</h6></td>
-                                    {{-- <td class="text-center">
-                                        <span>
-                                            <img src="" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td> --}}
-                                    <td>
+                                @can('ver_tratamiento')
+                                    <tr>
+                                            <td><h6>{{$tratamiento->nombre}}</h6></td>
+                                            <td><h6> $ {{$tratamiento->precio}}</h6></td>
+                                @endcan
+                                        <td>
 
 
-                                        <a href="javascript:void(0)"
-                                        wire:click="Edit({{$tratamiento->id}})"
-                                        class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                           @can('editar_tratamiento')
+                                            <a href="javascript:void(0)"
+                                            wire:click="Edit({{$tratamiento->id}})"
+                                            class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                           @endcan
 
-                                        <a href="javascript:void(0)"
-                                        onClick="Confirm({{ $tratamiento->id }}, '{{ $tratamiento->citas->count() }}')"
-                                        class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                           @can('eliminar_tratamiento')
+                                            <a href="javascript:void(0)"
+                                            onClick="Confirm({{ $tratamiento->id }}, '{{ $tratamiento->citas->count() }}')"
+                                            class="btn btn-dark " title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                           @endcan
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                             @endforeach
                         </tbody>
                     </table>

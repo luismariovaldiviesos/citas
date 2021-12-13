@@ -15,10 +15,10 @@ class PacienteSeeder extends Seeder
     public function run()
     {
         Paciente::create([
-            'nombre' => 'paciente 0',
+            'nombre' => 'Nestor Mendoza',
             'ci' => '0104649841',
             'telefono' => '072255181',
-            'email' => 'paciente0@gmail.com',
+            'email' => 'nestor@gmail.com',
             'image' => '',
             'direccion' => 'centro',
             'enfermedad' => "",
@@ -27,10 +27,10 @@ class PacienteSeeder extends Seeder
         ]);
 
         Paciente::create([
-            'nombre' => 'paciente 1',
+            'nombre' => 'Manuel Jauregui',
             'ci' => '0104649842',
             'telefono' => '072255181',
-            'email' => 'paciente1@gmail.com',
+            'email' => 'manuel@gmail.com',
             'image' => '',
             'direccion' => 'centro',
             'enfermedad' => "",
@@ -39,10 +39,10 @@ class PacienteSeeder extends Seeder
         ]);
 
         Paciente::create([
-            'nombre' => 'paciente 2',
+            'nombre' => 'Fernando Orellana',
             'ci' => '0104649844',
             'telefono' => '072255181',
-            'email' => 'paciente2@gmail.com',
+            'email' => 'fernando@gmail.com',
             'image' => '',
             'direccion' => 'centro',
             'enfermedad' => "",

@@ -7,18 +7,23 @@
                 <h4 class="card-title">
                     <b>{{ $componentName}} | {{$pageTitle}}</b>
                 </h4>
-                <ul class="tabs tab-pills">
-                    <li>
-                        <a href="javascript:void(0)" class="tabmenu bg-success" data-toggle="modal"
-                         data-target="#theModal">Agregar</a>
-                    </li>
-                </ul>
+                @can('crear_cita')
+                    <ul class="tabs tab-pills">
+                        <li>
+                            <a href="javascript:void(0)" class="tabmenu bg-success" data-toggle="modal"
+                            data-target="#theModal">Agregar</a>
+                        </li>
+                    </ul>
+                 @endcan
             </div>
 
 
 
 
             <div class="widget-content">
+
+                @can('buscar_cita')
+
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
@@ -40,6 +45,8 @@
 
                     </div>
                 </div>
+                @endcan
+
                 <div class="table-responsive">
                     <table class="table mt-1 table-bordered table-striped">
                         <thead class="text-white" style="background: #3B3F5C">
@@ -61,34 +68,41 @@
                              @endif
                             @foreach ($citas as $c )
                                 <tr>
-                                    <td><h6>{{$c->paciente->nombre}}</h6></td>
-                                    <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</h6></td>
-                                    <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->format('H:i');}}</h6></td>
-                                    <td class="text-center"><h6>{{$c->paciente->telefono}}</h6></td>
-                                    <td class="text-center"><h6>{{$c->tratamiento->nombre}}</h6></td>
-                                    <td class="text-center">
-                                        <span class="badge {{$c->pago_id == '1' ? 'badge-success' : 'badge-danger'}} text-uppercase">
-                                            {{$c->pago->nombre}}
-                                        </span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="badge {{$c->estado_id == '1' ? 'badge-success' : 'badge-danger'}} text-uppercase">
-                                            {{$c->estado->nombre}}
-                                        </span>
+                                    @can('ver_cita')
+                                        <td><h6>{{$c->paciente->nombre}}</h6></td>
+                                        <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</h6></td>
+                                        <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->format('H:i');}}</h6></td>
+                                        <td class="text-center"><h6>{{$c->paciente->telefono}}</h6></td>
+                                        <td class="text-center"><h6>{{$c->tratamiento->nombre}}</h6></td>
+                                        <td class="text-center">
+                                            <span class="badge {{$c->pago_id == '1' ? 'badge-success' : 'badge-danger'}} text-uppercase">
+                                                {{$c->pago->nombre}}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge {{$c->estado_id == '1' ? 'badge-success' : 'badge-danger'}} text-uppercase">
+                                                {{$c->estado->nombre}}
+                                            </span>
 
-                                    </td>
+                                        </td>
+                                    @endcan
 
                                     <td class="text-center">
-                                        <a href="javascript:void(0)"
-                                        wire:click="edit({{$c->id}})"
-                                        class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="javascript:void(0)"
-                                        onclick="Confirm('{{$c->id}}')"
-                                        class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        @can('editar_cita')
+                                            <a href="javascript:void(0)"
+                                            wire:click="edit({{$c->id}})"
+                                            class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endcan
+
+                                        @can('eliminar_cita')
+                                            <a href="javascript:void(0)"
+                                            onclick="Confirm('{{$c->id}}')"
+                                            class="btn btn-dark " title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

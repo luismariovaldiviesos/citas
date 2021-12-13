@@ -7,8 +7,9 @@
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{ $componentName}} registrados: {{$pacientes}} | {{$pageTitle}}</b>
-
                 </h4>
+
+                @can('crear_paciente')
                 <ul class="tabs tab-pills">
                     <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
@@ -16,10 +17,16 @@
 
                     </li>
                 </ul>
+                @endcan
+
+
             </div>
-            @include('common.searchbox')
+            @can('buscar_paciente')
+             @include('common.searchbox')
+            @endcan
 
             @include('livewire.pacientes.detallepaciente')
+
             <div class="widget-content">
 
                 <div class="table-responsive">
@@ -36,7 +43,8 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $r )
-                                <tr>
+                                @can('ver_paciente')
+                                  <tr>
                                     <td><h6>{{$r->nombre}}</h6></td>
                                     <td class="text-center"><h6>{{$r->telefono}}</h6></td>
                                     <td class="text-center"><h6>{{$r->email}}</h6></td>
@@ -46,31 +54,35 @@
                                         </span>
                                      </td>
                                     <td class="text-center"><h6>{{$r->direccion}}</h6></td>
+                                @endcan
 
 
                                     <td class="text-center">
+
+                                       @can('editar_paciente')
                                         <a href="javascript:void(0)"
                                         wire:click="edit({{$r->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                       @endcan
 
-                                        <a href="javascript:void(0)"
-                                        onclick="Confirm({{$r->id}} ,  {{ $r->citas->count() }})"
-                                        class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        @can('eliminar_paciente')
+                                            <a href="javascript:void(0)"
+                                            onclick="Confirm({{$r->id}} ,  {{ $r->citas->count() }})"
+                                            class="btn btn-dark " title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endcan
 
-                                        {{-- <button wire:click.prevent="detallePaciente({{$r->id}})"
-                                            class="btn btn-dark btn-sm">
-                                                <i class="fas fa-list"></i>
-                                        </button> --}}
-
+                                        @can('detalle_paciente')
                                         <a href="javascript:void(0)"
                                         wire:click="detallePaciente({{$r->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-list"></i>
                                         </a>
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach
