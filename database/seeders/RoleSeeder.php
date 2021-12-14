@@ -56,26 +56,17 @@ class RoleSeeder extends Seeder
 
         // permisos clinica
 
-        Permission::create([
-            'name' => 'crear_clinica',
-            'guard_name' => 'web',
-        ]);
+
         Permission::create([
             'name' => 'ver_clinica',
             'guard_name' => 'web',
         ]);
-        Permission::create([
-            'name' => 'buscar_clinica',
-            'guard_name' => 'web',
-        ]);
+
         Permission::create([
             'name' => 'editar_clinica',
             'guard_name' => 'web',
         ]);
-        Permission::create([
-            'name' => 'eliminar_clinica',
-            'guard_name' => 'web',
-        ]);
+
         // permisos estado
 
         Permission::create([

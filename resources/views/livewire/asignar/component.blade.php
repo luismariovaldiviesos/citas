@@ -10,8 +10,8 @@
 
             </div>
 
-
-            <div class="widget-content">
+            @can('ver_asignar')
+             <div class="widget-content">
 
                 <div class="form-inline">
                     <div class="form-group mr-5">
@@ -81,7 +81,7 @@
                </div>
 
             </div>
-
+            @endcan
         </div>
 
     </div>

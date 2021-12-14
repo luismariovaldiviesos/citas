@@ -5,6 +5,8 @@
             <div class="widget-heading">
                 <h4 class="card-title text-center"><b>{{$componentName}}</b></h4>
             </div>
+            @can('ver_reporte')
+
 
             <div class="widget-content">
                 <div class="row">
@@ -135,6 +137,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
 

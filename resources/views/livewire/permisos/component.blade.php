@@ -7,14 +7,18 @@
                 <h4 class="card-title">
                     <b>{{ $componentName}} | {{$pageTitle}}</b>
                 </h4>
-                <ul class="tabs tab-pills">
-                    <li>
-                        <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
-                         data-target="#theModal">Agregar</a>
-                    </li>
-                </ul>
+              @can('crear_permiso')
+              <ul class="tabs tab-pills">
+                <li>
+                    <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
+                     data-target="#theModal">Agregar</a>
+                </li>
+            </ul>
+              @endcan
             </div>
-            @include('common.searchbox')
+           @can('buscar_permiso')
+           @include('common.searchbox')
+           @endcan
 
             <div class="widget-content">
 
@@ -29,24 +33,31 @@
                         </thead>
                         <tbody>
                             @foreach ($permisos as $permiso )
-
-                                <tr>
+                                @can('ver_permiso')
+                                 <tr>
                                     <td><h6>{{$permiso->id}}</h6></td>
                                     <td class="text-center">
                                       <h6> {{$permiso->name}}</h6>
                                     </td>
+                                @endcan
                                     <td class="text-center">
+
+                                        @can('editar_permiso')
                                         <a href="javascript:void(0)"
                                         wire:click="Edit({{$permiso->id}})"
                                         class="btn btn-dark mtmobile" title="Editar Registro">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endcan
 
+                                        @can('eliminar_permiso')
                                         <a href="javascript:void(0)"
                                         onclick="Confirm('{{$permiso->id}}')"
                                         class="btn btn-dark " title="Eliminar Registro">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach

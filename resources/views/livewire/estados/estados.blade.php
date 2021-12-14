@@ -8,13 +8,19 @@
                     <b>{{$componentName}} | {{$pageTitle}}</b>
                 </h4>
                 <ul class="tabs tab-pills">
+                    @can('crear_estado')
                     <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
                          data-target="#theModal">Agregar</a>
                     </li>
+                    @endcan
+
                 </ul>
             </div>
-            @include('common.searchbox')
+            @can('buscar_estado')
+                @include('common.searchbox')
+            @endcan
+
 
             <div class="widget-content">
 
@@ -29,29 +35,27 @@
                         </thead>
                         <tbody>
                             @foreach($estados as $estado)
-                                <tr>
+                            @can('ver_estado')
+                              <tr>
                                     <td><h6>{{$estado->id}}</h6></td>
                                     <td><h6> {{$estado->nombre}}</h6></td>
-                                    {{-- <td class="text-center">
-                                        <span>
-                                            <img src="" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td> --}}
+                            @endcan
                                     <td>
+                                        @can('editar_estado')
+                                            <a href="javascript:void(0)"
+                                            wire:click="Edit({{$estado->id}})"
+                                            class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endcan
 
-
-                                        <a href="javascript:void(0)"
-                                        wire:click="Edit({{$estado->id}})"
-                                        class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-
-                                        <a href="javascript:void(0)"
-                                        onClick="Confirm({{ $estado->id }}, '{{ $estado->citas->count() }}')"
-                                        class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-
+                                        @can('eliminar_estado')
+                                            <a href="javascript:void(0)"
+                                            onClick="Confirm({{ $estado->id }}, '{{ $estado->citas->count() }}')"
+                                            class="btn btn-dark " title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

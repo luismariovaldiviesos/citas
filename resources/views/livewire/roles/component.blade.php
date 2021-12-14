@@ -7,15 +7,18 @@
                 <h4 class="card-title">
                     <b>{{ $componentName}} | {{$pageTitle}}</b>
                 </h4>
-                <ul class="tabs tab-pills">
-                    <li>
-                        <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
-                         data-target="#theModal">Agregar</a>
-                    </li>
-                </ul>
+               @can('crear_rol')
+               <ul class="tabs tab-pills">
+                <li>
+                    <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
+                     data-target="#theModal">Agregar</a>
+                </li>
+            </ul>
+               @endcan
             </div>
-            @include('common.searchbox')
-
+           @can('buscar_rol')
+               @include('common.searchbox')
+           @endcan
             <div class="widget-content">
 
                 <div class="table-responsive">
@@ -29,24 +32,29 @@
                         </thead>
                         <tbody>
                             @foreach ($roles as $rol )
-
-                                <tr>
+                             @can('ver_rol')
+                                 <tr>
                                     <td><h6>{{$rol->id}}</h6></td>
                                     <td class="text-center">
                                       <h6> {{$rol->name}}</h6>
                                     </td>
+                                 @endcan
                                     <td class="text-center">
+                                        @can('editar_rol')
                                         <a href="javascript:void(0)"
                                         wire:click="Edit({{$rol->id}})"
                                         class="btn btn-dark mtmobile" title="Editar Registro">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endcan
 
-                                        <a href="javascript:void(0)"
-                                        onclick="Confirm('{{$rol->id}}')"
-                                        class="btn btn-dark " title="Eliminar Registro">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                       @can('eliminar_rol')
+                                       <a href="javascript:void(0)"
+                                       onclick="Confirm('{{$rol->id}}')"
+                                       class="btn btn-dark " title="Eliminar Registro">
+                                           <i class="fas fa-trash"></i>
+                                       </a>
+                                       @endcan
                                     </td>
                                 </tr>
                             @endforeach

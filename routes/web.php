@@ -52,16 +52,17 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/pagosextras', PagosExtrasController::class);
 
 
-    //AQUI VA REPORTES
-// ruta  para mostrar en vista lo que se va a reportar (pilas ctm)
-Route::get('/reportes', ReportsController::class);
+//reporte borrado
+//Route::get('/reportes', ReportsController::class);
 
 //reportesfechas
+// ruta  para mostrar en vista lo que se va a reportar (pilas ctm)
 Route::get('/reportesfechas', ReportsFechasController::class);
 
+// reporte borrado
+//Route::get('report/pdf/{medico}', [App\Http\Controllers\ExportController::class, 'reportPDF']); // por dia
 
-Route::get('report/pdf/{medico}', [App\Http\Controllers\ExportController::class, 'reportPDF']); // por dia
-
+// de vuelta desde la vista para crear el pdf
 Route::get('crearpdf/pdf/{medico_id}/{type}/{f1}/{f2}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
 Route::get('crearpdf/pdf/{medico_id}/{type}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
 

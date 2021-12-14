@@ -8,13 +8,18 @@
                     <b>{{$componentName}} | {{$pageTitle}}</b>
                 </h4>
                 <ul class="tabs tab-pills">
+                   @can('crear_medico')
                     <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal"
-                         data-target="#theModal">Agregar</a>
+                        data-target="#theModal">Agregar</a>
                     </li>
+                   @endcan
                 </ul>
             </div>
+            @can('buscar_medico')
             @include('common.searchbox')
+            @endcan
+
 
             <div class="widget-content">
 
@@ -30,27 +35,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($medicos as $medico)
+                          @foreach($medicos as $medico)
+                          @can('ver_medico')
                                 <tr>
                                     <td><h6>{{$medico->id}}</h6></td>
                                     <td><h6> {{$medico->nombre}}</h6></td>
                                     <td><h6> {{$medico->telefono}}</h6></td>
                                     <td><h6> {{$medico->email}}</h6></td>
-
+                             @endcan
                                     <td>
-
-
+                                      @can('editar_medico')
                                         <a href="javascript:void(0)"
                                         wire:click="Edit({{$medico->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                      @endcan
 
+                                        @can('eliminar_medico')
                                         <a href="javascript:void(0)"
                                         onClick="Confirm({{ $medico->id }})"
                                         class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        @endcan
 
                                     </td>
                                 </tr>
