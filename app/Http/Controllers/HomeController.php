@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cita;
 use Illuminate\Http\Request;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
+use App\Models\Tratamiento;
+use App\Models\Estado;
 
 class HomeController extends Controller
 {
@@ -24,9 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $citas = Cita::all();
-        //dd($citas);
-        return view('home', compact('citas', $citas));
+
+        $currentYear = date('Y');
+        $start = date('Y-m-d', strtotime('monday this week')); //obtener el dia lunes semana actual
+        $finish = date('Y-m-d', strtotime('sunday this week')); // obtener el domingo semana actual
+        $d1 = strtotime($start); // convertir fecha a formato unix
+        $d2 = strtotime($finish);
+
+
+        return view('home');
     }
 
 
