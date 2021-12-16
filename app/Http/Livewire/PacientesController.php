@@ -225,9 +225,9 @@ class PacientesController extends Component
 
     }
 
-    public function countPaciente(PacientesChart $tratamientos)
+    public function countPaciente(PacientesChart $chart)
     {
-        return view('home', ['tratamientos' => $tratamientos->build()]);
+        return view('home', ['chart' => $chart->build()]);
     }
 
 
