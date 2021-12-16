@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Charts\PacientesChart;
 use App\Models\Cita;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -217,21 +218,16 @@ class PacientesController extends Component
 
     public  function destroy(Paciente $paciente)
         {
-            //  if($user) {
-        //     $sales = Sale::where('user_id', $user->id)->count();
-        //     if($sales > 0)  {
-        //         $this->emit('user-withsales','No es posible eliminar el usuario porque tiene ventas registradas');
-        //     } else {
-        //         $user->delete();
-        //         $this->resetUI();
-        //         $this->emit('user-deleted','Usuario Eliminado');
-        //     }
-        // }
 
         $paciente->delete();
         $this->resetUI();
         $this->emit('paciente-deleted','Paciente Eliminado');
 
+    }
+
+    public function countPaciente(PacientesChart $tratamientos)
+    {
+        return view('home', ['tratamientos' => $tratamientos->build()]);
     }
 
 

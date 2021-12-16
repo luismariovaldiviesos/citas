@@ -9,8 +9,8 @@
         <div class="col-lg-8">
             <div class="layout-px">
                 <div class="widget-content-area">
-                       <div class="widget-one">
-                       <p>ventas anuales</p>
+                       <div class="">
+                      <h1>Estadísticas generales</h1>
 
                         {{-- carga la gráfica --}}
                         {{-- {!! $chartVentasxMes->container() !!} --}}
@@ -30,14 +30,14 @@
         <div class="col-lg-4">
             <div class="layout-px">
                 <div class="widget-content-area">
-                       <div class="widget-one">
-                          ventas semana
+                       <div class="">
+                         Pacientes registrados {{ date('Y') }}
                           {{-- {!! $chartVentasxSemana->container() !!} --}}
 
                           {{-- esta es otro forma de cargar la libreria desde el cdn --}}
                           {{-- <script src="{{ LarapexChart::cdn() }}"></script> --}}
                           {{-- fin --}}
-
+                          {!! $chart->container() !!}
                           {{-- {{ $chartVentasxSemana->script() }} --}}
 
                         </div>
@@ -58,7 +58,7 @@
                            {{-- esta es otro forma de cargar la libreria desde el cdn --}}
                            {{-- <script src="{{ LarapexChart::cdn() }}"></script> --}}
                            {{-- fin --}}
-
+                           {!! $chart->container() !!}
                            {{-- {{ $chartBalancexMes->script() }} --}}
                         </div>
                 </div>
@@ -76,7 +76,9 @@
 
 @push('script')
 
+<script src="{{ $chart->cdn() }}"></script>
 
+{{ $chart->script() }}
 
 @endpush
 

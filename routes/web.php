@@ -36,7 +36,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function(){
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // ESTADISTICAS
+    Route::get('/home', [App\Http\Livewire\PacientesController::class, 'countPaciente'])->name('home'); // ESTADISTICAS
     Route::get('/calendario', CalendarController::class); //AGENDA
     Route::get('citas', CitasController::class);
     Route::get('/pacientes', PacientesController::class);
