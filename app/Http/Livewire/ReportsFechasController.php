@@ -15,7 +15,7 @@ class ReportsFechasController extends Component
 
 
     public $componentName, $citas, $pagosextras, $sumCitas, $sumExtras,
-    $reportType, $medico_id, $dateFrom, $dateTo;
+    $reportType, $medico_id, $dateFrom, $dateTo, $doctores;
 
     public function mount()
     {
@@ -28,6 +28,7 @@ class ReportsFechasController extends Component
         $this->userId =0;
         $this->reportType =0;
         $this->medico_id =0;
+        $this->doctores = Medico::all();
 
 
     }
@@ -37,11 +38,9 @@ class ReportsFechasController extends Component
 
         $this->reportFechas();
 
-        return view('livewire.reportes.componentreportefechas', [
+        return view('livewire.reportes.componentreportefechas'
 
-            'medicos' => Medico::orderBy('nombre','asc')->get()
-
-        ])->extends('layouts.theme.app')
+        )->extends('layouts.theme.app')
         ->section('content');
     }
 

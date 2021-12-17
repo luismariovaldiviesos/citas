@@ -21,7 +21,7 @@ class CitasController extends Component
     use WithFileUploads;
 
     public $descripcion, $fecha_ini, $fecha_fin, $medico_id, $receta, $user_id, $buscar_paciente,
-    $tratamiento_id, $pago_id ;
+    $tratamiento_id, $pago_id, $total ;
     public $pageTitle, $componentName, $search, $selected_id;
 
     //VARIABLES PARA LA  BUSQUEDA PAGINA PRINCIPAL
@@ -159,8 +159,7 @@ class CitasController extends Component
         //user_id, tratamiento_id, pago_id, estado_id
 
         $rules = [
-            'descripcion' => 'required',
-            'buscar_paciente' => 'required',
+           'buscar_paciente' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
             'pago_id' => 'required',
@@ -168,8 +167,7 @@ class CitasController extends Component
 
         ];
         $messages =[
-            'descripcion.required' => 'Ingresa una descripción de la cita',
-            'buscar_paciente.required' => 'Ingresa un paciente',
+           'buscar_paciente.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
             'pago_id.required' => 'Ingresa un pago',
@@ -191,6 +189,9 @@ class CitasController extends Component
             // $this->estado
             // );
 
+            $tratamiento =  Tratamiento::find($this->tratamiento_id);
+           // dd($tratamiento->precio);
+
         $cita = Cita::create([
             'descripcion' => $this->descripcion,
             'fecha_ini' => $this->fecha_ini,
@@ -200,6 +201,7 @@ class CitasController extends Component
             'receta' => $this->receta,
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
+            'total' => $tratamiento->precio,
             'pago_id' => $this->pago_id,
             'estado_id' => $this->estado
         ]);

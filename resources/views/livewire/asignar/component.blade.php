@@ -10,7 +10,7 @@
 
             </div>
 
-            @can('ver_asignar')
+            {{-- @can('ver_asignar') --}}
              <div class="widget-content">
 
                 <div class="form-inline">
@@ -81,7 +81,7 @@
                </div>
 
             </div>
-            @endcan
+            {{-- @endcan --}}
         </div>
 
     </div>

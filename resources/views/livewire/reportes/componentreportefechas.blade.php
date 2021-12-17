@@ -17,7 +17,7 @@
                                 <div class="form-group">
                                     <select wire:model="medico_id" class="form-control">
                                         <option value="0">Todos</option>
-                                        @foreach($medicos as $medico)
+                                        @foreach($doctores as $medico)
                                         <option value="{{$medico->id}}">{{$medico->nombre}}</option>
                                         @endforeach
                                     </select>

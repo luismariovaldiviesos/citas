@@ -12,7 +12,7 @@ class Cita extends Model
     protected $fillable =
     [
         'descripcion','fecha_ini','fecha_fin','paciente_id','medico_id',
-        'receta','user_id','tratamiento_id','pago_id','estado_id'
+        'receta','user_id','tratamiento_id','total','pago_id','estado_id'
     ];
 
     //tien ujn tratamiento
