@@ -52,6 +52,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/pagosextras', PagosExtrasController::class);
 
 
+    Route::get('dash', [\App\Http\Controllers\DashController::class, 'data']);
+
+
 //reporte borrado
 //Route::get('/reportes', ReportsController::class);
 
