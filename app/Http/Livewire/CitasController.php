@@ -273,6 +273,7 @@ class CitasController extends Component
         $this->receta = $cita->receta;
         $this->user_id = $cita->user_id;
         $this->tratamiento_id = $cita->tratamiento_id;
+        $this->total  =  $cita->total;
         $this->pago_id = $cita->pago_id;
         $this->estado = $cita->estado_id;
         $this->selected_id = $cita->id;
@@ -285,7 +286,6 @@ class CitasController extends Component
     public  function  Update()
     {
         $rules = [
-            'descripcion' => 'required',
             'buscar_paciente' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
@@ -294,7 +294,6 @@ class CitasController extends Component
 
         ];
         $messages =[
-            'descripcion.required' => 'Ingresa una descripción de la cita',
             'buscar_paciente.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
@@ -314,6 +313,7 @@ class CitasController extends Component
             'receta' => $this->receta,
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
+            'total' => $this->total,
             'pago_id' => $this->pago_id,
             'estado_id' => $this->estado
         ]);

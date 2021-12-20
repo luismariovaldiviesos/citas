@@ -22,7 +22,7 @@ class CalendarController extends Component
 
 
     // para agendar
-    public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta, $tratamiento_id, $pago_id, $estado_id, $paciente_id;
+    public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta, $tratamiento_id, $pago_id, $estado_id, $paciente_id, $total;
 
     // datos para cita
     public $medicos, $tratamientos, $pagos, $estados, $pacientes;
@@ -43,23 +43,11 @@ class CalendarController extends Component
 
     public function render()
     {
-        //$events = Cita::select('id','descripcion AS title','fecha_ini AS start','fecha_fin AS end')->get();
-        //dd($events);
-
-        // $events = Cita::join('pacientes as p', 'p.id','citas.paciente_id')
-        // ->join('tratamientos as t', 't.id','citas.tratamiento_id')
-        // ->join('pagos as pa', 'pa.id','citas.pago_id')
-        // ->join('estados as e', 'e.id','citas.estado_id')
-        // ->select('p.nombre as title','citas.id','fecha_ini AS start','fecha_fin AS end',
-        //         't.nombre as tratamiento','pa.nombre as pago', 'e.nombre as estado')->get();
-        //dd($events);
         $this->medicos = Medico::all();
         $this->tratamientos = Tratamiento::all();
         $this->pagos = Pago::all();
         $this->estados =Estado::all();
         $this->pacientes = Paciente::all();
-        //dd($this->pacientes);
-        //$this->events = json_encode($events);
         return view('livewire.calendario.component')->extends('layouts.theme.app')
         ->section('content');
     }
@@ -75,7 +63,6 @@ class CalendarController extends Component
 
         $rules = [
             'paciente_id' => 'required',
-            'descripcion' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
             'pago_id' => 'required',
@@ -84,7 +71,6 @@ class CalendarController extends Component
         ];
         $messages =[
             'paciente_id.required' => 'Ingresa un paciente',
-            'descripcion.required' => 'Ingresa una descripción de la cita',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
             'pago_id.required' => 'Ingresa un pago',
@@ -93,6 +79,7 @@ class CalendarController extends Component
         ];
 
         $this->validate($rules,$messages);
+        $tratamiento =  Tratamiento::find($this->tratamiento_id);
         $cita = Cita::create([
             'descripcion' => $this->descripcion,
             'fecha_ini' => $this->fecha_ini,
@@ -102,6 +89,7 @@ class CalendarController extends Component
             'receta' => $this->receta,
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
+            'total' => $tratamiento->precio,
             'pago_id' => $this->pago_id,
             'estado_id' => $this->estado
         ]);
@@ -122,10 +110,11 @@ class CalendarController extends Component
     {
 
             $cita = Cita::find($this->id_cita);
-            //dd($cita->fecha_ini) ;
+            //dd($cita) ;
             if($this->tratamiento_id == null || $this->tratamiento_id == 'Elegir')
             {
                 $this->tratamiento_id = $cita->tratamiento_id;
+                $this->total  = $cita->total;
             }
             if($this->pago_id == null || $this->pago_id == 'Elegir')
             {
@@ -136,6 +125,8 @@ class CalendarController extends Component
                 $this->estado_id = $cita->estado_id;
             }
 
+            $total  =   Tratamiento::find($this->tratamiento_id);
+            $this->total = $total->precio;
             $cita->update([
                 'descripcion' => $this->title,
                 'fecha_ini' => $cita->fecha_ini,
@@ -145,6 +136,7 @@ class CalendarController extends Component
                 'receta' => $this->receta,
                 'user_id' => Auth::user()->id,
                 'tratamiento_id' => $this->tratamiento_id,
+                'total' => $this->total,
                 'pago_id' => $this->pago_id,
                 'estado_id' => $this->estado_id
             ]);

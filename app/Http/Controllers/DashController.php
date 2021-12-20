@@ -32,6 +32,26 @@ class DashController extends Controller
             $array[] = $dia; //lunes masrtes etc
         }
 
+        $sql =  "SELECT c.fecha, IFNULL(c.total,0) as total FROM(
+            SELECT '$array[0]' as fecha
+            UNION
+            SELECT '$array[1]' as fecha
+            UNION
+            SELECT '$array[2]' as fecha
+            UNION
+            SELECT '$array[3]' as fecha
+            UNION
+            SELECT '$array[4]' as fecha
+            UNION
+            SELECT '$array[5]' as fecha
+            UNION
+            SELECT '$array[6]' as fecha
+            ) d
+            LEFT JOIN (
+            SELECT SUM(total) as total, DATE(created_at) as
+            fecha FROM citas WHERE created_at BETWEEN '$start' AND '$finish'
+            AND estatus ='CERRADO' GROUP BY DATE(created_at)) c ON d.fecha =  c.fecha";
+
 
         print_r($array);
 
