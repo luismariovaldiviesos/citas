@@ -10,11 +10,13 @@
             <div class="layout-px">
                 <div class="widget-content-area">
                        <div class="">
-                            <h1>Estadísticas generales</h1>
+                            <h1>Estadísticas Generales</h1>
 
-                            {!! $chartVentasxMes->container() !!}
-                                <script src="{{ asset('vendor/larapex-charts/apexcharts.js') }}"></script>
-                            {{ $chartVentasxMes->script() }}
+                            {!! $chartBalancexMes->container() !!}
+                            <script src="{{ asset('vendor/larapex-charts/apexcharts.js') }}"></script>
+                            {{ $chartBalancexMes->script() }}
+
+
                         </div>
                 </div>
             </div>
@@ -25,6 +27,10 @@
             <div class="layout-px">
                 <div class="widget-content-area">
                        <div class="">
+
+                        {!! $chartVentasxSemana->container() !!}
+
+                        {{ $chartVentasxSemana->script() }}
 
 
                         </div>
@@ -37,12 +43,52 @@
         <div class="col-ms-12 col-md-12 col-lg-12 mt-2">
             <div class="layout-px">
                 <div class="widget-content-area">
-                       <div class="widget-one">
-
+                       <div class="">
+                        {!! $chartVentasxMes->container() !!}
+                        {{ $chartVentasxMes->script() }}
                         </div>
                 </div>
             </div>
         </div>
+
+
+
+
+        <div class="col-lg-6">
+            <div class="layout-px">
+                <div class="widget-content-area">
+                       <div class="">
+                        {!! $usuarios->container() !!}
+                        {{ $usuarios->script() }}
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="layout-px">
+                <div class="widget-content-area">
+                       <div class="">
+                        {!! $chartpacientesxmes->container() !!}
+                        {{ $chartpacientesxmes->script() }}
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- <div class="col-ms-12 col-md-12 col-lg-12 mt-2">
+            <div class="layout-px">
+                <div class="widget-content-area">
+                       <div class="">
+                        {!! $estadoscitas->container() !!}
+
+                        {{ $estadoscitas->script() }}
+                        </div>
+                </div>
+            </div>
+        </div> --}}
+
     </div>
 
 </div>

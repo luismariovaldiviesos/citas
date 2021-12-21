@@ -28,8 +28,9 @@ class CreateCitasTable extends Migration
             $table->unsignedBigInteger('tratamiento_id');
             $table->foreign('tratamiento_id')->references('id')->on('tratamientos');
             $table->decimal('total');
-            $table->unsignedBigInteger('pago_id');
-            $table->foreign('pago_id')->references('id')->on('pagos');
+            $table->string('estado_pago');
+            // $table->unsignedBigInteger('pago_id');
+            // $table->foreign('pago_id')->references('id')->on('pagos');
             $table->unsignedBigInteger('estado_id');
             $table->foreign('estado_id')->references('id')->on('estados');
             $table->timestamps();

@@ -131,16 +131,15 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="">Estado pago:</label>
-                                        <input type="text" wire:model.defer="pago" disabled class="form-control" >
+                                        <input type="text" wire:model.defer="estado_pago" disabled class="form-control" >
                                         <br>
                                         <label for="">CAMBIAR PAGO:</label>
-                                        <select wire:model.lazy="pago_id" class="form-control">
+                                        <select wire:model.lazy="estado_pago" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
-                                            @foreach ($pagos as $p)
-                                            <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
-                                            @endforeach
+                                           <option value="PAGADO">PAGADO</option>
+                                           <option value="PENDIENTE">PENDIENTE</option>
                                         </select>
-                                        @error('pago_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                        @error('estado_pago') <span class="text-danger er">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
 
@@ -273,13 +272,12 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label >Pagos</label>
-                                        <select wire:model.lazy="pago_id" class="form-control">
+                                        <select wire:model.lazy="estado_pago" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
-                                            @foreach ($pagos as $p)
-                                            <option value="{{ $p->id }}" >{{ $p->nombre }}</option>
-                                            @endforeach
+                                            <option value="PAGADO">PAGADO</option>
+                                            <option value="PENDIENTE">PENDIENTE</option>
                                         </select>
-                                        @error('pago_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                        @error('estado_pago') <span class="text-danger er">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
 
@@ -418,7 +416,7 @@
                         @this.start = inicio;
                         @this.end =  fin;
                         @this.tratamiento =  info.event.extendedProps.tratamiento;
-                        @this.pago =  info.event.extendedProps.pago;
+                        @this.estado_pago =  info.event.extendedProps.estado_pago;
                         @this.estado =  info.event.extendedProps.estado;
                         @this.id_cita = info.event.extendedProps.id_cita;
                         $('#theModal').modal('toggle');

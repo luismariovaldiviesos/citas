@@ -8,10 +8,16 @@ use App\Models\Tratamiento;
 use App\Models\Estado;
 use App\Models\Cita;
 use App\Models\Paciente;
+use App\Models\PagoExtra;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sum;
 
 class DashController extends Controller
 {
+    public $listCitas, $listpagos, $balance;
+
+    public $atendidas, $pendientes, $canceladas, $noasiste;
 
     public function data()
     {
@@ -50,10 +56,233 @@ class DashController extends Controller
             LEFT JOIN (
             SELECT SUM(total) as total, DATE(created_at) as
             fecha FROM citas WHERE created_at BETWEEN '$start' AND '$finish'
-            AND estatus ='CERRADO' GROUP BY DATE(created_at)) c ON d.fecha =  c.fecha";
+            AND estado_pago ='PAGADO' GROUP BY DATE(created_at)) c ON d.fecha =  c.fecha";
 
 
-        print_r($array);
+            $weekSales = DB::select(DB::raw($sql));
+            //dd($weekSales);
+
+            $chartVentasxSemana = new LarapexChart();
+            $chartVentasxSemana->setTitle('CITAS PAGADAS DE ESTA SEMANA')
+            ->setLabels(['LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','Sabado','Domingo'])
+            ->setType('donut')
+            ->setDataSet([intval($weekSales[0]->total),
+                    intval($weekSales[1]->total),
+                    intval($weekSales[2]->total),
+                    intval($weekSales[3]->total),
+                    intval($weekSales[4]->total),
+                    intval($weekSales[5]->total),
+                    intval($weekSales[6]->total),
+                          ]);
+
+
+     //GRAIFCO VENTAS POR MES
+
+       // $anioActual =  date('Y');
+        $mesActual = date('m');
+
+        $arrayMes = array();
+        for($i = 1; $i<=12; $i++)
+        {
+            //$cita =  Cita::whereMonth('created_at', '=', $i)->where('estado_pago','PAGADO');
+            $cita = Cita::where(function($query) use ($i)
+            {
+                $query->whereMonth('created_at', '=', $i)
+                        ->orwhereMonth('updated_at', '=', $i);
+            })->where('estado_pago','PAGADO');
+            $arrayMes[] = $cita->sum('total');
+
+
+        }
+        //dd($arrayMes);
+       $enero = $arrayMes[0];
+       $febrero = $arrayMes[1];
+       $marzo = $arrayMes[2];
+       $abril = $arrayMes[3];
+       $mayo = $arrayMes[4];
+       $junio = $arrayMes[5];
+       $julio = $arrayMes[6];
+       $agosto = $arrayMes[7];
+       $septiembre = $arrayMes[8];
+       $octubre = $arrayMes[9];
+       $noviembre = $arrayMes[10];
+       $diciembre = $arrayMes[11];
+       //dd($arrayMes);
+       $chartVentasxMes = (new LarapexChart)->setType('area')
+       ->setTitle('TOTAL RECAUDADO SOLO CITAS POR MES')
+       ->setSubtitle('Por mes')
+       ->setGrid(true)
+       ->setXAxis(['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio',
+       'Agosto','Septiembre','Octubre','Noviembre','Diciembre',])
+       ->setDataSet([
+           [
+               'name' => 'Citas Pagadas:',
+               'data' =>
+               [
+                  $enero,
+                  $febrero,
+                  $marzo,
+                  $abril,
+                  $mayo,
+                  $junio,
+                  $julio,
+                  $agosto,
+                  $septiembre,
+                  $octubre,
+                  $noviembre,
+                  $diciembre,
+               ]
+           ]
+       ]);
+
+
+       // balance
+
+
+        for($i=0; $i<12; $i++)
+        {
+
+            $this->listCitas[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->sum('total');
+
+        }
+
+
+        for($i=0; $i<12; $i++)
+        {
+
+            $this->listpagos[$i]=PagoExtra::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->sum('monto');
+
+        }
+
+        for($i=0; $i<12; $i++)
+        {
+
+            $this->balance[$i]= $this->listCitas[$i] + $this->listpagos[$i];
+
+        }
+
+        $chartBalancexMes = (new LarapexChart)->setTitle('BALANCE ANUAL CITAS Y PAGOS EXTRAS')
+        ->setType('bar')
+        ->setXAxis(['Ene','Feb','Mar','Abr','May','Jun','Jul',
+            'Ago','Sep','Oct','Nov','Dic',])
+        ->setGrid(true)
+        ->setDataset([
+            [
+                'name' => 'Citas',
+                'data' => $this->listCitas
+            ],
+            [
+                'name' => 'Pagos',
+                'data' => $this->listpagos
+            ],
+            [
+                'name' => 'Balance',
+                'data' => $this->balance
+            ]
+
+        ]);
+
+
+        $usuarios = (new LarapexChart)->pieChart()
+                    ->setTitle('USUARIOS DEL SISTEMA')
+                    ->setDataset([
+                        \App\Models\User::where('status','=','ACTIVE')->count(),
+                        \App\Models\User::where('status','=','LOCKED')->count(),
+                    ])->setColors(['#ffc63b','#FF6384'])->setLabels(['USUARIOS ACTIVOS','USUARIOS SUSPENDIDOS']);
+
+
+
+
+
+
+        // citas
+
+        // for($i=0; $i<12; $i++)
+        // {
+
+        //    $this->atendidas[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->where('estado_id','=',1)->count();
+        //    $this->pendientes[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->where('estado_id','=',2)->count();
+        //    $this->canceladas[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->where('estado_id','=',3)->count();
+        //    $this->noasiste[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->where('estado_id','=',4)->count();
+        // }
+        // //dd($pendientes);
+
+        //        $estadoscitas =  (new LarapexChart)->polarAreaChart()
+        //             ->setTitle('NUMERO DE CITAS POR ESTADO')
+        //             ->setSubtitle('año 2001')
+        //             ->setDataset([$this->atendidas, $this->pendientes, $this->canceladas,$this->noasiste])
+        //             ->setLabels(['Citas Atendidas', 'Pendientes', 'canceladas','No asiste']);
+
+
+
+        //USUARIOS POR MES
+           $arrayMes = array();
+            for($i = 1; $i<=12; $i++)
+            {
+                $paciente =  Paciente::whereMonth('created_at', '=', $i);
+                // $cita = Cita::where(function($query) use ($i)
+                // {
+                //     $query->whereMonth('created_at', '=', $i)
+                //             ->orwhereMonth('updated_at', '=', $i);
+                // })->where('estado_pago','PAGADO');
+                $arrayMes[] = $paciente->count();
+
+
+            }
+       //dd($arrayMes);
+      $enero = $arrayMes[0];
+      $febrero = $arrayMes[1];
+      $marzo = $arrayMes[2];
+      $abril = $arrayMes[3];
+      $mayo = $arrayMes[4];
+      $junio = $arrayMes[5];
+      $julio = $arrayMes[6];
+      $agosto = $arrayMes[7];
+      $septiembre = $arrayMes[8];
+      $octubre = $arrayMes[9];
+      $noviembre = $arrayMes[10];
+      $diciembre = $arrayMes[11];
+      //dd($arrayMes);
+
+$chartpacientesxmes = (new LarapexChart)->pieChart()
+->addData([$enero,$febrero,$marzo,$abril,$mayo,$junio,$julio,$agosto,$septiembre,$octubre, $noviembre, $diciembre])
+->setTitle('PACIENTES NUEVOS REGISTRADOS POR MES')
+->setLabels(['Enero','Febrero','MArzo','Abril','MAyo','Junio','Julio','Agosto','Septiembre','Octubre', 'Noviembre', 'Diciembre']);
+    //   $chartpacientesxmes = (new LarapexChart)->setType('area')
+    //   ->setTitle('PACIENTES NUEVOS POR MES')
+    //   ->setSubtitle('')
+    //   ->setGrid(true)
+    //   ->setXAxis(['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio',
+    //   'Agosto','Septiembre','Octubre','Noviembre','Diciembre',])
+    //   ->setDataSet([
+    //       [
+    //           'name' => 'PACIENTES POR MES :',
+    //           'data' =>
+    //           [
+    //              $enero,
+    //              $febrero,
+    //              $marzo,
+    //              $abril,
+    //              $mayo,
+    //              $junio,
+    //              $julio,
+    //              $agosto,
+    //              $septiembre,
+    //              $octubre,
+    //              $noviembre,
+    //              $diciembre,
+    //           ]
+    //       ]
+    //   ]);
+
+
+
+
+
+
+
+
+        return view('dash', compact('chartVentasxSemana', 'chartVentasxMes','chartBalancexMes','usuarios','chartpacientesxmes'));
 
         //return view('dash');
     }

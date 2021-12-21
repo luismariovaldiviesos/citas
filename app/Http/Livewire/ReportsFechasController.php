@@ -69,7 +69,7 @@ class ReportsFechasController extends Component
                         $query->whereBetween('citas.created_at', [$from,$to])
                                ->orwhereBetween('citas.updated_at', [$from,$to]);
                     })
-                    ->where('citas.pago_id',1)
+                    ->where('citas.estado_pago','PAGADO')
                      ->get();
                      $this->pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
                     // dd('todos');
@@ -83,7 +83,7 @@ class ReportsFechasController extends Component
                            ->orwhereBetween('citas.updated_at', [$from,$to]);
                 })
                 ->where('medico_id', $this->medico_id)
-                ->where('citas.pago_id',1)
+                ->where('citas.estado_pago','PAGADO')
                 ->get();
                 $this->pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
                 //dd('por medicos');

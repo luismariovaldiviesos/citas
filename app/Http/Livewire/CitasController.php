@@ -21,7 +21,7 @@ class CitasController extends Component
     use WithFileUploads;
 
     public $descripcion, $fecha_ini, $fecha_fin, $medico_id, $receta, $user_id, $buscar_paciente,
-    $tratamiento_id, $pago_id, $total ;
+    $tratamiento_id, $estado_pago, $total ;
     public $pageTitle, $componentName, $search, $selected_id;
 
     //VARIABLES PARA LA  BUSQUEDA PAGINA PRINCIPAL
@@ -65,7 +65,6 @@ class CitasController extends Component
             'pacientes' => Paciente::where('nombre','like','%'.$this->buscar_paciente.'%')->get(),
             'medicos' => Medico::all(),
             'tratamientos' => Tratamiento::all(),
-            'pagos' => Pago::all(),
             'estados' => Estado::all()
 
         ])->extends('layouts.theme.app')
@@ -143,7 +142,7 @@ class CitasController extends Component
         $this->medico_id ='';
         $this->receta = "";
         $this->tratamiento_id ='';
-        $this->pago_id='';
+        $this->estado_pago='';
         $this->estado_id='';
         $this->search='';
         $this->selected_id=0;
@@ -156,13 +155,13 @@ class CitasController extends Component
     {
         $this->validaFechas();
         //descripcion, fecha_ini, fecha_fin, paciente_id, medico_id, receta,
-        //user_id, tratamiento_id, pago_id, estado_id
+        //user_id, tratamiento_id, estado_pago, estado_id
 
         $rules = [
            'buscar_paciente' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
-            'pago_id' => 'required',
+            'estado_pago' => 'required',
             'estado' => 'required'
 
         ];
@@ -170,7 +169,7 @@ class CitasController extends Component
            'buscar_paciente.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
-            'pago_id.required' => 'Ingresa un pago',
+            'estado_pago.required' => 'Ingresa un pago',
             'estado.required' => 'Ingresa un estado'
 
         ];
@@ -185,7 +184,7 @@ class CitasController extends Component
             // $this->medico_id,
             // Auth::user()->id,
             // $this->tratamiento_id,
-            // $this->pago_id,
+            // $this->estado_pago,
             // $this->estado
             // );
 
@@ -202,7 +201,7 @@ class CitasController extends Component
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
             'total' => $tratamiento->precio,
-            'pago_id' => $this->pago_id,
+            'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
         ]);
         $cita->save();
@@ -274,7 +273,7 @@ class CitasController extends Component
         $this->user_id = $cita->user_id;
         $this->tratamiento_id = $cita->tratamiento_id;
         $this->total  =  $cita->total;
-        $this->pago_id = $cita->pago_id;
+        $this->estado_pago = $cita->estado_pago;
         $this->estado = $cita->estado_id;
         $this->selected_id = $cita->id;
         // aqui sacamos el nombre del paciente a traves de las relaciones en el modelo
@@ -289,7 +288,7 @@ class CitasController extends Component
             'buscar_paciente' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
-            'pago_id' => 'required',
+            'estado_pago' => 'required',
             'estado' => 'required'
 
         ];
@@ -297,7 +296,7 @@ class CitasController extends Component
             'buscar_paciente.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
-            'pago_id.required' => 'Ingresa un pago',
+            'estado_pago.required' => 'Ingresa un pago',
             'estado.required' => 'Ingresa un estado'
 
         ];
@@ -314,7 +313,7 @@ class CitasController extends Component
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
             'total' => $this->total,
-            'pago_id' => $this->pago_id,
+            'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
         ]);
         $this->resetUI();

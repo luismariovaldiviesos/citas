@@ -22,7 +22,7 @@ class CalendarController extends Component
 
 
     // para agendar
-    public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta, $tratamiento_id, $pago_id, $estado_id, $paciente_id, $total;
+    public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta, $tratamiento_id, $estado_pago, $estado_id, $paciente_id, $total;
 
     // datos para cita
     public $medicos, $tratamientos, $pagos, $estados, $pacientes;
@@ -45,7 +45,7 @@ class CalendarController extends Component
     {
         $this->medicos = Medico::all();
         $this->tratamientos = Tratamiento::all();
-        $this->pagos = Pago::all();
+
         $this->estados =Estado::all();
         $this->pacientes = Paciente::all();
         return view('livewire.calendario.component')->extends('layouts.theme.app')
@@ -55,7 +55,7 @@ class CalendarController extends Component
     public function Store()
     {
         // dd(  $this->descripcion,$this->fecha_ini, $this->fecha_fin, $this->paciente_id, $this->medico_id, $this->receta,
-        //         $this->tratamiento_id, $this->pago_id,$this->estado
+        //         $this->tratamiento_id, $this->estado_pago,$this->estado
         //     );
 
 
@@ -65,7 +65,7 @@ class CalendarController extends Component
             'paciente_id' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
-            'pago_id' => 'required',
+            'estado_pago' => 'required',
             'estado' => 'required'
 
         ];
@@ -73,7 +73,7 @@ class CalendarController extends Component
             'paciente_id.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
-            'pago_id.required' => 'Ingresa un pago',
+            'estado_pago.required' => 'Ingresa un pago',
             'estado.required' => 'Ingresa un estado'
 
         ];
@@ -90,7 +90,7 @@ class CalendarController extends Component
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
             'total' => $tratamiento->precio,
-            'pago_id' => $this->pago_id,
+            'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
         ]);
         $cita->save();
@@ -116,9 +116,9 @@ class CalendarController extends Component
                 $this->tratamiento_id = $cita->tratamiento_id;
                 $this->total  = $cita->total;
             }
-            if($this->pago_id == null || $this->pago_id == 'Elegir')
+            if($this->estado_pago == null || $this->estado_pago == 'Elegir')
             {
-                $this->pago_id = $cita->pago_id;
+                $this->estado_pago = $cita->estado_pago;
             }
             if($this->estado_id == null || $this->estado_id == 'Elegir')
             {
@@ -137,7 +137,7 @@ class CalendarController extends Component
                 'user_id' => Auth::user()->id,
                 'tratamiento_id' => $this->tratamiento_id,
                 'total' => $this->total,
-                'pago_id' => $this->pago_id,
+                'estado_pago' => $this->estado_pago,
                 'estado_id' => $this->estado_id
             ]);
             $this->resetUI();
@@ -153,7 +153,7 @@ class CalendarController extends Component
         $this->medico_id ='';
         $this->receta = "";
         $this->tratamiento_id ='';
-        $this->pago_id='';
+        $this->estado_pago='';
         $this->estado='';
         $this->resetValidation();
         $this->resetPage();
