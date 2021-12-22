@@ -22,6 +22,9 @@
 
     <link  href="{{ asset('plugins/flatpickr/flatpickr.dark.css') }}" rel="stylesheet" type="text/css">
 
+
+
+
     {{-- full calendario local --}}
     {{-- <link  href="{{ asset('plugins/fullcalendar/main.min.css') }}" rel="stylesheet" type="text/css"> --}}
 

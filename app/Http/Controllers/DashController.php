@@ -17,7 +17,8 @@ class DashController extends Controller
 {
     public $listCitas, $listpagos, $balance;
 
-    public $atendidas, $pendientes, $canceladas, $noasiste;
+
+
 
     public function data()
     {
@@ -197,6 +198,15 @@ class DashController extends Controller
 
         // citas
 
+        $atendidas  = Cita::where('estado_id',1)->whereYear('created_at',$currentYear)->count();
+        $pendientes  = Cita::where('estado_id',2)->whereYear('created_at',$currentYear)->count();
+        $canceladas  = Cita::where('estado_id',3)->whereYear('created_at',$currentYear)->count();
+        $noasiste  = Cita::where('estado_id',4)->whereYear('created_at',$currentYear)->count();
+        $totalcitas = $atendidas+$pendientes+$canceladas+$noasiste;
+       // dd($atendidas);
+
+
+
         // for($i=0; $i<12; $i++)
         // {
 
@@ -205,7 +215,30 @@ class DashController extends Controller
         //    $this->canceladas[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->where('estado_id','=',3)->count();
         //    $this->noasiste[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->where('estado_id','=',4)->count();
         // }
-        // //dd($pendientes);
+        // $citas =  Cita::all();
+        // for($i = 0; $i++; $i<= $citas->count())
+        // {
+        //     //dd($c->estado->nombre);
+
+        //      if($citas->estado->nombre = 'ATENDIDO'){
+        //         $this->atendidas ++;
+        //      }
+        //      elseif($citas->estado->nombre == 'PENDIENTE'){
+        //         $this->pendientes ++;
+        //      }
+        //      elseif($citas->estado->nombre == 'CANCELADO'){
+        //         $this->canceladas ++;
+        //      }
+        //      else{
+        //          $this->noasiste ++;
+        //      }
+
+        //     dd($this->atendidas);
+        // }
+        //$totalcitas = $atendidas+$pendientes+$canceladas+$noasiste;
+
+
+        //dd($this->atendidas);
 
         //        $estadoscitas =  (new LarapexChart)->polarAreaChart()
         //             ->setTitle('NUMERO DE CITAS POR ESTADO')
@@ -220,14 +253,7 @@ class DashController extends Controller
             for($i = 1; $i<=12; $i++)
             {
                 $paciente =  Paciente::whereMonth('created_at', '=', $i);
-                // $cita = Cita::where(function($query) use ($i)
-                // {
-                //     $query->whereMonth('created_at', '=', $i)
-                //             ->orwhereMonth('updated_at', '=', $i);
-                // })->where('estado_pago','PAGADO');
-                $arrayMes[] = $paciente->count();
-
-
+                 $arrayMes[] = $paciente->count();
             }
        //dd($arrayMes);
       $enero = $arrayMes[0];
@@ -244,46 +270,15 @@ class DashController extends Controller
       $diciembre = $arrayMes[11];
       //dd($arrayMes);
 
-$chartpacientesxmes = (new LarapexChart)->pieChart()
-->addData([$enero,$febrero,$marzo,$abril,$mayo,$junio,$julio,$agosto,$septiembre,$octubre, $noviembre, $diciembre])
-->setTitle('PACIENTES NUEVOS REGISTRADOS POR MES')
-->setLabels(['Enero','Febrero','MArzo','Abril','MAyo','Junio','Julio','Agosto','Septiembre','Octubre', 'Noviembre', 'Diciembre']);
-    //   $chartpacientesxmes = (new LarapexChart)->setType('area')
-    //   ->setTitle('PACIENTES NUEVOS POR MES')
-    //   ->setSubtitle('')
-    //   ->setGrid(true)
-    //   ->setXAxis(['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio',
-    //   'Agosto','Septiembre','Octubre','Noviembre','Diciembre',])
-    //   ->setDataSet([
-    //       [
-    //           'name' => 'PACIENTES POR MES :',
-    //           'data' =>
-    //           [
-    //              $enero,
-    //              $febrero,
-    //              $marzo,
-    //              $abril,
-    //              $mayo,
-    //              $junio,
-    //              $julio,
-    //              $agosto,
-    //              $septiembre,
-    //              $octubre,
-    //              $noviembre,
-    //              $diciembre,
-    //           ]
-    //       ]
-    //   ]);
+    $chartpacientesxmes = (new LarapexChart)->pieChart()
+    ->addData([$enero,$febrero,$marzo,$abril,$mayo,$junio,$julio,$agosto,$septiembre,$octubre, $noviembre, $diciembre])
+    ->setTitle('PACIENTES NUEVOS REGISTRADOS POR MES')
+    ->setLabels(['Enero','Febrero','MArzo','Abril','MAyo','Junio','Julio','Agosto','Septiembre','Octubre', 'Noviembre', 'Diciembre']);
+
+    return view('dash', compact('chartVentasxSemana',
+    'chartVentasxMes','chartBalancexMes','usuarios','chartpacientesxmes',
+    'atendidas','pendientes','canceladas','noasiste','totalcitas'));
 
 
-
-
-
-
-
-
-        return view('dash', compact('chartVentasxSemana', 'chartVentasxMes','chartBalancexMes','usuarios','chartpacientesxmes'));
-
-        //return view('dash');
     }
 }
