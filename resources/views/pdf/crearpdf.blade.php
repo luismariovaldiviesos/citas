@@ -122,7 +122,7 @@
             </table>
 
 
-            <h2>TOTAL HOY: $ {{ $total_diario + $extras }}</h2>
+            <h2>TOTAL: $ {{ $total_diario + $extras }}</h2>
 
         </section>
 

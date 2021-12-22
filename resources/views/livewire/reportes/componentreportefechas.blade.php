@@ -132,7 +132,7 @@
 
                         </div>
 
-                        <h2>TOTAL HOY: {{ $sumCitas + $sumExtras }}</h2>
+                        <h2>TOTAL: {{ $sumCitas + $sumExtras }}</h2>
 
                     </div>
                 </div>

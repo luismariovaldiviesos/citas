@@ -40,7 +40,7 @@ class CreatePdfController extends Controller
                     $query->whereBetween('citas.created_at', [$from,$to])
                            ->orwhereBetween('citas.updated_at', [$from,$to]);
                 })
-                ->where('citas.pago_id',1)
+                ->where('citas.estado_pago','PAGADO')
                  ->get();
                  $pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
                 // dd('todos');
@@ -53,7 +53,7 @@ class CreatePdfController extends Controller
                    ->orwhereBetween('citas.updated_at', [$from,$to]);
         })
         ->where('medico_id', $medico_id)
-        ->where('citas.pago_id',1)
+        ->where('citas.estadpo_pago','PAGADO')
         ->get();
         $pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
         //dd('por medicos');

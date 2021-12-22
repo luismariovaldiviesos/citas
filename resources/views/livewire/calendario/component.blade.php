@@ -357,9 +357,15 @@
                    //***** FORMA UNO QUE FUNCIONO ****///
                   // events: JSON.parse(data), // carga data del metodo
 
+                   //***** FORMA DOS QUE FUNCIONO ****///
+
                   eventSources: [{
                     url: '/api/calendario/citas',
                   }],
+
+                 //***** FORMA TRES QUE FUNCIONO ****///
+
+                // events: "http://citas.test/api/calendario/citas",
 
                 //    select: function(){
                 //     $('#modalAgendar').modal('toggle');
