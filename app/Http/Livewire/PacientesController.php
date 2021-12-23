@@ -225,10 +225,7 @@ class PacientesController extends Component
 
     }
 
-    public function countPaciente(PacientesChart $chart)
-    {
-        return view('home', ['chart' => $chart->build()]);
-    }
+
 
 
 }

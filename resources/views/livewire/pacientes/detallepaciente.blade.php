@@ -29,37 +29,45 @@
                     <tbody>
                         @foreach ($citas as $c )
                          <tr>
+
                              <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</h6></td>
                              <td><h6>{{$c->tratamiento->nombre}}</h6></td>
                              <td><h6>{{$c->estado->nombre}}</h6></td>
                              <td><h6>{{$c->tratamiento->precio}}</h6></td>
-                             <td><h6>{{$c->pago->nombre}}</h6></td>
+                             <td><h6>{{$c->estado_pago}}</h6></td>
                              <td><h6>{{$c->medico->nombre}}</h6></td>
-                             @if ($c->pago->nombre == 'PAGADO')
+                             <td hidden><h6>{{$idpaciente = $c->paciente->id }}</h6></td>
+                             @if ($c->estado_pago == 'PAGADO')
                                  <td hidden><h6>{{$total = $total+$c->tratamiento->precio }}</h6></td>
-                             @elseif ($c->pago->nombre == 'PENDIENTE')
+
+                             @elseif ($c->estado_pago == 'PENDIENTE')
                                  <td hidden><h6>{{$pendiente = $pendiente+$c->tratamiento->precio }}</h6></td>
                              @endif
                          </tr>
                         @endforeach
+                        <a class="btn btn-dark "
+                             href="{{ url('detpaciente' . '/'.$idpaciente) }}"  target="_blank">Imprimir Historial</a>
                      </tbody>
                      <tfoot>
                          <tr>
                              <td colspan="2"><h5 class="text-center font-weight-bold"><span class="badge badge-success">CANCELADO:</span></h5></td>
                              <td><h5 class="text-center">{{$total}}</h5></td>
 
+
+
                          </tr>
                          <tr>
                              <td colspan="2"><h5 class="text-center font-weight-bold"><span class="badge badge-danger">PENDIENTE:</span></h5></td>
                              <td><h5 class="text-center">{{$pendiente}}</h5></td>
-
                          </tr>
 
                          <tr>
                              <td colspan="2"><h5 class="text-center font-weight-bold"><span class="badge badge-primary">TOTAL PACIENTE:</span></h5></td>
                              <td><h5 class="text-center">{{$total + $pendiente}}</h5></td>
+                             {{-- <td><h5 class="text-center">{{$idpaciente}}</h5></td> --}}
 
                          </tr>
+
                      </tfoot>
 
 
@@ -75,7 +83,10 @@
                 data-dismiss="modal">
                 CERRAR
             </button>
+
+
         </div>
+
     </div>
     </div>
 </div>

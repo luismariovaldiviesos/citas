@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cita;
 use App\Models\Medico;
+use App\Models\Paciente;
 use App\Models\PagoExtra;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -18,6 +19,7 @@ class CreatePdfController extends Controller
         $pagosextras = [];
         $total_diario = 0;
         $extras = 0;
+
 
 
         if($reportType == 0) // ventas del dia
@@ -53,7 +55,7 @@ class CreatePdfController extends Controller
                    ->orwhereBetween('citas.updated_at', [$from,$to]);
         })
         ->where('medico_id', $medico_id)
-        ->where('citas.estadpo_pago','PAGADO')
+        ->where('citas.estado_pago','PAGADO')
         ->get();
         $pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
         //dd('por medicos');
@@ -63,6 +65,19 @@ class CreatePdfController extends Controller
     $pdf = PDF::loadView('pdf.crearpdf', compact('citas','pagosextras','reportType','medico','dateFrom','dateTo','total_diario','extras'));
     return $pdf->stream('reporte.pdf'); // visualizar
 
+    }
+
+
+
+    public  function detallePacientePDF(Paciente $idpaciente)
+    {
+        $totalpagadopaciente = 0;
+        $totalpendientepaciente = 0;
+        $totaldetallepaciente = 0;
+       $citas = $idpaciente->citas;
+       //dd($citas);
+       $detallepacientepdf = PDF::loadView('pdf.detallepacientepdf', compact('citas','totalpagadopaciente','totalpendientepaciente','totaldetallepaciente'));
+       return $detallepacientepdf->stream('detallepaciente.pdf');
     }
 
 }
