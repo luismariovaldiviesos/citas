@@ -11,7 +11,7 @@
               <div class="card-body">
                 <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <div class="statistics-item">
-                      <p class="text-white">
+                      <p class="text-dark">
                         <i class="icon-sm fa fa-user mr-2"></i>
                        CITAS ATENDIDAS
                       </p>
@@ -19,7 +19,7 @@
                       <label class="badge badge-outline-success badge-pill">2.7% increase</label>
                     </div>
                     <div class="statistics-item">
-                      <p class="text-white">
+                      <p class="text-dark">
                         <i class="icon-sm fas fa-hourglass-half mr-2"></i>
                        CITAS PENDIENTES
                       </p>
@@ -27,7 +27,7 @@
                       <label class="badge badge-outline-danger badge-pill">30% decrease</label>
                     </div>
                     <div class="statistics-item">
-                      <p class="text-white">
+                      <p class="text-dark">
                         <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
                         CANCELADAS POR EL USUARIO
                       </p>
@@ -35,7 +35,7 @@
                       <label class="badge badge-outline-success badge-pill">12% increase</label>
                     </div>
                     <div class="statistics-item">
-                      <p class="text-white">
+                      <p class="text-dark">
                         <i class="icon-sm fas fa-check-circle mr-2"></i>
                         NO ASISTE
                       </p>
@@ -43,7 +43,7 @@
                       <label class="badge badge-outline-success badge-pill">57% increase</label>
                     </div>
                     <div class="statistics-item">
-                      <p class="text-white">
+                      <p class="text-dark">
                         <i class="icon-sm fas fa-chart-line mr-2"></i>
                         TOTAL CITAS AÑO {{ date('Y') }}
                       </p>
