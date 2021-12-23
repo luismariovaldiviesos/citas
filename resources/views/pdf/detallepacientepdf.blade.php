@@ -16,7 +16,7 @@
             <table cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <td colspan="2" class="text-center">
-                        <span style="font-size: 25px; font-weight: bold;">Sistema de Citas</span>
+                        <span style="font-size: 25px; font-weight: bold;">Historia clínica {{ $nombrepaciente }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +34,7 @@
 
           {{-- table --}}
         <section style="margin-top: -110px">
-            <h4 class="card-title text-center"><b>Reporte de Citas  </b></h4>
+            <h3 class="card-title text-center"><b>Reporte de citas {{ $nombrepaciente }}  </b></h3>
             <table border="2px" cellpadding ="2" cellspacing="2" class="table-items" width="100%">
                 <thead>
                     <tr>
@@ -47,7 +47,7 @@
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     @foreach ($citas as $c )
                     <tr>
                         <td align="center">{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</td>
@@ -71,23 +71,23 @@
 
                     </tr>
                     @endforeach
-                </tbody>
+                </tbody >
 
                 <tfoot >
                     <tr>
-                        <td colspan="2"><h4 class="text-center font-weight-bold">
+                        <td colspan="2" style="border: 10px"><h4 class="text-center font-weight-bold">
                         <span class="badge badge-danger">CANCELADO:</span></h4></td>
-                        <td><h4 class="text-center">{{$totalpagadopaciente}}</h4></td>
+                        <td style="border: 10px"><h4 class="text-center">{{$totalpagadopaciente}}</h4></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><h4 class="text-center font-weight-bold">
+                        <td colspan="2" style="border: 10px"><h4 class="text-center font-weight-bold">
                         <span class="badge badge-danger">PENDIENTE:</span></h4></td>
-                        <td><h4 class="text-center">{{$totalpendientepaciente}}</h4></td>
+                        <td style="border: 10px"> <h4 class="text-center">{{$totalpendientepaciente}}</h4></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><h4 class="text-center font-weight-bold">
+                        <td colspan="2" style="border: 10px"><h4 class="text-center font-weight-bold">
                         <span class="badge badge-primary">TOTAL PACIENTE:</span></h4></td>
-                        <td><h4 class="text-center">{{$totalpagadopaciente + $totalpendientepaciente}}</h4></td>
+                        <td style="border: 10px"><h4 class="text-center">{{$totalpagadopaciente + $totalpendientepaciente}}</h4></td>
                         {{-- <td><h5 class="text-center">{{$idpaciente}}</h5></td> --}}
 
                     </tr>

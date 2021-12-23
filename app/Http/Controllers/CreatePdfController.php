@@ -75,8 +75,9 @@ class CreatePdfController extends Controller
         $totalpendientepaciente = 0;
         $totaldetallepaciente = 0;
        $citas = $idpaciente->citas;
+       $nombrepaciente = $idpaciente->nombre;
        //dd($citas);
-       $detallepacientepdf = PDF::loadView('pdf.detallepacientepdf', compact('citas','totalpagadopaciente','totalpendientepaciente','totaldetallepaciente'));
+       $detallepacientepdf = PDF::loadView('pdf.detallepacientepdf', compact('nombrepaciente','citas','totalpagadopaciente','totalpendientepaciente','totaldetallepaciente'));
        return $detallepacientepdf->stream('detallepaciente.pdf');
     }
 
