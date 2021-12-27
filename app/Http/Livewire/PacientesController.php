@@ -21,11 +21,17 @@ class PacientesController extends Component
     private $pagination = 10;
 
     public $citas = [];
+    public $pagos = [];
 
     public $total = 0;
     public $pendiente = 0;
     public $pacientes = 0;
 
+    public $sumExtras = 0;
+
+    public $saldoPendiente=0;
+
+    public $saldoFavor =0;
 
     public function paginationView()
     {
@@ -151,6 +157,9 @@ class PacientesController extends Component
     public function detallePaciente (Paciente $paciente)
     {
         $cit = $paciente->citas;
+        $pag = $paciente->pagoextras;
+        //dd($pag);
+        $this->pagos = $pag;
         $this->citas = $cit;
         $this->emit('show-detail','details loaded');
 

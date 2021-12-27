@@ -16,6 +16,7 @@ class CreatePdfController extends Controller
     public function crearPdf($medico_id, $reportType, $dateFrom = null, $dateTo = null)
     {
         $citas = [];
+        $pagos=[];
         $pagosextras = [];
         $total_diario = 0;
         $extras = 0;
@@ -71,13 +72,16 @@ class CreatePdfController extends Controller
 
     public  function detallePacientePDF(Paciente $idpaciente)
     {
+
         $totalpagadopaciente = 0;
         $totalpendientepaciente = 0;
         $totaldetallepaciente = 0;
+        $sumExtras = 0;
        $citas = $idpaciente->citas;
+       $pagos =  $idpaciente->pagoextras;
        $nombrepaciente = $idpaciente->nombre;
        //dd($citas);
-       $detallepacientepdf = PDF::loadView('pdf.detallepacientepdf', compact('nombrepaciente','citas','totalpagadopaciente','totalpendientepaciente','totaldetallepaciente'));
+       $detallepacientepdf = PDF::loadView('pdf.detallepacientepdf', compact('nombrepaciente','citas','totalpagadopaciente','totalpendientepaciente','totaldetallepaciente','pagos','sumExtras'));
        return $detallepacientepdf->stream('detallepaciente.pdf');
     }
 

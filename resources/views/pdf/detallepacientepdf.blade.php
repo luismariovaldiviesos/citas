@@ -23,18 +23,15 @@
                     <td width="30%" style="vertical-align: top; padding-top: 10px; position: relative; ">
                         <img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="invoice-logo">
                     </td>
-
-                    <td width="70%"  class="text-left text-company"  style="vertical-align: top; padding-top: 10px;">
-
-                        {{-- <span style="font-size: 14px">Usuario: {{$user}}</span> --}}
+                        <td width="70%"  class="text-left text-company"  style="vertical-align: top; padding-top: 10px;">
                     </td>
                 </tr>
             </table>
         </section>
 
           {{-- table --}}
-        <section style="margin-top: -110px">
-            <h3 class="card-title text-center"><b>Reporte de citas {{ $nombrepaciente }}  </b></h3>
+        <section style="margin-top: -120px">
+            <h2 class="card-title text-center">Citas:</h2>
             <table border="2px" cellpadding ="2" cellspacing="2" class="table-items" width="100%">
                 <thead>
                     <tr>
@@ -73,33 +70,59 @@
                     @endforeach
                 </tbody >
 
-                <tfoot >
-                    <tr>
-                        <td colspan="2" style="border: 10px"><h4 class="text-center font-weight-bold">
-                        <span class="badge badge-danger">CANCELADO:</span></h4></td>
-                        <td style="border: 10px"><h4 class="text-center">{{$totalpagadopaciente}}</h4></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="border: 10px"><h4 class="text-center font-weight-bold">
-                        <span class="badge badge-danger">PENDIENTE:</span></h4></td>
-                        <td style="border: 10px"> <h4 class="text-center">{{$totalpendientepaciente}}</h4></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="border: 10px"><h4 class="text-center font-weight-bold">
-                        <span class="badge badge-primary">TOTAL PACIENTE:</span></h4></td>
-                        <td style="border: 10px"><h4 class="text-center">{{$totalpagadopaciente + $totalpendientepaciente}}</h4></td>
-                        {{-- <td><h5 class="text-center">{{$idpaciente}}</h5></td> --}}
-
-                    </tr>
-                </tfoot>
             </table>
 
+            <h3>Abonado : {{$totalpagadopaciente}}</h3>
+            <h3>Deuda : {{$totalpendientepaciente}}</h3>
+            <h3>Total: {{$totalcitas = $totalpendientepaciente + $totalpagadopaciente}}</h3>
 
 
+            <h2 class="card-title text-center">Pagos extras</h2>
+                <table border="2px" cellpadding ="2" cellspacing="2" class="table-items" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="33%">DESCRIPCION DEL PAGO</th>
+                            <th width="34%">FECHA PAGO</th>
+                            <th width="33%">MONTO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (count($pagos) <1 )
+                            <tr><td colspan="7"><h5>Sin pagos extras</h5></td></tr>
+                        @endif
+                        @foreach ($pagos as $pe )
+                        <tr>
+                            <td align="center">{{$pe->descripcion}}</td>
+                            <td align="center">{{\Carbon\Carbon::parse($pe->created_at)->isoFormat('LL')}}</td>
+                            <td align="center">{{$pe->monto}}</td>
+                            {{-- <td hidden align="center">{{$sumExtras = $sumExtras+$pe->monto }}</td> --}}
+                            @php
+                                $sumExtras = $sumExtras+$pe->monto
+                            @endphp
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+
+                </table>
+                <h3>Aportes:  {{$sumExtras}}</h3>
 
 
+              @if ($totalpendientepaciente < $sumExtras)
+                  @php
+                      $saldoPendiente = $sumExtras - $totalpendientepaciente
+                  @endphp
+            @else
+                @php
+                    $saldoPendiente = $totalpendientepaciente - $sumExtras
+                @endphp
+              @endif
 
-
+              @if ($sumExtras < $totalpendientepaciente )
+              <h2>Saldo pendiente: {{ $saldoPendiente}}</h2>
+          @else ()
+                <h2>Saldo a favor: {{ $saldoPendiente}}</h2>
+          @endif
             {{-- <h2>TOTAL: $ {{ $total_diario + $extras }}</h2> --}}
 
         </section>
