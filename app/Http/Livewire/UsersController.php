@@ -196,20 +196,18 @@ public function Update()
 
 public function destroy(User $user)
 {
-    //  if($user) {
-    //     $sales = Sale::where('user_id', $user->id)->count();
-    //     if($sales > 0)  {
-    //         $this->emit('user-withsales','No es posible eliminar el usuario porque tiene ventas registradas');
-    //     } else {
-    //         $user->delete();
-    //         $this->resetUI();
-    //         $this->emit('user-deleted','Usuario Eliminado');
-    //     }
-    // }
+    $numcitas = count($user->citas);
+    if($numcitas < 1)
+    {
+        $user->delete();
+        $this->resetUI();
+        $this->emit('user-deleted','Usuario Eliminado');
+    }
+    else
+    {
+        $this->emit('user-nodeleted','no se puede eliminar el usuario, tiene citas registradas');
+    }
 
-    $user->delete();
-    $this->resetUI();
-    $this->emit('user-deleted','Usuario Eliminado');
 }
 
 }

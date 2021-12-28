@@ -64,7 +64,7 @@ class DashController extends Controller
             //dd($weekSales);
 
             $chartVentasxSemana = new LarapexChart();
-            $chartVentasxSemana->setTitle('CITAS PAGADAS DE ESTA SEMANA')
+            $chartVentasxSemana->setTitle('CITAS AGENDADAS Y  PAGADAS DE ESTA SEMANA')
             ->setLabels(['LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','Sabado','Domingo'])
             ->setType('donut')
             ->setDataSet([intval($weekSales[0]->total),
@@ -77,7 +77,10 @@ class DashController extends Controller
                           ]);
 
 
-     //GRAIFCO VENTAS POR MES
+
+
+
+         //GRAIFCO VENTAS POR MES
 
        // $anioActual =  date('Y');
         $mesActual = date('m');

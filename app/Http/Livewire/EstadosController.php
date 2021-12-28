@@ -48,14 +48,24 @@ class EstadosController extends Component
     {
 
         $record = Estado::find($id, ['id','nombre']);
+
+        $numestados = count($record->citas);
+        if($numestados < 1)
+        {
         $this->nombre = $record->nombre;
         $this->selected_id = $record->id;
+        $this->emit('show-modal', 'editar elemento');
+        }
+
+        else{
+            $this->emit('estado-noedita', 'no se puede editar el estado, tiene citas relacionadas');
+        }
 
         // notificar al fornt que la info ya esta cargada en las propiedaddes y que
         // puede mostrar el modal
         // para eso se emite el evento :
 
-        $this->emit('show-modal', 'editar elemento');
+
     }
 
     public function Store()

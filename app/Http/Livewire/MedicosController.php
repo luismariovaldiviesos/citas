@@ -53,19 +53,23 @@ class MedicosController extends Component
     public function Edit($id)
     {
 
+
         $record = Medico::find($id, ['id','nombre','ci', 'telefono',  'email','direccion']);
-        $this->nombre = $record->nombre;
-        $this->ci = $record->ci;
-        $this->telefono = $record->telefono;
-        $this->email = $record->email;
-        $this->direccion = $record->direccion;
-        $this->selected_id = $record->id;
+          $this->nombre = $record->nombre;
+            $this->ci = $record->ci;
+            $this->telefono = $record->telefono;
+            $this->email = $record->email;
+            $this->direccion = $record->direccion;
+            $this->selected_id = $record->id;
+            $this->emit('show-modal', 'editar elemento');
+
+
 
         // notificar al fornt que la info ya esta cargada en las propiedaddes y que
         // puede mostrar el modal
         // para eso se emite el evento :
 
-        $this->emit('show-modal', 'editar elemento');
+
     }
 
     public function Store()
@@ -153,10 +157,21 @@ class MedicosController extends Component
     public function Destroy(Medico $medico)
     {
         //$tratamiento = Tratamiento::find($id);
-        $medico->delete();
-        $this->resetUI();
-        $this->emit('medico-deleted','Medic@ eliminado correctamente');
+        $numcitas = count($medico->citas);
+        //dd($numcitas);
+        if($numcitas < 1)
+        {
+            $medico->delete();
+            $this->resetUI();
+            $this->emit('medico-deleted','Medic@ eliminado correctamente');
+        }
+        else
+        {
+            $this->emit('medico-noelimina', 'no se puede eliminar el medic@, tiene citas agendadas');
+        }
     }
 
 
 }
+
+

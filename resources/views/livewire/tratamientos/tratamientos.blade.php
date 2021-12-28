@@ -89,6 +89,10 @@
         window.livewire.on('show-modal', msg=>{
             $('#theModal').modal('show');
         });
+        window.livewire.on('tratamiento-noedita', Msg=> {
+            noty(Msg)
+        })
+
 
         // evento que viene desde el Store
         window.livewire.on('tratamiento-added', msg=>{

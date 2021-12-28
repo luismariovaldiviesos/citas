@@ -29,7 +29,7 @@
                     <div class="statistics-item">
                       <p class="text-dark">
                         <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                        CANCELADAS POR EL USUARIO
+                        CANCELDAS POR EL PACIENTE
                       </p>
                       <h2>{{ $canceladas }}</h2>
                       <label class="badge badge-outline-success badge-pill">12% increase</label>

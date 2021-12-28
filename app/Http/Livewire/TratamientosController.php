@@ -51,16 +51,25 @@ class TratamientosController extends Component
     public function Edit($id)
     {
 
+
         $record = Tratamiento::find($id, ['id','nombre','precio']);
-        $this->nombre = $record->nombre;
-        $this->precio = $record->precio;
-        $this->selected_id = $record->id;
+        $numcitas = count($record->citas);
+        if($numcitas < 1)
+        {
+            $this->nombre = $record->nombre;
+            $this->precio = $record->precio;
+            $this->selected_id = $record->id;
+            $this->emit('show-modal', 'editar elemento');
+        }
+        else{
+            $this->emit('tratamiento-noedita', 'no se puede editar el tratamiento, tiene citas relacionadas');
+        }
 
         // notificar al fornt que la info ya esta cargada en las propiedaddes y que
         // puede mostrar el modal
         // para eso se emite el evento :
 
-        $this->emit('show-modal', 'editar elemento');
+
     }
 
     public function Store()

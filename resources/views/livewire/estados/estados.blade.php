@@ -84,6 +84,10 @@
             $('#theModal').modal('show');
         });
 
+        window.livewire.on('estado-noedita', Msg=> {
+            noty(Msg)
+        })
+
         // evento que viene desde el Store
         window.livewire.on('estado-added', msg=>{
             $('#theModal').modal('hide');

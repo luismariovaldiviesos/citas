@@ -95,6 +95,9 @@
         window.livewire.on('user-deleted', Msg =>{
            noty(Msg)
         })
+        window.livewire.on('user-nodeleted', Msg =>{
+           noty(Msg)
+        })
         window.livewire.on('hide-modal', Msg =>{
             $('#theModal').modal('hide')
         })

@@ -88,6 +88,13 @@
             $('#theModal').modal('show');
         });
 
+        window.livewire.on('medico-noedita', Msg=> {
+            noty(Msg)
+        })
+        window.livewire.on('medico-noelimina', Msg=> {
+            noty(Msg)
+        })
+
         // evento que viene desde el Store
         window.livewire.on('medico-added', msg=>{
             $('#theModal').modal('hide');
