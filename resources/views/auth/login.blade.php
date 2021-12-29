@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Sistema de Ventas LWPOS</title>
+    <title>Sistema</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
@@ -82,14 +82,14 @@
                             -->
                         </div>
                     </form>
-                    <p class="terms-conditions text-center">© 2021 All Rights Reserved. <a href="https://www.youtube.com/playlist?list=PLJjetMSzCM-oklVD-W3yVilbEXAbOk2Ns" target="_blank">KHIPU</a> <br>versión 1.0 </p>
+                    <p class="terms-conditions text-center">© 2021 All Rights Reserved. <a href="https://khipuweb.herokuapp.com/" target="_blank">KHIPU</a> <br>versión 1.0 </p>
 
                 </div>
             </div>
         </div>
     </div>
     <div class="form-image">
-        <a href="https://www.youtube.com/playlist?list=PLJjetMSzCM-oklVD-W3yVilbEXAbOk2Ns" target="_blank">
+        <a href="https://khipuweb.herokuapp.com/" target="_blank">
         <div class="l-image">
         </div>
     </a>
