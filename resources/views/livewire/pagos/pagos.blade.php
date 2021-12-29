@@ -33,13 +33,9 @@
                                 <tr>
                                     <td><h6>{{$pago->id}}</h6></td>
                                     <td><h6>{{$pago->nombre}}</h6></td>
-                                    {{-- <td class="text-center">
-                                        <span>
-                                            <img src="" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td> --}}
                                     <td>
-
+                                        {{-- PARA QQUE NO SE
+                                        PUEDA MODIFICAR NI ELIMINAR  --}}
 
                                         {{-- <a href="javascript:void(0)"
                                         wire:click="Edit({{$pago->id}})"

@@ -1,8 +1,9 @@
 <div class="row sales layout-top-spacing">
 
     <div class="col-sm-12">
-
+        @can('ver_medico')
         <div class="widget widget-chart-one">
+
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{$componentName}} | {{$pageTitle}}</b>
@@ -36,13 +37,12 @@
                         </thead>
                         <tbody>
                           @foreach($medicos as $medico)
-                          @can('ver_medico')
                                 <tr>
                                     <td><h6>{{$medico->id}}</h6></td>
                                     <td><h6> {{$medico->nombre}}</h6></td>
                                     <td><h6> {{$medico->telefono}}</h6></td>
                                     <td><h6> {{$medico->email}}</h6></td>
-                             @endcan
+
                                     <td>
                                       @can('editar_medico')
                                         <a href="javascript:void(0)"
@@ -71,7 +71,7 @@
             </div>
 
         </div>
-
+        @endcan
     </div>
 
     @include('livewire.medicos.form')

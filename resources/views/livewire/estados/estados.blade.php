@@ -3,6 +3,7 @@
     <div class="col-sm-12">
 
         <div class="widget widget-chart-one">
+            @can('ver_estado')
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{$componentName}} | {{$pageTitle}}</b>
@@ -35,11 +36,11 @@
                         </thead>
                         <tbody>
                             @foreach($estados as $estado)
-                            @can('ver_estado')
+
                               <tr>
                                     <td><h6>{{$estado->id}}</h6></td>
                                     <td><h6> {{$estado->nombre}}</h6></td>
-                            @endcan
+
                                     <td>
                                         @can('editar_estado')
                                             <a href="javascript:void(0)"
@@ -65,7 +66,7 @@
                 </div>
 
             </div>
-
+            @endcan
         </div>
 
     </div>

@@ -2,8 +2,8 @@
 <div class="row sales layout-top-spacing">
 
     <div class="col-sm-12">
-
         <div class="widget widget-chart-one">
+            @can('ver_paciente')
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{ $componentName}} registrados: {{$pacientes}} | {{$pageTitle}}</b>
@@ -43,7 +43,7 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $r )
-                                @can('ver_paciente')
+
                                   <tr>
                                     <td><h6>{{$r->nombre}}</h6></td>
                                     <td class="text-center"><h6>{{$r->telefono}}</h6></td>
@@ -54,7 +54,7 @@
                                         </span>
                                      </td>
                                     <td class="text-center"><h6>{{$r->direccion}}</h6></td>
-                                @endcan
+
 
 
                                     <td class="text-center">
@@ -92,6 +92,7 @@
                 </div>
 
             </div>
+            @endcan
 
         </div>
 

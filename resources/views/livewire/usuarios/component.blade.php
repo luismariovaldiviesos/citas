@@ -2,6 +2,8 @@
 <div class="row sales layout-top-spacing">
 
     <div class="col-sm-12">
+        {{-- @can('ver_usuario') --}}
+
 
         <div class="widget widget-chart-one">
             <div class="widget-heading">
@@ -51,16 +53,21 @@
                                         </span>
                                      </td>
                                     <td class="text-center">
-                                        <a href="javascript:void(0)"
-                                        wire:click="edit({{$r->id}})"
-                                        class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="javascript:void(0)"
-                                        onclick="Confirm('{{$r->id}}')"
-                                        class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        {{-- @can('editar_usuario') --}}
+                                            <a href="javascript:void(0)"
+                                            wire:click="edit({{$r->id}})"
+                                            class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        {{-- @endcan --}}
+
+                                        @can('eliminar_usuario')
+                                            <a href="javascript:void(0)"
+                                            onclick="Confirm('{{$r->id}}')"
+                                            class="btn btn-dark " title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -72,7 +79,7 @@
             </div>
 
         </div>
-
+        {{-- @endcan --}}
     </div>
 
   @include('livewire.usuarios.form')

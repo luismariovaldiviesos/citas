@@ -20,7 +20,7 @@ class ClinicaSeeder extends Seeder
             'telefono' => '2255183',
             'ruc' => '0102649843001',
             'email' => 'meldental@gmail',
-            'imagen' => 'noimg.jpg'
+            'image' => 'noimg.jpg'
         ]);
     }
 }

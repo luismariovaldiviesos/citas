@@ -1,6 +1,7 @@
 
 <div class="row sales layout-top-spacing">
     <div class="col-sm-12">
+        @can('ver_cita')
 
         <div class="widget widget-chart-one">
             <div class="widget-heading">
@@ -68,7 +69,7 @@
                              @endif
                             @foreach ($citas as $c )
                                 <tr>
-                                    @can('ver_cita')
+
                                         <td><h6>{{$c->paciente->nombre}}</h6></td>
                                         <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</h6></td>
                                         <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->format('H:i');}}</h6></td>
@@ -85,7 +86,7 @@
                                             </span>
 
                                         </td>
-                                    @endcan
+
 
                                     <td class="text-center">
                                         @can('editar_cita')
@@ -114,6 +115,7 @@
             </div>
 
         </div>
+        @endcan
 
     </div>
 

@@ -3,6 +3,7 @@
     <div class="col-sm-12">
 
         <div class="widget widget-chart-one">
+            @can('ver_permiso')
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{ $componentName}} | {{$pageTitle}}</b>
@@ -33,13 +34,13 @@
                         </thead>
                         <tbody>
                             @foreach ($permisos as $permiso )
-                                @can('ver_permiso')
+
                                  <tr>
                                     <td><h6>{{$permiso->id}}</h6></td>
                                     <td class="text-center">
                                       <h6> {{$permiso->name}}</h6>
                                     </td>
-                                @endcan
+
                                     <td class="text-center">
 
                                         @can('editar_permiso')
@@ -67,7 +68,7 @@
                 </div>
 
             </div>
-
+            @endcan
         </div>
 
     </div>

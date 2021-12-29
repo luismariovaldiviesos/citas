@@ -3,6 +3,7 @@
     <div class="col-sm-12">
 
         <div class="widget widget-chart-one">
+            @can('ver_tratamiento')
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{$componentName}} | {{$pageTitle}}</b>
@@ -38,11 +39,11 @@
                         <tbody>
 
                             @foreach($tratamientos as $tratamiento)
-                                @can('ver_tratamiento')
+
                                     <tr>
                                             <td><h6>{{$tratamiento->nombre}}</h6></td>
                                             <td><h6> $ {{$tratamiento->precio}}</h6></td>
-                                @endcan
+
                                         <td>
 
 
@@ -71,6 +72,7 @@
                 </div>
 
             </div>
+            @endcan
 
         </div>
 

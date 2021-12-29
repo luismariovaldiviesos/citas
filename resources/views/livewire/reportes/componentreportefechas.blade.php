@@ -6,8 +6,6 @@
                 <h4 class="card-title text-center"><b>{{$componentName}}</b></h4>
             </div>
             @can('ver_reporte')
-
-
             <div class="widget-content">
                 <div class="row">
                     <div class="col-sm-12 col-md-3">

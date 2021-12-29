@@ -4,6 +4,7 @@
     <div class="col-sm-12">
 
         <div class="widget widget-chart-one">
+            @can('ver_pagoextra')
             <div class="widget-heading">
                 <h4 class="card-title">
                     <b>{{$componentName}} | {{$pageTitle}}</b>
@@ -40,37 +41,37 @@
                         </thead>
                         <tbody>
 
-                            @can('ver_pagoextra')
+
                             @foreach($pagosextras as $pago)
-                            <tr>
-                                <td><h6>{{$pago->id}}</h6></td>
-                                <td><h6>{{$pago->descripcion}}</h6></td>
-                                <td><h6>{{$pago->paciente->nombre}}</h6></td>
-                                <td><h6>{{\Carbon\Carbon::parse($pago->created_at)->isoFormat('LL')}}</h6></td>
-                                <td><h6>{{$pago->monto}}</h6></td>
-                                <td>
+                                    <tr>
+                                        <td><h6>{{$pago->id}}</h6></td>
+                                        <td><h6>{{$pago->descripcion}}</h6></td>
+                                        <td><h6>{{$pago->paciente->nombre}}</h6></td>
+                                        <td><h6>{{\Carbon\Carbon::parse($pago->created_at)->isoFormat('LL')}}</h6></td>
+                                        <td><h6>{{$pago->monto}}</h6></td>
+                                        <td>
 
 
-                                   @can('editar_pagoextra')
-                                    <a href="javascript:void(0)"
-                                    wire:click="Edit({{$pago->id}})"
-                                    class="btn btn-dark mtmobile" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                   @endcan
+                                        @can('editar_pagoextra')
+                                            <a href="javascript:void(0)"
+                                            wire:click="Edit({{$pago->id}})"
+                                            class="btn btn-dark mtmobile" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endcan
 
-                                   @can('eliminar_pagoextra')
-                                   <a href="javascript:void(0)"
-                                   onClick="Confirm({{ $pago->id }})"
-                                   class="btn btn-dark " title="Delete">
-                                       <i class="fas fa-trash"></i>
-                                   </a>
-                                   @endcan
+                                        @can('eliminar_pagoextra')
+                                        <a href="javascript:void(0)"
+                                        onClick="Confirm({{ $pago->id }})"
+                                        class="btn btn-dark " title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        @endcan
 
-                                </td>
-                            </tr>
-                        @endforeach
-                            @endcan
+                                        </td>
+                                    </tr>
+                            @endforeach
+
 
 
                         </tbody>
@@ -79,7 +80,7 @@
                 </div>
 
             </div>
-
+            @endcan
         </div>
 
     </div>
