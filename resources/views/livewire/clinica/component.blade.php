@@ -58,8 +58,8 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <label >Logo</label>
-                            <input type="file" wire:model="imagen" value="{{ $this->imagen }}" accept="image/x-png, image/jpeg, image/gif" class="form-control">
-                            @error('imagen') <span class="text-danger ">{{ $message }}</span> @enderror
+                            <input type="file" wire:model="image"  accept="image/x-png, image/jpeg, image/gif" class="form-control">
+                            @error('image') <span class="text-danger ">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ class ClinicaController extends Component
 
     use WithFileUploads;
 
-    public $nombre, $direccion, $telefono, $ruc, $email, $imagen, $selected_id;
+    public $nombre, $direccion, $telefono, $ruc, $email, $image, $selected_id;
 
     public  function  mount()
     {
@@ -27,7 +27,7 @@ class ClinicaController extends Component
             $this->telefono = $clinica[0]->telefono;
             $this->ruc = $clinica[0]->ruc;
             $this->email = $clinica[0]->email;
-            //$this->imagen = $clinica[0]->imagen;
+            $this->image = $clinica[0]->imagen;
         }
 
     }
@@ -72,15 +72,16 @@ class ClinicaController extends Component
             'direccion' => $this->direccion,
             'telefono' => $this->telefono,
             'ruc' => $this->ruc,
-            'email' => $this->email
+            'email' => $this->email,
+            'image'=>$this->image
         ]);
 
-        if($this->imagen)
+        if($this->image)
         {
             $customFileName = uniqid() . ' _.' . $this->image->extension();
-            $this->imagen->storeAs('public/clinica', $customFileName);
-            $imageTemp = $clinica->imagen;
-            $clinica->imagen = $customFileName;
+            $this->image->storeAs('public/clinica', $customFileName);
+            $imageTemp = $clinica->image;
+            $clinica->image = $customFileName;
             $clinica->save();
 
             if($imageTemp != null)
@@ -93,7 +94,7 @@ class ClinicaController extends Component
         }
 
 
-        $this->emit('clinica-added','Datos de Empresa guardadod correctamente');
+        $this->emit('clinica-added','Datos de Empresa guardadodcorrectamente');
 
     }
 }

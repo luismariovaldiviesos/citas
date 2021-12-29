@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
+use App\Models\Clinica;
 use App\Models\Medico;
 use App\Models\Paciente;
 use App\Models\PagoExtra;
@@ -61,9 +62,12 @@ class CreatePdfController extends Controller
         $pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
         //dd('por medicos');
     }
+    $clinica = Clinica::all();
+    $logo = $clinica[0]->image;
+    //dd($logo);
 
     $medico = $medico_id == 0 ? 'Todos' : Medico::find($medico_id)->name;
-    $pdf = PDF::loadView('pdf.crearpdf', compact('citas','pagosextras','reportType','medico','dateFrom','dateTo','total_diario','extras'));
+    $pdf = PDF::loadView('pdf.crearpdf', compact('citas','pagosextras','reportType','medico','dateFrom','dateTo','total_diario','extras','logo'));
     return $pdf->stream('reporte.pdf'); // visualizar
 
     }

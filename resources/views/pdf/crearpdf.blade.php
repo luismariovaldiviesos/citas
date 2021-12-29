@@ -21,7 +21,8 @@
                 </tr>
                 <tr>
                     <td width="30%" style="vertical-align: top; padding-top: 10px; position: relative; ">
-                        <img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="invoice-logo">
+                        {{-- <img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="invoice-logo"> --}}
+                        <img src="{{ asset('storage/clinica/' . $logo ) }}" alt="imagen de ejemplo" height="80" width="90" class="rounded">
                     </td>
 
                     <td width="70%"  class="text-left text-company"  style="vertical-align: top; padding-top: 10px;">
