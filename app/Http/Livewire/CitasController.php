@@ -49,7 +49,7 @@ class CitasController extends Component
         $this->pageTitle ='Listado';
         $this->componentName ='Citas';
         $this->estado_id = 0;
-        $this->citas = [];
+        //$this->citas = [];
 
 
     }
@@ -57,10 +57,10 @@ class CitasController extends Component
 
     public function render()
     {
-        $this->citasTipo();
+       
         return view('livewire.citas.component', [
             'estados' => Estado::orderBy('id','asc')->get(),
-            'citas' => $this->citas,
+            'citas' =>  $this->citasTipo(),
             'pacientesSearch' => Paciente::all(),
             'pacientes' => Paciente::where('nombre','like','%'.$this->buscar_paciente.'%')->get(),
             'medicos' => Medico::all(),
@@ -99,7 +99,7 @@ class CitasController extends Component
 
             $date = Carbon::now();
             $fi =  Carbon::parse($date)->format('Y-m-01') . ' 00:00:00';
-            $this->citas =  Cita::where('fecha_ini','>=',$fi)->orderBy('fecha_ini','asc')
+            $cits =  Cita::where('fecha_ini','>=',$fi)->orderBy('fecha_ini','asc')
              ->paginate($this->pagination);
              $this->resetPage();
 
@@ -107,7 +107,7 @@ class CitasController extends Component
         }
         elseif($this->estado_id != 0 )
         {
-            $this->citas =  Cita::where('estado_id', $this->estado_id)
+            $cits =  Cita::where('estado_id', $this->estado_id)
                                 ->orderBy('fecha_ini','asc')
                                     ->paginate($this->pagination);
              $this->resetPage();
@@ -118,12 +118,15 @@ class CitasController extends Component
 
             $fi =  Carbon::parse($this->fechasearch)->format('Y-m-d') . ' 00:00:00';
              $ff =  Carbon::parse($this->fechasearch)->format('Y-m-d') . ' 23:59:59';
-             $this->citas = Cita::whereBetween('fecha_ini',[$fi,$ff])
+             $cits = Cita::whereBetween('fecha_ini',[$fi,$ff])
                                 ->orderBy('fecha_ini','asc')
                                     ->paginate($this->pagination);
              $this->resetPage();
 
         }
+
+       // dd($cits);
+        return $cits;
 
 
 
