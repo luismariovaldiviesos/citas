@@ -76,7 +76,7 @@ class TratamientosController extends Component
     {
         $rules = [
             'nombre' => 'required|unique:tratamientos|min:3',
-            'precio' => 'required|numeric|between:0,99'
+            'precio' => 'required|numeric|between:0,10000'
         ];
 
         $messages = [

@@ -16,7 +16,7 @@ class CreateTratamientosTable extends Migration
         Schema::create('tratamientos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',255);
-            $table->decimal('precio', 2, 0)->default(0.00);
+            $table->decimal('precio', 10, 2)->default(0.00);
             $table->timestamps();
         });
     }
