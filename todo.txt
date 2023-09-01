@@ -3,3 +3,21 @@ rol a user
 
 
 https://feathericons.com/
+
+
+
+hacer procedimiento
+un procedimiento tiene varios tratamientos (tabla)
+en procedimiento crear uno por defecto con costo cero
+en tratamiento hay qe adicionar procedimiento_id default 1 (sin procedimiento)
+
+
+hay que cambiar
+en citas
+
+
+
+ya no irira pagos ni tabla ni nada de eso
+solo se debe ver el costo del tratamiento y un campo para poner
+el valor se cancela y calcular los saldos ahi mismo en la cita
+eso vinculado al procedimiento

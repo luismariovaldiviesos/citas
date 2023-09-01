@@ -16,17 +16,15 @@ class EstadoSeeder extends Seeder
     public function run()
     {
         Estado::create([
-            'nombre' => 'ATENDIDO'
+            'nombre' => 'PENDIENTE'
         ]);
 
         Estado::create([
-            'nombre' => 'PENDIENTE'
+            'nombre' => 'EN PROCESO'
         ]);
         Estado::create([
-            'nombre' => 'CANCELADO'
+            'nombre' => 'FINALIZADO'
         ]);
-        Estado::create([
-            'nombre' => 'NO ASISTE'
-        ]);
+
     }
 }
