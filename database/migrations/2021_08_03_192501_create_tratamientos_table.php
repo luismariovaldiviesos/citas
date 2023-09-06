@@ -17,6 +17,8 @@ class CreateTratamientosTable extends Migration
             $table->id();
             $table->string('nombre',255);
             $table->decimal('precio', 10, 2)->default(0.00);
+            $table->unsignedBigInteger('procedimiento_id');
+            $table->foreign('procedimiento_id')->references('id')->on('procedimientos');
             $table->timestamps();
         });
     }

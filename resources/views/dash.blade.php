@@ -15,32 +15,23 @@
                         <i class="icon-sm fa fa-user mr-2"></i>
                        CITAS ATENDIDAS
                       </p>
-                      <h2>{{ $atendidas }}</h2>
-                      <label class="badge badge-outline-success badge-pill">2.7% increase</label>
+                      <h2>{{ $finalizadas }}</h2>
+
                     </div>
+                    <div class="statistics-item">
+                        <p class="text-dark">
+                          <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
+                         EN PROCESO
+                        </p>
+                        <h2>{{ $enproceso }}</h2>
+
+                      </div>
                     <div class="statistics-item">
                       <p class="text-dark">
                         <i class="icon-sm fas fa-hourglass-half mr-2"></i>
                        CITAS PENDIENTES
                       </p>
                       <h2>{{ $pendientes }}</h2>
-                      <label class="badge badge-outline-danger badge-pill">30% decrease</label>
-                    </div>
-                    <div class="statistics-item">
-                      <p class="text-dark">
-                        <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                        CANCELDAS POR EL PACIENTE
-                      </p>
-                      <h2>{{ $canceladas }}</h2>
-                      <label class="badge badge-outline-success badge-pill">12% increase</label>
-                    </div>
-                    <div class="statistics-item">
-                      <p class="text-dark">
-                        <i class="icon-sm fas fa-check-circle mr-2"></i>
-                        NO ASISTE
-                      </p>
-                      <h2>{{ $noasiste }}</h2>
-                      <label class="badge badge-outline-success badge-pill">57% increase</label>
                     </div>
                     <div class="statistics-item">
                       <p class="text-dark">

@@ -28,7 +28,7 @@ class CitasController extends Component
     public  $estado_id ,$fechasearch;
 
     //para la cita
-    public $estado;
+    public $estado, $cita_id_para_pagos;
 
     private $pagination = 15;
 
@@ -57,7 +57,7 @@ class CitasController extends Component
 
     public function render()
     {
-       
+
         return view('livewire.citas.component', [
             'estados' => Estado::orderBy('id','asc')->get(),
             'citas' =>  $this->citasTipo(),
@@ -131,10 +131,7 @@ class CitasController extends Component
 
 
     }
-    public function  pacienteNombre()
-    {
 
-    }
 
     public function resetUI()
     {
@@ -267,6 +264,7 @@ class CitasController extends Component
     public function edit($id)
     {
         $cita = Cita::find($id);
+        $this->cita_id_para_pagos = $cita->id;
         $this->descripcion =  $cita->descripcion;
         $this->fecha_ini =  $cita->fecha_ini;
         $this->fecha_fin =  $cita->fecha_fin;
@@ -323,6 +321,23 @@ class CitasController extends Component
         $this->emit('cita-updated', 'Cita Actualizada ');
 
     }
+
+    protected $listeners = [
+
+        'deleteRow' => 'Destroy'
+    ];
+
+    public function Destroy(Cita $cita)
+    {
+
+            $cita->delete();
+            $this->resetUI();
+            $this->emit('cita-deleted','Cita@ eliminado correctamente');
+
+
+    }
+
+
 
 
 

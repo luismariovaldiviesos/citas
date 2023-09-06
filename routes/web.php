@@ -14,6 +14,7 @@ use App\Http\Livewire\ClinicaController;
 use App\Http\Livewire\PacientesController;
 use App\Http\Livewire\CalendarController;
 use App\Http\Livewire\PagosExtrasController;
+use App\Http\Livewire\ProcedimientosController;
 use App\Http\Livewire\ReportsController;
 use App\Http\Livewire\ReportsFechasController;
 
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('citas', CitasController::class);
     Route::get('/pacientes', PacientesController::class);
     Route::get('/tratamientos', TratamientosController::class);
+    Route::get('/procedimientos', ProcedimientosController::class);
     Route::get('/estados', EstadosController::class);
     Route::get('/pagos', PagosController::class); // TIPOS PAGOS
     Route::get('/medicos', MedicosController::class);

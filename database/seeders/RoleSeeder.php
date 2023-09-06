@@ -163,6 +163,27 @@ class RoleSeeder extends Seeder
         //     'guard_name' => 'web',
         // ]);
 
+         Permission::create([
+            'name' => 'crear_procedimiento',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'ver_procedimiento',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'buscar_procedimiento',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'editar_procedimiento',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
+            'name' => 'eliminar_procedimiento',
+            'guard_name' => 'web',
+        ]);
+
         // permisos tratamiento
 
         Permission::create([

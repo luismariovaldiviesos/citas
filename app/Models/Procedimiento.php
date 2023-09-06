@@ -5,19 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tratamiento extends Model
+class Procedimiento extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre','precio'];
 
-    public function citas()
+
+    public function tratamientos()
     {
-        return $this->hasMany(Cita::class);
+        return $this->hasMany(Tratamiento::class);
     }
 
-    public function procedimiento(){
-
-        return $this->belongsTo(Procedimiento::class);
-
-    }
 }

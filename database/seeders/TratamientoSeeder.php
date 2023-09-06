@@ -17,22 +17,26 @@ class TratamientoSeeder extends Seeder
 
         Tratamiento::create([
             'nombre' => 'blanqueamiento',
-            'precio' => 20.00
+            'precio' => 20.00,
+            'procedimiento_id' => 1
         ]);
 
         Tratamiento::create([
             'nombre' => 'calza',
-            'precio' => 30.00
+            'precio' => 30.00,
+            'procedimiento_id' => 1
         ]);
 
         Tratamiento::create([
             'nombre' => 'extraccion',
-            'precio' => 15.00
+            'precio' => 15.00,
+            'procedimiento_id' => 1
         ]);
 
         Tratamiento::create([
             'nombre' => 'diagnostico',
-            'precio' => 20.00
+            'precio' => 20.00,
+            'procedimiento_id' => 1
         ]);
 
     }

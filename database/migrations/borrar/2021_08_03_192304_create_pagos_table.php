@@ -13,12 +13,12 @@ class CreatePagosTable extends Migration
      */
     public function up()
     {
-        Schema::create('pagos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre')->unique();
-            $table->string('observaciones')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('pagos', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('nombre')->unique();
+        //     $table->string('observaciones')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

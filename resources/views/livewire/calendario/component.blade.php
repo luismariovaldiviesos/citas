@@ -117,29 +117,22 @@
                                         <label for="">Tratamiento actual:</label>
                                         <input type="text" wire:model.defer="tratamiento" disabled class="form-control" >
                                         <br>
-                                        <label for="">CAMBIAR TRATAMIENTO:</label>
-                                        <select wire:model.lazy="tratamiento_id" class="form-control">
+                                        {{--<label for="">CAMBIAR TRATAMIENTO:</label>
+                                         <select wire:model.lazy="tratamiento_id" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
                                             @foreach ($tratamientos as $t )
-                                            <option value="{{ $t->id }}" >{{ $t->nombre }}</option>
+                                            <option value="{{ $t->id }}" >{{ $t->nombre }} </option>
                                             @endforeach
                                         </select>
-                                        @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
+                                        @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror --}}
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">Estado pago:</label>
+                                        <label for="">SALDO PENDIENTE:</label>
                                         <input type="text" wire:model.defer="estado_pago" disabled class="form-control" >
                                         <br>
-                                        <label for="">CAMBIAR PAGO:</label>
-                                        <select wire:model.lazy="estado_pago" class="form-control">
-                                            <option value="Elegir" selected>Elegir</option>
-                                           <option value="PAGADO">PAGADO</option>
-                                           <option value="PENDIENTE">PENDIENTE</option>
-                                        </select>
-                                        @error('estado_pago') <span class="text-danger er">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
 
@@ -148,6 +141,10 @@
                                         <label for="">Estado cita:</label>
                                         <input type="text" wire:model.defer="estado" disabled class="form-control" >
                                         <br>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
                                         <label for="">CAMBIAR ESTADO:</label>
                                         <select wire:model.lazy="estado_id" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
@@ -258,28 +255,50 @@
 
                                 <div class="col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label >Tratamiento</label>
-                                        <select wire:model.lazy="tratamiento_id" class="form-control">
+
+                                        {{-- <select wire:model="tratamiento_id" class="form-control">
                                             <option value="Elegir" selected>Elegir</option>
                                             @foreach ($tratamientos as $t )
                                             <option value="{{ $t->id }}" >{{ $t->nombre }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
+
+                                            {{-- <select wire:change="updateCostos()" >
+                                                @foreach ($tratamientos as $t )
+                                                  <option value="{{ $t->id }}">{{ $t->nombre }}</option>
+                                                  @endforeach
+                                            </select> --}}
+                                            <form >
+                                                <div class="form-group">
+                                                    <select wire:model="tratamiento_id" wire:change="updateValores" class="form-control">
+                                                        <option value="">Selecciona un tratamiento</option>
+                                                        @foreach ($tratamientos as $tratamiento)
+                                                            <option value="{{ $tratamiento->id }}">{{ $tratamiento->nombre }} - Costo: ${{ $tratamiento->precio }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </form>
+
                                         @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
 
+
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label >Pagos</label>
-                                        <select wire:model.lazy="estado_pago" class="form-control">
-                                            <option value="Elegir" selected>Elegir</option>
-                                            <option value="PAGADO">PAGADO</option>
-                                            <option value="PENDIENTE">PENDIENTE</option>
-                                        </select>
-                                        @error('estado_pago') <span class="text-danger er">{{ $message }}</span> @enderror
+                                        <label >VALOR PAGADO</label>
+                                        <input type="number" wire:model="total" wire:change="updateValores" class="form-control" >
+                                        @error('total') <span class="text-danger er">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label >SALDO CITA</label>
+                                        <input type="text" wire:model.lazy="saldo_cita" class="form-control" readonly>
+                                        @error('saldo_cita') <span class="text-danger er">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
 
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">

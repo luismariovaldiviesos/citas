@@ -12,6 +12,9 @@ en procedimiento crear uno por defecto con costo cero
 en tratamiento hay qe adicionar procedimiento_id default 1 (sin procedimiento)
 
 
+los saldos que quedan pueden ser cancelados con pagos extras (ver como se relaciona)
+
+
 hay que cambiar
 en citas
 

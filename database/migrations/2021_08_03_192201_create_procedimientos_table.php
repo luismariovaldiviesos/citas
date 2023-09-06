@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMontoOnPagoExtrasTable extends Migration
+class CreateProcedimientosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddMontoOnPagoExtrasTable extends Migration
      */
     public function up()
     {
-        Schema::table('pago_extras', function (Blueprint $table) {
-            $table->decimal('monto');
-
+        Schema::create('procedimientos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->decimal('precio',10,2);
+            $table->timestamps();
         });
     }
 
@@ -26,6 +28,6 @@ class AddMontoOnPagoExtrasTable extends Migration
      */
     public function down()
     {
-
+        Schema::dropIfExists('procedimientos');
     }
 }

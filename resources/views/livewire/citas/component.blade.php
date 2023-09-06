@@ -60,7 +60,7 @@
                                 <th class="text-center text-white table-th">ESTADO PAGO</th>
                                 <th class="text-center text-white table-th">ESTADO CITA</th>
                                 {{-- <th class="text-center text-white table-th">IMÁGEN</th> --}}
-                                <th class="text-center text-white table-th">ACTIONS</th>
+                                <th class="text-center text-white table-th">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,13 +97,13 @@
                                             </a>
                                         @endcan
 
-                                        @can('eliminar_cita')
+
                                             <a href="javascript:void(0)"
                                             onclick="Confirm('{{$c->id}}')"
                                             class="btn btn-dark " title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach

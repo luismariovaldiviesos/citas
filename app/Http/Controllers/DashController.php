@@ -57,7 +57,8 @@ class DashController extends Controller
             LEFT JOIN (
             SELECT SUM(total) as total, DATE(created_at) as
             fecha FROM citas WHERE created_at BETWEEN '$start' AND '$finish'
-            AND estado_pago ='PAGADO' GROUP BY DATE(created_at)) c ON d.fecha =  c.fecha";
+            AND saldo_cita  > 0.00
+            GROUP BY DATE(created_at)) c ON d.fecha =  c.fecha";
 
 
             $weekSales = DB::select(DB::raw($sql));
@@ -93,7 +94,7 @@ class DashController extends Controller
             {
                 $query->whereMonth('created_at', '=', $i)
                         ->orwhereMonth('updated_at', '=', $i);
-            })->where('estado_pago','PAGADO');
+            })->where('saldo_cita','>',0.00);
             $arrayMes[] = $cita->sum('total');
 
 
@@ -201,11 +202,11 @@ class DashController extends Controller
 
         // citas
 
-        $atendidas  = Cita::where('estado_id',1)->whereYear('created_at',$currentYear)->count();
-        $pendientes  = Cita::where('estado_id',2)->whereYear('created_at',$currentYear)->count();
-        $canceladas  = Cita::where('estado_id',3)->whereYear('created_at',$currentYear)->count();
-        $noasiste  = Cita::where('estado_id',4)->whereYear('created_at',$currentYear)->count();
-        $totalcitas = $atendidas+$pendientes+$canceladas+$noasiste;
+        $pendientes  = Cita::where('estado_id',1)->whereYear('created_at',$currentYear)->count();
+        $enproceso  = Cita::where('estado_id',2)->whereYear('created_at',$currentYear)->count();
+        $finalizadas  = Cita::where('estado_id',3)->whereYear('created_at',$currentYear)->count();
+        //$noasiste  = Cita::where('estado_id',4)->whereYear('created_at',$currentYear)->count();
+        $totalcitas = $pendientes+$enproceso+$finalizadas;
        // dd($atendidas);
 
 
@@ -280,7 +281,7 @@ class DashController extends Controller
 
     return view('dash', compact('chartVentasxSemana',
     'chartVentasxMes','chartBalancexMes','usuarios','chartpacientesxmes',
-    'atendidas','pendientes','canceladas','noasiste','totalcitas'));
+    'pendientes','enproceso','finalizadas','totalcitas'));
 
 
     }

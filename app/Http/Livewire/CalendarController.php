@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use phpDocumentor\Reflection\Types\This;
 
 class CalendarController extends Component
 {
@@ -22,10 +23,16 @@ class CalendarController extends Component
 
 
     // para agendar
-    public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta, $tratamiento_id, $estado_pago, $estado_id, $paciente_id, $total;
+    public $fecha_ini, $fecha_fin, $descripcion, $medico_id, $receta,  $estado_pago, $estado_id, $paciente_id;
+
+    // para los pagos
+    public $tratamiento_id, $precio_tratamiento,$total,$saldo_cita;
+
+
 
     // datos para cita
     public $medicos, $tratamientos, $pagos, $estados, $pacientes;
+
 
     public $editar ="si", $hoy;
 
@@ -35,10 +42,21 @@ class CalendarController extends Component
 
     }
 
+    public function updateValores() {
+
+        $tratamiento =  Tratamiento::find($this->tratamiento_id);
+        //dd($this->total);
+        //$this->tratamiento = $tratamiento->nombre;
+        $this->precio_tratamiento = $tratamiento->precio;
+        $this->saldo_cita =  $this->precio_tratamiento - $this->total;
+    }
+
     public function paginationView()
     {
         return 'vendor.livewire.bootstrap';
     }
+
+
 
 
     public function render()
@@ -65,15 +83,17 @@ class CalendarController extends Component
             'paciente_id' => 'required',
             'medico_id' => 'required',
             'tratamiento_id' => 'required',
-            'estado_pago' => 'required',
-            'estado' => 'required'
+            //'estado_pago' => 'required',
+            'estado' => 'required',
+            'total' => 'required',
+
 
         ];
         $messages =[
             'paciente_id.required' => 'Ingresa un paciente',
             'medico_id.required' => 'Ingresa un medico',
             'tratamiento_id.required' => 'Ingresa un tratamiento',
-            'estado_pago.required' => 'Ingresa un pago',
+            'total.required' => 'Ingresa el  valor de la consulta pagado',
             'estado.required' => 'Ingresa un estado'
 
         ];
@@ -89,10 +109,13 @@ class CalendarController extends Component
             'receta' => $this->receta,
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
-            'total' => $tratamiento->precio,
-            'estado_pago' => $this->estado_pago,
+            'precio_tratamiento' => $this->precio_tratamiento,
+            'total' => $this->total,
+            'saldo_cita' => $this->saldo_cita,
+            //'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
         ]);
+        //dd($cita);
         $cita->save();
         $this->resetUI();
         session()->flash('message', 'CITA AGENDADA CORRECTAMENTE');
@@ -111,6 +134,7 @@ class CalendarController extends Component
 
             $cita = Cita::find($this->id_cita);
             //dd($cita) ;
+
             if($this->tratamiento_id == null || $this->tratamiento_id == 'Elegir')
             {
                 $this->tratamiento_id = $cita->tratamiento_id;
@@ -155,6 +179,9 @@ class CalendarController extends Component
         $this->tratamiento_id ='';
         $this->estado_pago='';
         $this->estado='';
+         $this->precio_tratamiento ='';
+         $this->total = 0;
+         $this->saldo_cita ="";
         $this->resetValidation();
         $this->resetPage();
 
