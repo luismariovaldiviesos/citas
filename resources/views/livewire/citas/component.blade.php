@@ -57,8 +57,8 @@
                                 <th class="text-center text-white table-th">HORA CITA</th>
                                 <th class="text-center text-white table-th">TELÉFONO</th>
                                 <th class="text-center text-white table-th">TRATAMIENTO</th>
-                                <th class="text-center text-white table-th">ESTADO PAGO</th>
-                                <th class="text-center text-white table-th">ESTADO CITA</th>
+                                <th class="text-center text-white table-th">SALDO CITA</th>
+                                <th class="text-center text-white table-th">ESTADO</th>
                                 {{-- <th class="text-center text-white table-th">IMÁGEN</th> --}}
                                 <th class="text-center text-white table-th">ACCIONES</th>
                             </tr>
@@ -74,10 +74,15 @@
                                         <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</h6></td>
                                         <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->format('H:i');}}</h6></td>
                                         <td class="text-center"><h6>{{$c->paciente->telefono}}</h6></td>
-                                        <td class="text-center"><h6>{{$c->tratamiento->nombre}}</h6></td>
-                                        <td class="text-center">
+                                        <td class="text-center"><h6>{{$c->tratamiento->nombre}}  {{$c->tratamiento->precio}}</h6></td>
+                                        {{-- <td class="text-center">
                                             <span class="badge {{$c->estado_pago == 'PAGADO' ? 'badge-success' : 'badge-danger'}} text-uppercase">
                                                 {{$c->estado_pago}}
+                                            </span>
+                                        </td> --}}
+                                        <td class="text-center">
+                                            <span class="badge {{$c->saldo_cita == '0.00' ? 'badge-success' : 'badge-danger'}} text-uppercase">
+                                                {{$c->saldo_cita}}
                                             </span>
                                         </td>
                                         <td class="text-center">
@@ -97,12 +102,17 @@
                                             </a>
                                         @endcan
 
+                                        @can('eliminar_cita')
+                                        @if ($c->saldo_cita != '0.00')
+                                        <a href="javascript:void(0)"
+                                        onclick="Confirm('{{$c->id}}')"
+                                        class="btn btn-dark " title="Delete">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                        @endif
 
-                                            <a href="javascript:void(0)"
-                                            onclick="Confirm('{{$c->id}}')"
-                                            class="btn btn-dark " title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                        @endcan
+
 
                                     </td>
                                 </tr>

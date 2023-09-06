@@ -50,6 +50,10 @@ class RoleSeeder extends Seeder
             'guard_name' => 'web',
         ]);
         Permission::create([
+            'name' => 'eliminar_cita',
+            'guard_name' => 'web',
+        ]);
+        Permission::create([
             'name' => 'PACIENTE',
             'guard_name' => 'web',
         ]);

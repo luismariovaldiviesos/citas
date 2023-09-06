@@ -28,7 +28,7 @@ class CitasController extends Component
     public  $estado_id ,$fechasearch;
 
     //para la cita
-    public $estado, $cita_id_para_pagos;
+    public $estado, $precio_tratamiento, $saldo_cita;
 
     private $pagination = 15;
 
@@ -138,16 +138,24 @@ class CitasController extends Component
         $this->descripcion ='';
         $this->fecha_ini = '';
         $this->fecha_fin = '';
-        $this->buscar_paciente ='';
         $this->medico_id ='';
         $this->receta = "";
         $this->tratamiento_id ='';
         $this->estado_pago='';
-        $this->estado_id='';
-        $this->search='';
-        $this->selected_id=0;
+        $this->estado='';
+         $this->precio_tratamiento ='';
+         $this->total = 0;
+         $this->saldo_cita ="";
         $this->resetValidation();
         $this->resetPage();
+    }
+    public function updateValores() {
+
+        $tratamiento =  Tratamiento::find($this->tratamiento_id);
+        //dd($this->total);
+        //$this->tratamiento = $tratamiento->nombre;
+        $this->precio_tratamiento = $tratamiento->precio;
+        $this->saldo_cita =  $this->precio_tratamiento - $this->total;
     }
 
 
@@ -159,18 +167,21 @@ class CitasController extends Component
 
         $rules = [
            'buscar_paciente' => 'required',
-            'medico_id' => 'required',
-            'tratamiento_id' => 'required',
-            'estado_pago' => 'required',
-            'estado' => 'required'
+           'paciente_id' => 'required',
+           'medico_id' => 'required',
+           'tratamiento_id' => 'required',
+           //'estado_pago' => 'required',
+           'estado' => 'required',
+           'total' => 'required',
 
         ];
         $messages =[
            'buscar_paciente.required' => 'Ingresa un paciente',
-            'medico_id.required' => 'Ingresa un medico',
-            'tratamiento_id.required' => 'Ingresa un tratamiento',
-            'estado_pago.required' => 'Ingresa un pago',
-            'estado.required' => 'Ingresa un estado'
+           'paciente_id.required' => 'Ingresa un paciente',
+           'medico_id.required' => 'Ingresa un medico',
+           'tratamiento_id.required' => 'Ingresa un tratamiento',
+           'total.required' => 'Ingresa el  valor de la consulta pagado',
+           'estado.required' => 'Ingresa un estado'
 
         ];
 
@@ -200,8 +211,10 @@ class CitasController extends Component
             'receta' => $this->receta,
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
-            'total' => $tratamiento->precio,
-            'estado_pago' => $this->estado_pago,
+            'precio_tratamiento' => $this->precio_tratamiento,
+            'total' => $this->total,
+            'saldo_cita' => $this->saldo_cita,
+            //'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
         ]);
         $cita->save();
@@ -264,7 +277,7 @@ class CitasController extends Component
     public function edit($id)
     {
         $cita = Cita::find($id);
-        $this->cita_id_para_pagos = $cita->id;
+        //$this->cita_id_para_pagos = $cita->id;
         $this->descripcion =  $cita->descripcion;
         $this->fecha_ini =  $cita->fecha_ini;
         $this->fecha_fin =  $cita->fecha_fin;
@@ -313,8 +326,8 @@ class CitasController extends Component
             'receta' => $this->receta,
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
-            'total' => $this->total,
-            'estado_pago' => $this->estado_pago,
+            // 'total' => $this->total,
+            // 'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
         ]);
         $this->resetUI();

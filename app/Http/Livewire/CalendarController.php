@@ -160,8 +160,8 @@ class CalendarController extends Component
                 'receta' => $this->receta,
                 'user_id' => Auth::user()->id,
                 'tratamiento_id' => $this->tratamiento_id,
-                'total' => $this->total,
-                'estado_pago' => $this->estado_pago,
+                // 'total' => $this->total,
+                // 'estado_pago' => $this->estado_pago,
                 'estado_id' => $this->estado_id
             ]);
             $this->resetUI();

@@ -83,26 +83,33 @@
 
     <div class="col-sm-12 col-md-12">
         <div class="form-group">
-            <label >Tratamiento</label>
-            <select wire:model.lazy="tratamiento_id" class="form-control">
-                <option value="Elegir" selected>Elegir</option>
-                @foreach ($tratamientos as $t )
-                <option value="{{ $t->id }}" >{{ $t->nombre }}</option>
-                @endforeach
-            </select>
-            @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
+            <form >
+                <div class="form-group">
+                    <select wire:model="tratamiento_id" wire:change="updateValores" class="form-control">
+                        <option value="">Selecciona un tratamiento</option>
+                        @foreach ($tratamientos as $tratamiento)
+                            <option value="{{ $tratamiento->id }}">{{ $tratamiento->nombre }} - Costo: ${{ $tratamiento->precio }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+
+        @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
         </div>
     </div>
 
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
-            <label >Pagos</label>
-            <select wire:model.lazy="estado_pago" class="form-control">
-                <option value="Elegir" selected>Elegir</option>
-               <option value="PAGADO">PAGADO</option>
-               <option value="PENDIENTE">PENDIENTE</option>
-            </select>
-            @error('estado_pago') <span class="text-danger er">{{ $message }}</span> @enderror
+            <label >VALOR PAGADO</label>
+            <input type="number" wire:model="total" wire:change="updateValores" class="form-control" >
+            @error('total') <span class="text-danger er">{{ $message }}</span> @enderror
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="form-group">
+            <label >SALDO CITA</label>
+            <input type="text" wire:model.lazy="saldo_cita" class="form-control" readonly>
+            @error('saldo_cita') <span class="text-danger er">{{ $message }}</span> @enderror
         </div>
     </div>
 
