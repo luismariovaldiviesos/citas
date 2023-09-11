@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tratamiento extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre','precio'];
+    protected $fillable = ['nombre','precio','procedimiento_id'];
 
     public function citas()
     {

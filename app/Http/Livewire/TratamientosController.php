@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Livewire;
+
+use App\Models\Procedimiento;
 use App\Models\Tratamiento;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;  // para imagenes subir
@@ -13,7 +15,7 @@ class TratamientosController extends Component
 {
     use WithPagination;
 
-    public  $nombre, $precio, $search, $selected_id, $pageTitle, $componentName;
+    public  $nombre, $precio, $procedimiento_id, $search, $selected_id, $pageTitle, $componentName;
     private $pagination = 5;
 
     public function mount()
@@ -43,7 +45,9 @@ class TratamientosController extends Component
             ->paginate($this->pagination);
         }
 
-        return view('livewire.tratamientos.tratamientos', ['tratamientos' => $data])
+        $procedimientos = Procedimiento::all();
+
+        return view('livewire.tratamientos.tratamientos', ['tratamientos' => $data,'procedimientos' => $procedimientos])
         ->extends('layouts.theme.app')
         ->section('content');
     }
@@ -93,7 +97,8 @@ class TratamientosController extends Component
         $tratamiento = Tratamiento::create([
 
             'nombre' => $this->nombre,
-            'precio' => $this->precio
+            'precio' => $this->precio,
+            'procedimiento_id' => $this->procedimiento_id
 
         ]);
         $tratamiento->save();

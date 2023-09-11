@@ -31,7 +31,7 @@ class CalendarController extends Component
 
 
     // datos para cita
-    public $medicos, $tratamientos, $pagos, $estados, $pacientes;
+    public $medicos, $tratamientos, $pagos, $estados, $pacientes, $paciente_seleccionado = 'Seleccionar paciente';
 
 
     public $editar ="si", $hoy;
@@ -150,7 +150,8 @@ class CalendarController extends Component
             }
 
             $total  =   Tratamiento::find($this->tratamiento_id);
-            $this->total = $total->precio;
+            //$this->total = $total->precio;
+            //dd($cita);
             $cita->update([
                 'descripcion' => $this->title,
                 'fecha_ini' => $cita->fecha_ini,
@@ -160,8 +161,7 @@ class CalendarController extends Component
                 'receta' => $this->receta,
                 'user_id' => Auth::user()->id,
                 'tratamiento_id' => $this->tratamiento_id,
-                // 'total' => $this->total,
-                // 'estado_pago' => $this->estado_pago,
+                'total' => $this->total,
                 'estado_id' => $this->estado_id
             ]);
             $this->resetUI();

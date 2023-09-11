@@ -36,24 +36,37 @@
                                 <th class="text-white table-th">NOMBRE</th>
                                 <th class="text-center text-white table-th">TELÉFONO</th>
                                 <th class="text-center text-white table-th">EMAIL</th>
-                                <th class="text-center text-white table-th">IMÁGEN</th>
+                                <th class="text-center text-white table-th">PROCEDIMIENTOS</th>
                                 <th class="text-center text-white table-th">DIRECCION</th>
                                 <th class="text-center text-white table-th">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $r )
+                            @foreach ($data as $paciente )
 
                                   <tr>
-                                    <td><h6>{{$r->nombre}}</h6></td>
-                                    <td class="text-center"><h6>{{$r->telefono}}</h6></td>
-                                    <td class="text-center"><h6>{{$r->email}}</h6></td>
-                                    <td class="text-center">
+                                    <td><h6>{{$paciente->nombre}}</h6></td>
+                                    <td class="text-center"><h6>{{$paciente->telefono}}</h6></td>
+                                    <td class="text-center"><h6>{{$paciente->email}}</h6></td>
+                                    {{-- <td class="text-center">
                                         <span>
                                             <img src="{{ asset('storage/pacientes/' . $r->imagen ) }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                         </span>
-                                     </td>
-                                    <td class="text-center"><h6>{{$r->direccion}}</h6></td>
+                                     </td> --}}
+
+                                    <td class="text-center">
+                                            @foreach ($paciente->citas->unique('tratamiento.procedimiento.id')  as $cita )
+                                            <h6>
+                                                @if ($cita->tratamiento)
+                                                 {{ $cita->tratamiento->procedimiento->nombre }}
+                                                @else
+
+                                            @endif
+                                            </h6>
+                                            @endforeach
+
+                                    </td>
+                                    <td class="text-center"><h6>{{$paciente->direccion}}</h6></td>
 
 
 
@@ -61,7 +74,7 @@
 
                                        @can('editar_paciente')
                                         <a href="javascript:void(0)"
-                                        wire:click="edit({{$r->id}})"
+                                        wire:click="edit({{$paciente->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -69,7 +82,7 @@
 
                                         @can('eliminar_paciente')
                                             <a href="javascript:void(0)"
-                                            onclick="Confirm({{$r->id}} ,  {{ $r->citas->count() }})"
+                                            onclick="Confirm({{$paciente->id}} ,  {{ $paciente->citas->count() }})"
                                             class="btn btn-dark " title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </a>
@@ -77,7 +90,7 @@
 
                                         @can('detalle_paciente')
                                         <a href="javascript:void(0)"
-                                        wire:click="detallePaciente({{$r->id}})"
+                                        wire:click="detallePaciente({{$paciente->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-list"></i>
                                         </a>

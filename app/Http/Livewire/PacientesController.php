@@ -22,6 +22,7 @@ class PacientesController extends Component
 
     public $citas = [];
     public $pagos = [];
+    //public $procedimientos;
 
     public $total = 0;
     public $pendiente = 0;
@@ -60,8 +61,23 @@ class PacientesController extends Component
            $total =  $data->count();
 
 
+        // foreach($data as $paciente)
+        // {
+
+        // $this->procedimientos = $paciente->citas()
+        // ->with('tratamiento.procedimiento')
+        // ->get()
+        // ->pluck('tratamiento.procedimiento')
+        // ->unique();
+        //     //dd($this->procedimientos);
+
+        // }
+        //$procedimientos = Paciente::with(['citas.tratamiento.procedimiento'])->orderBy('id', 'asc')->paginate($this->pagination);
+          //  dd($this->procedimientos);
+
         return view('livewire.pacientes.component', [
-            'data' => $data
+            'data' => $data,
+            //'procedimientos' => $procedimientos
         ])
         ->extends('layouts.theme.app')->section('content');
 

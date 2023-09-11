@@ -58,7 +58,7 @@
                                 <th class="text-center text-white table-th">TELÉFONO</th>
                                 <th class="text-center text-white table-th">TRATAMIENTO</th>
                                 <th class="text-center text-white table-th">SALDO CITA</th>
-                                <th class="text-center text-white table-th">ESTADO</th>
+                                <th class="text-center text-white table-th">CITA</th>
                                 {{-- <th class="text-center text-white table-th">IMÁGEN</th> --}}
                                 <th class="text-center text-white table-th">ACCIONES</th>
                             </tr>

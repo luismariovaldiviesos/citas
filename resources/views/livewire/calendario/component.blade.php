@@ -114,7 +114,7 @@
 
                                 <div class="col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="">Tratamiento actual:</label>
+                                        <label for="">Tratamiento</label>
                                         <input type="text" wire:model.defer="tratamiento" disabled class="form-control" >
                                         <br>
                                         {{--<label for="">CAMBIAR TRATAMIENTO:</label>
@@ -201,6 +201,7 @@
                                         @endforeach
                                     </select>
                                     @error('paciente_id') <span class="error">{{ $message }}</span> @enderror
+
                                 </div>
                             </div>
                         </div>

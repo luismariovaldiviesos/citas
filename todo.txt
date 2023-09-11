@@ -24,3 +24,5 @@ ya no irira pagos ni tabla ni nada de eso
 solo se debe ver el costo del tratamiento y un campo para poner
 el valor se cancela y calcular los saldos ahi mismo en la cita
 eso vinculado al procedimiento
+
+editar tratamientos simre y cuabndo no haya saldos pendientes

@@ -1,37 +1,50 @@
 @include('common.modalHead')
 
 <div class="row">
+    @if ($editar == 'no')
+        <div class="col-sm-12 col-md-12">
+            <div class="form-group">
+                <label >Paciente</label>
+                <input wire:model="buscar_paciente" type="search" class="form-control" placeholder="Buscar paciente en el sistema ">
+                @error('buscar_paciente') <span class="text-danger er">{{ $message }}</span> @enderror
+                @if ($buscar_paciente != '')
+                <ul class="list-group" >
+                    @if (!$pacientes->isEmpty())
+                        @foreach($pacientes as $p)
+                            <li wire:click="cargarPaciente('{{$p}}')"
+                                class="list-group lis-group-action"
+                            >
+                                {{ $p->nombre }}</li>
+                        @endforeach
+                    @else
+                        @if ($editar == 'si')
+                            <p>Ups! No hay resultados </p>
+                        @else
+                            <p>Ups! No hay resultados </p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Crear Paciente
+                            </button>
+                        @endif
+                    @endif
+
+                </ul>
+            @else
+                <p>No hay consulta </p>
+            @endif
+            </div>
+        </div>
+    @else
+
     <div class="col-sm-12 col-md-12">
         <div class="form-group">
             <label >Paciente</label>
-            <input wire:model="buscar_paciente" type="search" class="form-control" placeholder="Buscar paciente en el sistema ">
-            @error('buscar_paciente') <span class="text-danger er">{{ $message }}</span> @enderror
-            @if ($buscar_paciente != '')
-            <ul class="list-group" >
-                @if (!$pacientes->isEmpty())
-                    @foreach($pacientes as $p)
-                        <li wire:click="cargarPaciente('{{$p}}')"
-                            class="list-group lis-group-action"
-                         >
-                            {{ $p->nombre }}</li>
-                    @endforeach
-                @else
-                    @if ($editar == 'si')
-                        <p>Ups! No hay resultados </p>
-                    @else
-                        <p>Ups! No hay resultados </p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Crear Paciente
-                        </button>
-                    @endif
-                @endif
-
-            </ul>
-        @else
-            <p>No hay consulta </p>
-        @endif
+            <div class="form-group">
+                <input type="text" wire:model.defer="buscar_paciente" class="form-control" disabled >
+            </div>
         </div>
     </div>
+
+    @endif
    <div wire:ignore class="mt-2 col-sm-6">
         <h6>Fecha Inicio</h6>
         <div class="form-group">
@@ -81,6 +94,7 @@
         </div>
     </div>
 
+    @if ($editar == 'no')
     <div class="col-sm-12 col-md-12">
         <div class="form-group">
             <form >
@@ -97,6 +111,18 @@
         @error('tratamiento_id') <span class="text-danger er">{{ $message }}</span> @enderror
         </div>
     </div>
+    @else
+
+    <div class="col-sm-12 col-md-12">
+        <div class="form-group">
+            <label for="">Tratamiento</label>
+            <input type="text" wire:model.defer="tratamiento" disabled class="form-control" >
+            <br>
+             @error('tratamiento') <span class="text-danger er">{{ $message }}</span> @enderror
+        </div>
+    </div>
+
+    @endif
 
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
