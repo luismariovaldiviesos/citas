@@ -8,6 +8,5 @@
             </div>
             <input type="text" wire:model ="search" placeholder="buscar" class="form-control">
         </div>
-
     </div>
 </div>

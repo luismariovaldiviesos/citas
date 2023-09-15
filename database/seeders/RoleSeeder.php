@@ -237,23 +237,23 @@ class RoleSeeder extends Seeder
         // pagos extras
 
          Permission::create([
-            'name' => 'crear_pagoextra',
+            'name' => 'crear_liquidacion',
             'guard_name' => 'web',
         ]);
         Permission::create([
-            'name' => 'ver_pagoextra',
+            'name' => 'ver_liquidacion',
             'guard_name' => 'web',
         ]);
         Permission::create([
-            'name' => 'buscar_pagoextra',
+            'name' => 'buscar_liquidacion',
             'guard_name' => 'web',
         ]);
         Permission::create([
-            'name' => 'editar_pagoextra',
+            'name' => 'editar_liquidacion',
             'guard_name' => 'web',
         ]);
         Permission::create([
-            'name' => 'eliminar_pagoextra',
+            'name' => 'eliminar_liquidacion',
             'guard_name' => 'web',
         ]);
 
