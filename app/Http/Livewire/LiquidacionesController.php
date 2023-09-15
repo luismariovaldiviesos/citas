@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Cita;
+use App\Models\Liquidacion;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -69,6 +70,16 @@ class LiquidacionesController extends Component
 
     public  function Store(){
 
+        $rules = [
+            'nuevo_pago' => 'required|numeric',
+        ];
+
+        $messages = [
+            'nuevo_pago.required' => 'Valor a pagar es requerido',
+            'nuevo_pago.numeric' => 'Valor a pagar debe ser en números',
+        ];
+        $this->validate($rules, $messages);
+
         //dd($this->precio_tratamiento,$this->total_pagado,$this->saldo_pendiente);
         //dd($this->id_cita);
         //$cita = Cita::find($this->id_cita);
@@ -83,7 +94,18 @@ class LiquidacionesController extends Component
                 //dd($this->cita_selected);
                 $new_tot =  $this->total_pagado + $this->nuevo_pago;
                 $new_saldo =  $this->precio_tratamiento - $new_tot;
-                //dd($new_tot);
+                $this->cita_selected->saldo_cita = $new_saldo;
+                $this->cita_selected->total = $new_tot;
+                $this->cita_selected->save();
+                $liquidacion =  Liquidacion::create([
+                    'observaciones' => $this->observaciones,
+                    'monto_liquidado' => $this->nuevo_pago,
+                    'cita_id' => $this->cita_selected->id
+                ]);
+                $this->emit('cita-added','Liquidación generada correctamente');
+                $this->resetUI();
+
+                //dd('total pagado: ' . $new_tot . 'nuevo saldo: ' . $new_saldo);
                 // guarda saldos cita
 
             }
