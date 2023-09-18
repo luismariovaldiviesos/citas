@@ -97,22 +97,29 @@
                                         @can('editar_cita')
                                             <a href="javascript:void(0)"
                                             wire:click="edit({{$c->id}})"
-                                            class="btn btn-dark mtmobile" title="Edit">
+                                            class="btn btn-dark mtmobile" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         @endcan
 
                                         @can('eliminar_cita')
-                                        @if ($c->saldo_cita != '0.00')
-                                        <a href="javascript:void(0)"
-                                        onclick="Confirm('{{$c->id}}')"
-                                        class="btn btn-dark " title="Delete">
-                                          <i class="fas fa-trash"></i>
-                                        </a>
-                                        @endif
-
+                                            @if ($c->total == '0.00')
+                                            <a href="javascript:void(0)"
+                                            onclick="Confirm('{{$c->id}}')"
+                                            class="btn btn-dark " title="Eliminar">
+                                            <i class="fas fa-trash"></i>
+                                            </a>
+                                            @endif
                                         @endcan
 
+                                        {{-- si hay liquidaciones --}}
+                                         @if ($c->liquidaciones->count() > 0)
+                                            <a href="javascript:void(0)"
+                                            wire:click="detalleLiquidaciones({{$c->id}})"
+                                            class="btn btn-dark mtmobile" title="Liquidaciones">
+                                                <i class="fas fa-list"></i>
+                                            </a>
+                                         @endif
 
                                     </td>
                                 </tr>

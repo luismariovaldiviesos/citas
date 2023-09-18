@@ -279,8 +279,6 @@ class CitasController extends Component
     public function edit($id)
     {
         $cita = Cita::find($id);
-        //dd($id);
-        //$this->cita_id_para_pagos = $cita->id;
         $this->tratamiento = $cita->tratamiento->nombre;
         $this->descripcion =  $cita->descripcion;
         $this->fecha_ini =  $cita->fecha_ini;
@@ -291,7 +289,6 @@ class CitasController extends Component
         $this->user_id = $cita->user_id;
         $this->tratamiento_id = $cita->tratamiento_id;
         $this->total  =  $cita->total;
-        //$this->estado_pago = $cita->estado_pago;
         $this->saldo_cita = $cita->saldo_cita;
         $this->estado = $cita->estado_id;
         $this->selected_id = $cita->id;
@@ -303,60 +300,44 @@ class CitasController extends Component
 
     public  function  Update()
     {
-        //dd("ya pues");
+
      $cita = Cita::find($this->selected_id);
-    //dd($cita) ;
 
-            // if($this->tratamiento_id == null || $this->tratamiento_id == 'Elegir')
-            // {
-            //     $this->tratamiento_id = $cita->tratamiento_id;
-            //     //$this->total  = $cita->total;
-            // }
-            // if($this->estado_pago == null || $this->estado_pago == 'Elegir')
-            // {
-            //     $this->estado_pago = $cita->estado_pago;
-            // }
-            if($this->estado_id == null || $this->estado_id == 'Elegir')
-            {
-                $this->estado_id = $cita->estado_id;
-            }
-            dd($this->tratamiento_id, $this->estado_id);
-    //     $rules = [
-    //         'buscar_paciente' => 'required',
-    //         'medico_id' => 'required',
-    //         'tratamiento_id' => 'required',
-    //         //'estado_pago' => 'required',
-    //         'estado' => 'required'
 
-    //     ];
-    //     $messages =[
-    //         'buscar_paciente.required' => 'Ingresa un paciente',
-    //         'medico_id.required' => 'Ingresa un medico',
-    //         'tratamiento_id.required' => 'Ingresa un tratamiento',
-    //         //'estado_pago.required' => 'Ingresa un pago',
-    //         'estado.required' => 'Ingresa un estado'
+        $rules = [
+            'buscar_paciente' => 'required',
+            'medico_id' => 'required',
+            'tratamiento_id' => 'required',
+            'estado' => 'required'
 
-    //     ];
+        ];
+        $messages =[
+            'buscar_paciente.required' => 'Ingresa un paciente',
+            'medico_id.required' => 'Ingresa un medico',
+            'tratamiento_id.required' => 'Ingresa un tratamiento',
+            'estado.required' => 'Ingresa un estado'
 
-    //     $this->validate($rules, $messages);
-    //     $cita = Cita::find($this->selected_id);
-    //     //dd($cita);
-    //     $cita->update([
-    //         'descripcion' => $this->title,
-    //             'fecha_ini' => $cita->fecha_ini,
-    //             'fecha_fin' => $cita->fecha_fin,
-    //             'paciente_id' => $cita->paciente_id,
-    //             'medico_id' => $cita->medico_id,
-    //             'receta' => $this->receta,
-    //             'user_id' => Auth::user()->id,
-    //             'tratamiento_id' => $this->tratamiento_id,
-    //              'total' => $this->total,
-    //             // 'estado_pago' => $this->estado_pago,
-    //             'estado_id' => $this->estado_id
-    //     ]);
-    //    // dd($cita);
-    //     $this->resetUI();
-    //     $this->emit('cita-updated', 'Cita Actualizada ');
+        ];
+
+        $this->validate($rules, $messages);
+        $cita = Cita::find($this->selected_id);
+         $cita->update([
+            'descripcion' => $this->descripcion,
+                'fecha_ini' => $this->fecha_ini,
+                'fecha_fin' => $this->fecha_fin,
+                'paciente_id' => $cita->paciente_id,
+                'medico_id' => $this->medico_id,
+                'receta' => $this->receta,
+                'user_id' => Auth::user()->id,
+                'tratamiento_id' => $cita->tratamiento_id,
+                'precio_tratamiento' => $cita->precio_tratamiento,
+                'total' => $cita->total,
+                'saldo_cita' => $cita->saldo_cita,
+                'estado_id' => $this->estado
+        ]);
+
+        $this->resetUI();
+        $this->emit('cita-updated', 'Cita Actualizada ');
 
     }
 

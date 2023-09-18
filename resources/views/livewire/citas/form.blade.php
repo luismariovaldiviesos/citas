@@ -127,7 +127,7 @@
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
             <label >VALOR PAGADO</label>
-            <input type="number" wire:model="total" wire:change="updateValores" class="form-control" >
+            <input type="number" wire:model="total" wire:change="updateValores" class="form-control" readonly>
             @error('total') <span class="text-danger er">{{ $message }}</span> @enderror
         </div>
     </div>

@@ -54,11 +54,7 @@ class Cita extends Model
            return $this->belongsTo(Medico::class);
        }
 
-    //   public function citasPendientes()
-    //   {
-    //       $estadoCita =  $this->estado();
-    //       //$citPendiente =  Cita::where('estado_id','=',$this->estado)->orderBy('id','asc')->paginate(10);
-    //       //return $citPendiente;
-    //       dd($estadoCita) ;
-    //   }
+    public function liquidaciones(){
+        return $this->hasMany(Liquidacion::class);
+    }
 }
