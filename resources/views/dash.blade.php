@@ -39,16 +39,16 @@
                         TOTAL CITAS AÑO {{ date('Y') }}
                       </p>
                       <h2>{{ $totalcitas }}</h2>
-                      <label class="badge badge-outline-success badge-pill">10% increase</label>
+
                     </div>
-                    {{-- <div class="statistics-item">
+                    <div class="statistics-item">
                       <p>
                         <i class="icon-sm fas fa-circle-notch mr-2"></i>
-                        Pending
+                        SALDOS PENDIENTES
                       </p>
-                      <h2>7500</h2>
-                      <label class="badge badge-outline-danger badge-pill">16% decrease</label>
-                    </div> --}}
+                      <h2>${{ $totalSaldos }}</h2>
+
+                    </div>
                 </div>
               </div>
             </div>
@@ -105,8 +105,8 @@
             <div class="layout-px">
                 <div class="widget-content-area">
                        <div class="">
-                        {!! $usuarios->container() !!}
-                        {{ $usuarios->script() }}
+                        {!! $saldos->container() !!}
+                        {{ $saldos->script() }}
                         </div>
                 </div>
             </div>

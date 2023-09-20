@@ -122,15 +122,27 @@
         </div>
     </div>
 
+
+
     @endif
 
-    <div class="col-sm-12 col-md-6">
-        <div class="form-group">
-            <label >VALOR PAGADO</label>
-            <input type="number" wire:model="total" wire:change="updateValores" class="form-control" readonly>
-            @error('total') <span class="text-danger er">{{ $message }}</span> @enderror
+    @if ($editar == 'si')
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label >VALOR PAGADO</label>
+                <input type="number" wire:model="total" wire:change="updateValores" class="form-control" readonly>
+                @error('total') <span class="text-danger er">{{ $message }}</span> @enderror
+            </div>
         </div>
-    </div>
+    @else
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label >VALOR PAGADO</label>
+                <input type="number" wire:model="total" wire:change="updateValores" class="form-control">
+                @error('total') <span class="text-danger er">{{ $message }}</span> @enderror
+            </div>
+        </div>
+    @endif
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
             <label >SALDO CITA</label>

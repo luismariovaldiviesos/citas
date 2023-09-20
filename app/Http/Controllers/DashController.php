@@ -7,15 +7,16 @@ use ArielMejiaDev\LarapexCharts\LarapexChart;
 use App\Models\Tratamiento;
 use App\Models\Estado;
 use App\Models\Cita;
+use App\Models\Liquidacion;
 use App\Models\Paciente;
-use App\Models\PagoExtra;
+
 use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sum;
 
 class DashController extends Controller
 {
-    public $listCitas, $listpagos, $balance;
+    public $listCitas, $listpagos, $balance, $saldos_pendientes;
 
 
 
@@ -94,7 +95,7 @@ class DashController extends Controller
             {
                 $query->whereMonth('created_at', '=', $i)
                         ->orwhereMonth('updated_at', '=', $i);
-            })->where('saldo_cita','>',0.00);
+            })->where('total','>',0.00);
             $arrayMes[] = $cita->sum('total');
 
 
@@ -150,12 +151,18 @@ class DashController extends Controller
             $this->listCitas[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->sum('total');
 
         }
+        for($i=0; $i<12; $i++)
+        {
+
+            $this->saldos_pendientes[$i]=Cita::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->sum('saldo_cita');
+
+        }
 
 
         for($i=0; $i<12; $i++)
         {
 
-            $this->listpagos[$i]=PagoExtra::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->sum('monto');
+            $this->listpagos[$i]=Liquidacion::whereMonth('created_at', $i+1)->whereYear('created_at', $currentYear)->sum('monto_liquidado');
 
         }
 
@@ -177,23 +184,33 @@ class DashController extends Controller
                 'data' => $this->listCitas
             ],
             [
-                'name' => 'Pagos',
+                'name' => 'Liquidaciones Citas',
                 'data' => $this->listpagos
             ],
             [
                 'name' => 'Balance',
                 'data' => $this->balance
+            ],
+            [
+                'name' => 'Saldos Pendientes',
+                'data' => $this->saldos_pendientes
             ]
 
         ]);
 
 
-        $usuarios = (new LarapexChart)->pieChart()
-                    ->setTitle('USUARIOS DEL SISTEMA')
+        // $usuarios = (new LarapexChart)->pieChart()
+        //             ->setTitle('USUARIOS DEL SISTEMA')
+        //             ->setDataset([
+        //                 \App\Models\User::where('status','=','ACTIVE')->count(),
+        //                 \App\Models\User::where('status','=','LOCKED')->count(),
+        //             ])->setColors(['#ffc63b','#FF6384'])->setLabels(['USUARIOS ACTIVOS','USUARIOS SUSPENDIDOS']);
+        $saldos = (new LarapexChart)->pieChart()
+                    ->setTitle('SALDOS POR COBRAR')
                     ->setDataset([
-                        \App\Models\User::where('status','=','ACTIVE')->count(),
-                        \App\Models\User::where('status','=','LOCKED')->count(),
-                    ])->setColors(['#ffc63b','#FF6384'])->setLabels(['USUARIOS ACTIVOS','USUARIOS SUSPENDIDOS']);
+                        \App\Models\Cita::where('saldo_cita','>',0.00)->sum('saldo_cita'),
+                        //$totalSaldo = \App\Models\Cita::where('saldo_cita', '>', 0.00)->sum('saldo_cita');
+                    ])->setColors(['#ffc63b'])->setLabels(['SALDOS PENDIENTES']);
 
 
 
@@ -279,9 +296,10 @@ class DashController extends Controller
     ->setTitle('PACIENTES NUEVOS REGISTRADOS POR MES')
     ->setLabels(['Enero','Febrero','MArzo','Abril','MAyo','Junio','Julio','Agosto','Septiembre','Octubre', 'Noviembre', 'Diciembre']);
 
+    $totalSaldos = \App\Models\Cita::where('saldo_cita', '>', 0.00)->sum('saldo_cita');
     return view('dash', compact('chartVentasxSemana',
-    'chartVentasxMes','chartBalancexMes','usuarios','chartpacientesxmes',
-    'pendientes','enproceso','finalizadas','totalcitas'));
+    'chartVentasxMes','chartBalancexMes','saldos','chartpacientesxmes',
+    'pendientes','enproceso','finalizadas','totalcitas','totalSaldos'));
 
 
     }
