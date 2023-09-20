@@ -13,6 +13,7 @@ use App\Models\Pago;
 use App\Models\Estado;
 use Carbon\Carbon;
 use App\Models\Cita;
+use App\Models\Liquidacion;
 use Illuminate\Support\Facades\Auth;
 
 class CitasController extends Component
@@ -29,6 +30,9 @@ class CitasController extends Component
 
     //para la cita
     public $estado, $precio_tratamiento, $saldo_cita, $title;
+
+    //liquidaciones
+    public $liquidaciones=[];
 
     private $pagination = 15;
 
@@ -338,6 +342,12 @@ class CitasController extends Component
 
         $this->resetUI();
         $this->emit('cita-updated', 'Cita Actualizada ');
+
+    }
+
+    function detalleLiquidaciones(Cita $cita) {
+       $this->liquidaciones =  $cita->liquidaciones;
+       $this->emit('show-detail','details loaded');
 
     }
 

@@ -137,6 +137,7 @@
     </div>
 
   @include('livewire.citas.form')
+  @include('livewire.citas.detalleliquidaciones')
 
 </div>
 
@@ -227,6 +228,9 @@
         })
         window.livewire.on('cita-error', Msg =>{
             noty(Msg)
+        })
+        window.livewire.on('show-detail', Msg =>{
+            $('#modalDetails').modal('show')
         })
 
     });
