@@ -47,7 +47,7 @@
                                     Consultar
                                 </button>
 
-                                <a class="btn btn-dark btn-block {{count($citas)  <1 && count($pagosextras) <1 ? 'disabled' : '' }}"
+                                <a class="btn btn-dark btn-block {{count($citas)  <1 && count($liquidaciones) <1 ? 'disabled' : '' }}"
                                 href="{{ url('crearpdf/pdf' . '/' . $medico_id . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}" target="_blank">Generar PDF</a>
 
                                 {{-- <a  class="btn btn-dark btn-block {{count($citas) <1 ? 'disabled' : '' }}"
@@ -102,20 +102,20 @@
                                 <thead class="text-white" style="background: #3B3F5C">
                                     <tr>
                                         <th class="text-white table-th text-center">DESCRIPCION DEL PAGO</th>
-                                        <th class="text-white table-th text-center">PACIENTE</th>
+                                        <th class="text-white table-th text-center">cita</th>
                                         <th class="text-white table-th text-center">MONTO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (count($pagosextras) <1 )
+                                    @if (count($liquidaciones) <1 )
                                         <tr><td colspan="7"><h5>Sin pagos extras</h5></td></tr>
                                     @endif
-                                    @foreach ($pagosextras as $pe )
+                                    @foreach ($liquidaciones as $pe )
                                     <tr>
-                                         <td class="text-center"><h6>{{$pe->descripcion}}</h6></td>
-                                         <td class="text-center"><h6>{{$pe->paciente->nombre}}</h6></td>
-                                         <td class="text-center"><h6>{{$pe->monto}}</h6></td>
-                                         <td hidden><h6>{{$sumExtras = $sumExtras+$pe->monto }}</h6></td>
+                                         <td class="text-center"><h6>{{$pe->observaciones}}</h6></td>
+                                         <td class="text-center"><h6>{{$pe->cita->paciente->nombre}}</h6></td>
+                                         <td class="text-center"><h6>{{$pe->monto_liquidado}}</h6></td>
+                                         <td hidden><h6>{{$sumExtras = $sumExtras+$pe->monto_liquidado }}</h6></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

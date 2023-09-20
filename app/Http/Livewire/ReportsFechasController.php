@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Medico;
 use App\Models\Cita;
+use App\Models\Liquidacion;
 use App\Models\Pago;
 use App\Models\PagoExtra;
 use Carbon\Carbon;
@@ -14,14 +15,14 @@ class ReportsFechasController extends Component
 
 
 
-    public $componentName, $citas, $pagosextras, $sumCitas, $sumExtras,
+    public $componentName, $citas, $liquidaciones, $sumCitas, $sumExtras,
     $reportType, $medico_id, $dateFrom, $dateTo, $doctores;
 
     public function mount()
     {
         $this->componentName ='Reporte entre fechas';
         $this->citas =[];
-        $this->pagosextras =[];
+        $this->liquidaciones =[];
         $this->sumCitas =0;
         $this->sumExtras =0;
         $this->reportType =0;
@@ -69,9 +70,9 @@ class ReportsFechasController extends Component
                         $query->whereBetween('citas.created_at', [$from,$to])
                                ->orwhereBetween('citas.updated_at', [$from,$to]);
                     })
-                    ->where('citas.estado_pago','PAGADO')
+                    ->where('citas.total','=','0.00')
                      ->get();
-                     $this->pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
+                     $this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
                     // dd('todos');
 
         } else {
@@ -83,9 +84,9 @@ class ReportsFechasController extends Component
                            ->orwhereBetween('citas.updated_at', [$from,$to]);
                 })
                 ->where('medico_id', $this->medico_id)
-                ->where('citas.estado_pago','PAGADO')
+                ->where('citas.total','!=','0.00')
                 ->get();
-                $this->pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
+                $this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
                 //dd('por medicos');
         }
 
