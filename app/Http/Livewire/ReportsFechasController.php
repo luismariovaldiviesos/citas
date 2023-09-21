@@ -20,7 +20,7 @@ class ReportsFechasController extends Component
 
     public function mount()
     {
-        $this->componentName ='Reporte entre fechas';
+        $this->componentName ='Valores cancelados en citas';
         $this->citas =[];
         $this->liquidaciones =[];
         $this->sumCitas =0;
@@ -64,20 +64,20 @@ class ReportsFechasController extends Component
         if($this->medico_id == 0)
         {
             $this->citas= Cita::join('medicos as m', 'm.id', 'citas.medico_id')
-            ->select('citas.*','m.nombre as medico')
+            ->select('citas.*','m.nombre as nombremedico')
             ->where(function($query) use ($from,$to)
                     {
                         $query->whereBetween('citas.created_at', [$from,$to])
                                ->orwhereBetween('citas.updated_at', [$from,$to]);
                     })
-                    ->where('citas.total','=','0.00')
+                    ->where('citas.total','!=','0.00')
                      ->get();
                      $this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
-                    // dd('todos');
+                    //dd($this->citas);
 
         } else {
             $this->citas = Cita::join('medicos as m', 'm.id', 'citas.medico_id')
-                ->select('citas.*','m.nombre as medico')
+                ->select('citas.*','m.nombre as nombremedico')
                 ->where(function($query) use ($from,$to)
                 {
                     $query->whereBetween('citas.created_at', [$from,$to])
@@ -86,7 +86,18 @@ class ReportsFechasController extends Component
                 ->where('medico_id', $this->medico_id)
                 ->where('citas.total','!=','0.00')
                 ->get();
-                $this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
+                //$this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
+
+                $this->liquidaciones =  Liquidacion::join('citas as c','c.id','liquidacions.cita_id')
+                    ->select('liquidacions.*')
+                    ->where(function($query) use ($from,$to)
+                    {
+                        $query->whereBetween('liquidacions.created_at', [$from,$to])
+                               ->orwhereBetween('liquidacions.updated_at', [$from,$to]);
+                    })
+                    ->where('c.medico_id','=',$this->medico_id)
+                     ->get();
+
                 //dd('por medicos');
         }
 

@@ -64,7 +64,9 @@
                                         <th class="text-white table-th text-center">PACIENTE</th>
                                             <th class="text-white table-th text-center">TRATAMIENTO</th>
                                             <th class="text-white table-th text-center">MÉDIC@</th>
-                                            <th class="text-white table-th text-center">VALOR TRATAMIENTO</th>
+                                            <th class="text-white table-th text-center">PRECIO</th>
+                                            <th class="text-white table-th text-center">CANCELADO</th>
+                                            <th class="text-white table-th text-center">SALDO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,9 +77,11 @@
                                         <tr>
                                             <td class="text-center"><h6>{{$c->paciente->nombre}}</h6></td>
                                             <td class="text-center"><h6>{{$c->tratamiento->nombre}}</h6></td>
-                                            <td hidden><h6>{{$sumCitas = $sumCitas+$c->tratamiento->precio }}</h6></td>
-                                           <td class="text-center"><h6>{{$c->medico}}</h6></td>
-                                           <td class="text-center"><h6>{{$c->tratamiento->precio}}</h6></td>
+                                            <td hidden><h6>{{$sumCitas = $sumCitas+$c->total }}</h6></td>
+                                            <td class="text-center"><h6>{{$c->nombremedico}}</h6></td>
+                                           <td class="text-center"><h6>{{$c->precio_tratamiento}}</h6></td>
+                                           <td class="text-center"><h6>{{$c->total}}</h6></td>
+                                           <td class="text-center"><h6>{{$c->saldo_cita}}</h6></td>
 
                                        </tr>
                                         @endforeach
@@ -86,7 +90,7 @@
                                     <tr>
                                         {{-- <th><h3 class="badge badge-primary">CAJA:  {{$total_diario}}</h3></th> --}}
                                         <th>
-                                            <h4 class="">total citas:  {{$sumCitas}} </h4>
+                                            <h4 class="">CITAS :  {{$sumCitas}} </h4>
                                         </th>
                                     </tr>
                                 </tfoot>
@@ -98,11 +102,12 @@
 
                          <div class="table-responsive">
                             <table class="table mt-1 table-bordered table-striped">
-                                <h4 class="card-title text-center"><b>Pagos extras</b></h4>
+                                <h4 class="card-title text-center"><b>Valores Liquidados</b></h4>
                                 <thead class="text-white" style="background: #3B3F5C">
                                     <tr>
                                         <th class="text-white table-th text-center">DESCRIPCION DEL PAGO</th>
-                                        <th class="text-white table-th text-center">cita</th>
+                                        <th class="text-white table-th text-center">PACIENTE</th>
+                                        <th class="text-white table-th text-center">medico</th>
                                         <th class="text-white table-th text-center">MONTO</th>
                                     </tr>
                                 </thead>
@@ -114,6 +119,7 @@
                                     <tr>
                                          <td class="text-center"><h6>{{$pe->observaciones}}</h6></td>
                                          <td class="text-center"><h6>{{$pe->cita->paciente->nombre}}</h6></td>
+                                         <td class="text-center"><h6>{{$pe->cita->medico->nombre}}</h6></td>
                                          <td class="text-center"><h6>{{$pe->monto_liquidado}}</h6></td>
                                          <td hidden><h6>{{$sumExtras = $sumExtras+$pe->monto_liquidado }}</h6></td>
                                     </tr>
@@ -122,7 +128,7 @@
                                 <tfoot class="p-3 mb-2 bg-white text-dark">
                                     <tr>
                                         <th>
-                                            <h4 class="">pagos extras:  {{$sumExtras}} </h4>
+                                            <h4 class="">LIQUIDACIONES:  {{$sumExtras}} </h4>
                                         </th>
                                     </tr>
                                 </tfoot>

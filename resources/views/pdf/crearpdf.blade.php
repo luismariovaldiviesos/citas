@@ -69,60 +69,61 @@
                         <td align="center">{{$c->paciente->nombre}}</td>
                         <td align="center">{{$c->tratamiento->nombre}}</td>
                         <td align="center">{{$c->medico}}</td>
-                        <td align="center">{{$c->tratamiento->precio }}</td>
+                        <td align="center">{{$c->total }}</td>
 
                         @php
-                            $total_diario = $total_diario+$c->tratamiento->precio
+                            $total_diario = $total_diario+$c->total
                         @endphp
                         {{-- <td align="center">{{$item->user}}</td>
                         <td align="center">{{\Carbon\Carbon::parse($item->created_at)->format('d-m-y')}}</td> --}}
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>
-                            <h2 class="">CAJA:  $ {{$total_diario}} </h2>
+                            <h2 class="">CITAS: {{$total_diario}} </h2>
                         </th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
 
 
             {{-- TABLA DE PAGOS EXTRAS  --}}
-            <h4 class="card-title text-center"><b>Pagos extras</b></h4>
+            <h4 class="card-title text-center"><b>Liquidacin de citas</b></h4>
             <table cellpadding ="0" cellspacing="0" class="table-items" width="100%">
                 <thead>
                     <tr>
-                        <th width="10%">DESCRIPCION DEL PAGO</th>
+                        <th width="10%">NOTA</th>
                         <th width="12%">PACIENTE</th>
                         <th width="10%">MONTO</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pagosextras as $pe )
+                    @foreach ($liquidaciones as $pe )
                     <tr>
-                        <td align="center">{{$pe->descripcion}}</td>
-                        <td align="center">{{$pe->paciente->nombre}}</td>
-                        <td align="center">{{$pe->monto}}</td>
+                        <td align="center">{{$pe->observaciones}}</td>
+                        <td align="center">{{$pe->cita->paciente->nombre}}</td>
+                        <td align="center">{{$pe->monto_liquidado}}</td>
 
                         @php
-                            $extras = $extras+$pe->monto
+                            $extras = $extras+$pe->monto_liquidado
                         @endphp
 
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>
-                            <h2 class="">PAGOS EXTRAS: $ {{$extras}} </h2>
+                            <h2 class="">LIQUIDACIONES: $ {{$extras}} </h2>
                         </th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
 
-
+            <h3>Subotal citas</h3>
+            <h3>Subotal liquidaciones</h3>
             <h2>TOTAL: $ {{ $total_diario + $extras }}</h2>
 
         </section>

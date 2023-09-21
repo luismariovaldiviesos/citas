@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cita;
 use App\Models\Clinica;
+use App\Models\Liquidacion;
 use App\Models\Medico;
 use App\Models\Paciente;
 use App\Models\PagoExtra;
@@ -18,7 +19,7 @@ class CreatePdfController extends Controller
     {
         $citas = [];
         $pagos=[];
-        $pagosextras = [];
+        $liquidaciones = [];
         $total_diario = 0;
         $extras = 0;
 
@@ -44,9 +45,9 @@ class CreatePdfController extends Controller
                     $query->whereBetween('citas.created_at', [$from,$to])
                            ->orwhereBetween('citas.updated_at', [$from,$to]);
                 })
-                ->where('citas.estado_pago','PAGADO')
+                ->where('citas.total','!=','0.00')
                  ->get();
-                 $pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
+                 $liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
                 // dd('todos');
     } else {
         $citas = Cita::join('medicos as m', 'm.id', 'citas.medico_id')
@@ -57,9 +58,17 @@ class CreatePdfController extends Controller
                    ->orwhereBetween('citas.updated_at', [$from,$to]);
         })
         ->where('medico_id', $medico_id)
-        ->where('citas.estado_pago','PAGADO')
+        ->where('citas.total','!=','0.00')
         ->get();
-        $pagosextras = PagoExtra::whereBetween('created_at',[$from,$to])->get();
+        $liquidaciones =  Liquidacion::join('citas as c','c.id','liquidacions.cita_id')
+        ->select('liquidacions.*')
+        ->where(function($query) use ($from,$to)
+        {
+            $query->whereBetween('liquidacions.created_at', [$from,$to])
+                   ->orwhereBetween('liquidacions.updated_at', [$from,$to]);
+        })
+        ->where('c.medico_id','=',$medico_id)
+         ->get();
         //dd('por medicos');
     }
     $clinica = Clinica::all();
@@ -67,7 +76,7 @@ class CreatePdfController extends Controller
     //dd($logo);
 
     $medico = $medico_id == 0 ? 'Todos' : Medico::find($medico_id)->name;
-    $pdf = PDF::loadView('pdf.crearpdf', compact('citas','pagosextras','reportType','medico','dateFrom','dateTo','total_diario','extras','logo'));
+    $pdf = PDF::loadView('pdf.crearpdf', compact('citas','liquidaciones','reportType','medico','dateFrom','dateTo','total_diario','extras','logo'));
     return $pdf->stream('reporte.pdf'); // visualizar
 
     }
