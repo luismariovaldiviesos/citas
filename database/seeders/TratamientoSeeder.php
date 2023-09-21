@@ -38,6 +38,16 @@ class TratamientoSeeder extends Seeder
             'precio' => 20.00,
             'procedimiento_id' => 1
         ]);
+        Tratamiento::create([
+            'nombre' => 'Activacion normal',
+            'precio' => 20.00,
+            'procedimiento_id' => 2
+        ]);
+        Tratamiento::create([
+            'nombre' => 'Activacion descuento',
+            'precio' => 10.00,
+            'procedimiento_id' => 3
+        ]);
 
     }
 }

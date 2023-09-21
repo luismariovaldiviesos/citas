@@ -33,6 +33,7 @@
                             <tr>
                                 <th class="text-white table-th">NOMBRE</th>
                                 <th class="text-white table-th">PRECIO</th>
+                                <th class="text-white table-th">PROCEDIMIENTO</th>
                                 <th class="text-white table-th">ACCIONES</th>
                             </tr>
                         </thead>
@@ -42,7 +43,8 @@
 
                                     <tr>
                                             <td><h6>{{$tratamiento->nombre}}</h6></td>
-                                            <td><h6> $ {{$tratamiento->precio}}</h6></td>
+                                            <td><h6> {{$tratamiento->precio}}</h6></td>
+                                            <td><h6> {{$tratamiento->procedimiento->nombre}}</h6></td>
 
                                         <td>
 

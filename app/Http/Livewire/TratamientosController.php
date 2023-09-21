@@ -16,7 +16,7 @@ class TratamientosController extends Component
     use WithPagination;
 
     public  $nombre, $precio, $procedimiento_id, $search, $selected_id, $pageTitle, $componentName;
-    private $pagination = 5;
+    private $pagination = 10;
 
     public function mount()
     {
@@ -56,13 +56,14 @@ class TratamientosController extends Component
     {
 
 
-        $record = Tratamiento::find($id, ['id','nombre','precio']);
+        $record = Tratamiento::find($id);
         $numcitas = count($record->citas);
         if($numcitas < 1)
         {
             $this->nombre = $record->nombre;
             $this->precio = $record->precio;
             $this->selected_id = $record->id;
+            $this->procedimiento_id =  $record->procedimiento_id;
             $this->emit('show-modal', 'editar elemento');
         }
         else{
@@ -79,13 +80,14 @@ class TratamientosController extends Component
     public function Store()
     {
         $rules = [
-            'nombre' => 'required|unique:tratamientos|min:3',
-            'precio' => 'required|numeric|between:0,10000'
+            'nombre' => 'required|min:3',
+            'precio' => 'required|numeric|between:0,10000',
+            'procedimiento_id' =>  'required'
         ];
 
         $messages = [
             'nombre.required' => 'El nombre del tratamiento es requerido',
-            'nombre.unique' => 'El nombre del tratamiento ya esta en uso ',
+            'procedimiento_id.required' => 'El procedimiento del tratamiento es requerido',
             'nombre.min' => 'El nombre del tratamiento debe tener mínimo tres caracteres',
 
             'precio.required' => 'El precio del tratamiento es requerido',
@@ -110,13 +112,14 @@ class TratamientosController extends Component
      public function Update()
     {
         $rules = [
-            'nombre' => "required|unique:tratamientos,nombre,{$this->selected_id}|min:3",
-            'precio' => 'required|numeric|between:0,99'
+            'nombre' => 'required|min:3',
+            'precio' => 'required|numeric|between:0,10000',
+            'procedimiento_id' =>  'required'
         ];
 
         $messages = [
             'nombre.required' => 'El nombre del tratamiento es requerido',
-            'nombre.unique' => 'El nombre del tratamiento ya esta en uso ',
+            'procedimiento_id.required' => 'El procedimiento del tratamiento es requerido',
             'nombre.min' => 'El nombre del tratamiento debe tener mínimo tres caracteres',
 
             'precio.required' => 'El precio del tratamiento es requerido',
@@ -130,7 +133,8 @@ class TratamientosController extends Component
         //dd($tratamiento);
         $tratamiento->update([
             'nombre' => $this->nombre,
-            'precio' => $this->precio
+            'precio' => $this->precio,
+            'procedimiento_id' => $this->procedimiento_id
         ]);
 
         $this->resetUI();
@@ -145,6 +149,7 @@ class TratamientosController extends Component
         $this->precio ='';
         $this->search='';
         $this->selected_id=0;
+        $this->procedimiento_id ='';
     }
 
     protected $listeners = [

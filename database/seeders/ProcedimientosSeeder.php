@@ -14,9 +14,20 @@ class ProcedimientosSeeder extends Seeder
      */
     public function run()
     {
+        //1
         Procedimiento::create([
-            'nombre' => 'sin procedimiento',
+            'nombre' => 'NA',
             'precio' => 0.00
+        ]);
+        //2
+        Procedimiento::create([
+            'nombre' => 'Ortodoncia Normal',
+            'precio' => 800
+        ]);
+        //3
+        Procedimiento::create([
+            'nombre' => 'Ortodoncia Descuento',
+            'precio' => 500
         ]);
 
     }
