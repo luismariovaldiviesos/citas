@@ -26,3 +26,6 @@ el valor se cancela y calcular los saldos ahi mismo en la cita
 eso vinculado al procedimiento
 
 editar tratamientos simre y cuabndo no haya saldos pendientes
+
+prueba despues de formateo
+
