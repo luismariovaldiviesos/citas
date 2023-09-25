@@ -7,7 +7,7 @@ use App\Models\Cita;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Paciente;
-
+use App\Models\Tratamiento;
 use Livewire\Component;
 
 class PacientesController extends Component
@@ -172,10 +172,12 @@ class PacientesController extends Component
 
     public function detallePaciente (Paciente $paciente)
     {
+
+        //dd($idcita);
         $cit = $paciente->citas;
-        $pag = $paciente->pagoextras;
-        //dd($pag);
-        $this->pagos = $pag;
+
+        //$tratamiento =  Tratamiento::find($cit->tratamiento_id);
+
         $this->citas = $cit;
         $this->emit('show-detail','details loaded');
 

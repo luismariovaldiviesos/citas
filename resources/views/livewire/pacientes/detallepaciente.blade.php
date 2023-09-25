@@ -1,5 +1,5 @@
 <div wire:ignore.self class="modal fade" id="modalDetails" tabindex="-1" role="dialog" >
-    <div class="modal-dialog modal-lg"  role="document">
+    <div class="modal-dialog modal-xl"  role="document">
       <div class="modal-content">
         <div class="modal-header bg-dark">
           <h5 class="text-white modal-title">
@@ -45,8 +45,11 @@
                              @endif
                          </tr>
                         @endforeach
-                        <a class="btn btn-dark "
-                             href="{{ url('detpaciente' . '/'.$idpaciente) }}"  target="_blank">Imprimir Historial</a>
+                         <br>
+                         <a class="btn btn-dark "
+                             href="{{ url('detpaciente' . '/'.$idpaciente) }}"  target="_blank">
+                             Imprimir Historial
+                        </a>
                      </tbody>
                      <tfoot>
                          <tr>
