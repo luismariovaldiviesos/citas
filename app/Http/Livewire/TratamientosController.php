@@ -60,13 +60,18 @@ class TratamientosController extends Component
         $citasConSaldos = Cita::where('tratamiento_id','=',$record->id)
         ->where('saldo_cita','>',0)
         ->exists();
-
         if (!$citasConSaldos) {
-            $this->nombre = $record->nombre;
-            $this->precio = $record->precio;
-            $this->selected_id = $record->id;
-            $this->procedimiento_id =  $record->procedimiento_id;
-            $this->emit('show-modal', 'editar elemento');
+            $citaEstado = Cita::where('tratamiento_id','=',$record->id)
+            ->where('estado_id',1)
+            ->exists();
+            if (!$citaEstado) {
+                $this->nombre = $record->nombre;
+                $this->precio = $record->precio;
+                $this->selected_id = $record->id;
+                $this->procedimiento_id =  $record->procedimiento_id;
+                $this->emit('show-modal', 'editar elemento');
+            }else{ $this->emit('tratamiento-noedita', 'no se puede editar el tratamiento, tiene citas en estado  pendientes');}
+
         }
         else{
             $this->emit('tratamiento-noedita', 'no se puede editar el tratamiento, tiene saldos pendientes');
