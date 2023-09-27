@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Procedimiento;
+use App\Models\Cita;
+use Livewire\Component;
 use App\Models\Tratamiento;
 use Livewire\WithPagination;
+use App\Models\Procedimiento;
+
 use Livewire\WithFileUploads;  // para imagenes subir
 use Illuminate\Support\Facades\Storage; // para almacenar archivos
-
-use Livewire\Component;
 
 
 class TratamientosController extends Component
@@ -55,11 +56,12 @@ class TratamientosController extends Component
     public function Edit($id)
     {
 
-
         $record = Tratamiento::find($id);
-        $numcitas = count($record->citas);
-        if($numcitas < 1)
-        {
+        $citasConSaldos = Cita::where('tratamiento_id','=',$record->id)
+        ->where('saldo_cita','>',0)
+        ->exists();
+
+        if (!$citasConSaldos) {
             $this->nombre = $record->nombre;
             $this->precio = $record->precio;
             $this->selected_id = $record->id;
@@ -67,12 +69,9 @@ class TratamientosController extends Component
             $this->emit('show-modal', 'editar elemento');
         }
         else{
-            $this->emit('tratamiento-noedita', 'no se puede editar el tratamiento, tiene citas relacionadas');
+            $this->emit('tratamiento-noedita', 'no se puede editar el tratamiento, tiene saldos pendientes');
         }
 
-        // notificar al fornt que la info ya esta cargada en las propiedaddes y que
-        // puede mostrar el modal
-        // para eso se emite el evento :
 
 
     }
