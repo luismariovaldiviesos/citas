@@ -76,13 +76,11 @@
                 <hr class="hr hr-blurry" />
 
                 <div style="border-bottom: 1px solid #cccccc;"></div> <!-- Divisor con borde inferior -->
-
-
-
-
                 <div class="table-responsive">
                     <table class="table mt-1 table-bordered table-striped">
                         <h4 class="card-title text-center"><b>Saldos pendientes en procedimientos</b></h4>
+                        <div style="border-bottom: 1px solid #cccccc;"></div> <!-- Divisor con borde inferior -->
+                        <br>
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
                                 <th class="text-white table-th text-center">NOMBRE</th>
