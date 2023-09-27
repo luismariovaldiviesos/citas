@@ -8,6 +8,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Paciente;
 use App\Models\Tratamiento;
+use App\Models\Procedimiento;
 use Livewire\Component;
 
 class PacientesController extends Component
@@ -22,7 +23,7 @@ class PacientesController extends Component
 
     public $citas = [];
     public $pagos = [];
-    //public $procedimientos;
+    public $saldosprocedimientos;
 
     public $total = 0;
     public $pendiente = 0;
@@ -170,10 +171,14 @@ class PacientesController extends Component
 
     ];
 
-    public function detallePaciente (Paciente $paciente)
+    public function detallePaciente ($idpaciente)
     {
 
-        //dd($idcita);
+
+         $procedimie =  new Procedimiento();
+         $paciente = Paciente::find($idpaciente);
+         $this->saldosprocedimientos =  $procedimie->calcularSaldoParaPaciente($idpaciente);
+        //dd($this->saldosprocedimientos);
         $cit = $paciente->citas;
 
         //$tratamiento =  Tratamiento::find($cit->tratamiento_id);
