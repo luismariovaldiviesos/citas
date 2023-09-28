@@ -55,7 +55,7 @@ class PacientesController extends Component
         $this->pacientes = count($total);
 
         if(strlen($this->search) > 0)
-            $data = Paciente::where('nombre', 'like', '%' . $this->search . '%')
+            $data = Paciente::where('nombre', 'like', '%' . $this->search . '%')->orwhere('ci', 'like', '%' . $this->search . '%')
             ->select('*')->orderBy('id','asc')->paginate($this->pagination);
         else
            $data = Paciente::select('*')->orderBy('id','asc')->paginate($this->pagination);
