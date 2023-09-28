@@ -16,31 +16,25 @@
             <table cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <td colspan="2" class="text-center">
-                        <span style="font-size: 25px; font-weight: bold;">Historia clínica {{ $nombrepaciente }}</span>
+                        <span style="font-size: 25px; ;">Historial {{ $nombrepaciente }}</span>
                     </td>
                 </tr>
-                <tr>
-                    <td width="30%" style="vertical-align: top; padding-top: 10px; position: relative; ">
-                        {{-- <img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="invoice-logo"> --}}
-                        <img src="{{ asset('storage/clinica/' . $logo ) }}" alt="imagen de ejemplo" height="80" width="90" class="rounded">
-                    </td>
-                        <td width="70%"  class="text-left text-company"  style="vertical-align: top; padding-top: 10px;">
-                    </td>
-                </tr>
+
             </table>
         </section>
 
           {{-- table --}}
-        <section style="margin-top: -120px">
+        <section style="margin-top: -220px">
             <h2 class="card-title text-center">Citas:</h2>
             <table border="2px" cellpadding ="2" cellspacing="2" class="table-items" width="100%">
                 <thead>
                     <tr>
                         <th width="25%">FECHA</th>
                         <th width="15%">TRATAMIENTO</th>
-                        <th width="15%">CITA</th>
-                        <th width="15%">VALOR</th>
-                        <th width="15%">ESTADO</th>
+                        <th width="15%"> ESTADO CITA</th>
+                        <th width="15%">PRECIO</th>
+                        <th width="15%">PAGADO</th>
+                        <th width="15%">SALDO</th>
                         <th width="15%">MEDICO</th>
 
                     </tr>
@@ -51,21 +45,22 @@
                         <td align="center">{{\Carbon\Carbon::parse($c->fecha_ini)->isoFormat('LL')}}</td>
                         <td align="center">{{$c->tratamiento->nombre}}</td>
                         <td align="center">{{$c->estado->nombre}}</td>
-                        <td align="center">{{$c->tratamiento->precio}}</td>
-                        <td align="center">{{$c->estado_pago}}</td>
+                        <td align="center">{{$c->precio_tratamiento}}</td>
+                        <td align="center">{{$c->total}}</td>
+                        <td align="center">{{$c->saldo_cita}}</td>
                         <td align="center">{{$c->medico->nombre}}</td>
 
-                        @if ($c->estado_pago == 'PAGADO')
+
                             @php
-                                $totalpagadopaciente = $totalpagadopaciente+$c->tratamiento->precio
+                                $totalpagadopaciente = $totalpagadopaciente+$c->total
                             @endphp
 
 
-                        @elseif ($c->estado_pago == 'PENDIENTE')
+
                             @php
-                                $totalpendientepaciente = $totalpendientepaciente+$c->tratamiento->precio
+                                $totalpendientepaciente = $totalpendientepaciente+$c->saldo_cita
                             @endphp
-                         @endif
+
 
                     </tr>
                     @endforeach
@@ -78,53 +73,33 @@
             <h3>Total: {{$totalcitas = $totalpendientepaciente + $totalpagadopaciente}}</h3>
 
 
-            <h2 class="card-title text-center">Pagos extras</h2>
+            <h2 class="card-title text-center">Saldos pendientes en procedimientos</h2>
                 <table border="2px" cellpadding ="2" cellspacing="2" class="table-items" width="100%">
                     <thead>
                         <tr>
-                            <th width="33%">DESCRIPCION DEL PAGO</th>
-                            <th width="34%">FECHA PAGO</th>
-                            <th width="33%">MONTO</th>
+                            <th width="33%">NOMBRE</th>
+                            <th width="33%">SALDO</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (count($pagos) <1 )
-                            <tr><td colspan="7"><h5>Sin pagos extras</h5></td></tr>
-                        @endif
-                        @foreach ($pagos as $pe )
-                        <tr>
-                            <td align="center">{{$pe->descripcion}}</td>
-                            <td align="center">{{\Carbon\Carbon::parse($pe->created_at)->isoFormat('LL')}}</td>
-                            <td align="center">{{$pe->monto}}</td>
-                            {{-- <td hidden align="center">{{$sumExtras = $sumExtras+$pe->monto }}</td> --}}
-                            @php
-                                $sumExtras = $sumExtras+$pe->monto
-                            @endphp
 
-                        </tr>
-                    @endforeach
+                        @foreach ($saldosprocedimientos as  $key => $sp )
+
+                            @if ($key > 1) <!-- Verifica si no es la primera fila -->
+                                <tr>
+                                    <td align="center">{{$sp['nombre']}}</td>
+                                    <td align="center">{{$sp['saldo']}}</td>
+                                </tr>
+                            @endif
+
+                     @endforeach
                     </tbody>
 
                 </table>
-                <h3>Aportes:  {{$sumExtras}}</h3>
+
+              <h2>Saldo pendiente: {{ $totalpendientepaciente}}</h2>
 
 
-              @if ($totalpendientepaciente < $sumExtras)
-                  @php
-                      $saldoPendiente = $sumExtras - $totalpendientepaciente
-                  @endphp
-            @else
-                @php
-                    $saldoPendiente = $totalpendientepaciente - $sumExtras
-                @endphp
-              @endif
-
-              @if ($sumExtras < $totalpendientepaciente )
-              <h2>Saldo pendiente: {{ $saldoPendiente}}</h2>
-          @else ()
-                <h2>Saldo a favor: {{ $saldoPendiente}}</h2>
-          @endif
-            {{-- <h2>TOTAL: $ {{ $total_diario + $extras }}</h2> --}}
 
         </section>
 
@@ -132,11 +107,11 @@
             <table cellpadding ="0" cellspacing="0" class="table-items" width="100%">
                 <tr>
                     <td width="20%">
-                        <span>Sistema de ventas Khipu v1</span>
+                        <span>Sistema de Citas Khipu v2</span>
+                        <p>Contacto: whatsApp:  0987308688</p>
                     </td>
                     <td width="60%" class="text-center">
-                        <link rel="stylesheet" href="https://khipuweb.herokuapp.com">
-                        <a href="https://khipuweb.herokuapp.com">Sitio web</a>
+
                     </td>
                     <td  width="20%"  class="text-center">
                         página <span class="pagenum"></span>

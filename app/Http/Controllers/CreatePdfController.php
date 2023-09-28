@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cita;
-use App\Models\Clinica;
-use App\Models\Liquidacion;
-use App\Models\Medico;
-use App\Models\Paciente;
-use App\Models\PagoExtra;
-use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
+use App\Models\Cita;
+use App\Models\Medico;
+use App\Models\Clinica;
+use App\Models\Paciente;
+
+use App\Models\Liquidacion;
 use Illuminate\Http\Request;
+use App\Models\Procedimiento;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CreatePdfController extends Controller
 {
@@ -86,6 +87,14 @@ class CreatePdfController extends Controller
     public  function detallePacientePDF(Paciente $idpaciente)
     {
 
+        //dd($idpaciente->id);
+        $id = $idpaciente->id;
+        $procedimie =  new Procedimiento();
+        //$paciente = Paciente::find($id);
+         $saldosprocedimientos =  $procedimie->calcularSaldoParaPaciente($id);
+
+         //dd($saldosprocedimientos);
+
         $clinica = Clinica::all();
         $logo = $clinica[0]->image;
         $totalpagadopaciente = 0;
@@ -93,12 +102,12 @@ class CreatePdfController extends Controller
         $totaldetallepaciente = 0;
         $sumExtras = 0;
        $citas = $idpaciente->citas;
-       $pagos =  $idpaciente->pagoextras;
+       //$pagos =  $idpaciente->pagoextras;
        $nombrepaciente = $idpaciente->nombre;
        //dd($citas);
        $detallepacientepdf = PDF::loadView('pdf.detallepacientepdf', compact('nombrepaciente','citas',
        'totalpagadopaciente','totalpendientepaciente',
-       'totaldetallepaciente','pagos','sumExtras','logo'));
+       'totaldetallepaciente','sumExtras','logo','saldosprocedimientos'));
        return $detallepacientepdf->stream('detallepaciente.pdf');
     }
 

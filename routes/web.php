@@ -71,7 +71,7 @@ Route::get('/reportesfechas', ReportsFechasController::class);
 // de vuelta desde la vista para crear el pdf
 Route::get('crearpdf/pdf/{medico_id}/{type}/{f1}/{f2}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
 Route::get('crearpdf/pdf/{medico_id}/{type}', [\App\Http\Controllers\CreatePdfController::class,'crearPdf']);
-Route::get('detpaciente/{idpaciente}/{idcita}', [\App\Http\Controllers\CreatePdfController::class,'detallePacientePDF']);
+Route::get('detpaciente/{idpaciente}', [\App\Http\Controllers\CreatePdfController::class,'detallePacientePDF']);
 
 });
 
