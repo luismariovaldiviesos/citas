@@ -24,7 +24,7 @@
         </section>
 
           {{-- table --}}
-        <section style="margin-top: -220px">
+        <section style="margin-top: -260px">
             <h2 class="card-title text-center">Citas:</h2>
             <table border="2px" cellpadding ="2" cellspacing="2" class="table-items" width="100%">
                 <thead>
