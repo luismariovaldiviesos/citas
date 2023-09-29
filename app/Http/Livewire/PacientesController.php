@@ -2,14 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use App\Charts\PacientesChart;
 use App\Models\Cita;
-use Livewire\WithFileUploads;
-use Livewire\WithPagination;
+use App\Models\Estado;
+use App\Models\Medico;
+use Livewire\Component;
 use App\Models\Paciente;
 use App\Models\Tratamiento;
+use Livewire\WithPagination;
 use App\Models\Procedimiento;
-use Livewire\Component;
+use Livewire\WithFileUploads;
+use App\Charts\PacientesChart;
+use Illuminate\Support\Facades\Auth;
 
 class PacientesController extends Component
 {
@@ -34,6 +37,9 @@ class PacientesController extends Component
     public $saldoPendiente=0;
 
     public $saldoFavor =0;
+
+    // varaibles para agendar
+    public $fecha_ini, $fecha_fin,$descripcion,$medico_id,$receta,$tratamiento_id,$totalcanceladocita,$estado;
 
     public function paginationView()
     {
@@ -62,22 +68,11 @@ class PacientesController extends Component
            $total =  $data->count();
 
 
-        // foreach($data as $paciente)
-        // {
-
-        // $this->procedimientos = $paciente->citas()
-        // ->with('tratamiento.procedimiento')
-        // ->get()
-        // ->pluck('tratamiento.procedimiento')
-        // ->unique();
-        //     //dd($this->procedimientos);
-
-        // }
-        //$procedimientos = Paciente::with(['citas.tratamiento.procedimiento'])->orderBy('id', 'asc')->paginate($this->pagination);
-          //  dd($this->procedimientos);
-
         return view('livewire.pacientes.component', [
             'data' => $data,
+            'medicos' => Medico::all(),
+            'tratamientos' => Tratamiento::all(),
+            'estados' => Estado::all(),
             //'procedimientos' => $procedimientos
         ])
         ->extends('layouts.theme.app')->section('content');
@@ -248,6 +243,77 @@ class PacientesController extends Component
 
     }
 
+    public function updateValores() {
+
+        $tratamiento =  Tratamiento::find($this->tratamiento_id);
+        //dd($this->total);
+        //$this->tratamiento = $tratamiento->nombre;
+        $this->precio_tratamiento = $tratamiento->precio;
+        $this->saldo_cita =  $this->precio_tratamiento - $this->totalcanceladocita;
+    }
+
+    public function agendar($idpaciente)
+    {
+        //dd($idpaciente);
+         $this->selected_id = $idpaciente;
+        // $this->nombre = $paciente->nombre;
+        // $this->ci = $paciente->ci;
+        // $this->telefono = $paciente->telefono;
+        // $this->email = $paciente->email;
+        // $this->direccion = $paciente->direccion;
+        // $this->enfermedad = $paciente->enfermedad;
+        // $this->medicamentos = $paciente->medicamentos;
+        // $this->alergias = $paciente->alergias;
+       // dd($paciente);
+        $this->emit('show-modal-','open!');
+
+
+    }
+
+    public function AgendarCita(){
+        $this->validaFechas();
+        $rules = [
+
+
+            'medico_id' => 'required',
+            'tratamiento_id' => 'required',
+            'estado' => 'required',
+            'totalcanceladocita' => 'required',
+
+         ];
+         $messages =[
+            'medico_id.required' => 'Ingresa un medico',
+            'tratamiento_id.required' => 'Ingresa un tratamiento',
+            'totalcanceladocita.required' => 'Ingresa el  valor de la consulta pagado',
+            'estado.required' => 'Ingresa un estado'
+         ];
+
+         $this->validate($rules, $messages);
+         $tratamiento =  Tratamiento::find($this->tratamiento_id);
+
+        // dd($this->selected_id, $this->fecha_ini, $this->fecha_fin, $this->descripcion, $this->medico_id, $this->receta, $this->tratamiento_id,
+        //     $this->totalcanceladocita, $this->saldo_cita, $this->estado);
+        $cita = Cita::create([
+            'descripcion' => $this->descripcion,
+            'fecha_ini' => $this->fecha_ini,
+            'fecha_fin' => $this->fecha_fin,
+            'paciente_id' => $this->selected_id,
+            'medico_id' => $this->medico_id,
+            'receta' => $this->receta,
+            'user_id' => Auth::user()->id,
+            'tratamiento_id' => $this->tratamiento_id,
+            'precio_tratamiento' => $this->precio_tratamiento,
+            'total' => $this->total,
+            'saldo_cita' => $this->saldo_cita,
+            //'estado_pago' => $this->estado_pago,
+            'estado_id' => $this->estado
+        ]);
+        $cita->save();
+        $this->resetUI();
+        $this->emit('cita-added','cita registrada correctamente');
+
+    }
+
     public  function destroy(Paciente $paciente)
         {
 
@@ -256,6 +322,25 @@ class PacientesController extends Component
         $this->emit('paciente-deleted','Paciente Eliminado');
 
     }
+
+    public function validaFechas()
+    {
+        if($this->fecha_ini == null || $this->fecha_fin == null)
+       {
+        $this->emit('cita-error','Selecciona una fecha válida');
+        return;
+       }
+       else
+       {
+        if($this->fecha_fin <= $this->fecha_ini)
+        {
+            $this->emit('cita-error','Fecha final debe ser mayor a fecha inicial');
+            return;
+        }
+
+       }
+    }
+
 
 
 

@@ -72,6 +72,18 @@
 
                                     <td class="text-center">
 
+                                        @can('crear_cita')
+
+
+                                                {{-- <a href="javascript:void(0)" class="btn btn-dark mtmobile" data-toggle="modal"
+                                                data-target="#theModalCitasPacientes">Agendar</a> --}}
+
+                                                <a href="javascript:void(0)"
+                                        wire:click="agendar({{$paciente->id}})"
+                                        class="btn btn-dark mtmobile">Agendar</a>
+
+                                        @endcan
+
                                        @can('editar_paciente')
                                         <a href="javascript:void(0)"
                                         wire:click="edit({{$paciente->id}})"
@@ -80,6 +92,14 @@
                                         </a>
                                        @endcan
 
+                                        @can('detalle_paciente')
+                                        <a href="javascript:void(0)"
+                                        wire:click="detallePaciente({{$paciente->id}})"
+                                        class="btn btn-dark mtmobile" title="Detalle">
+                                            <i class="fas fa-list"></i>
+                                        </a>
+                                        @endcan
+
                                         @can('eliminar_paciente')
                                             <a href="javascript:void(0)"
                                             onclick="Confirm({{$paciente->id}} ,  {{ $paciente->citas->count() }})"
@@ -87,15 +107,6 @@
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         @endcan
-
-                                        @can('detalle_paciente')
-                                        <a href="javascript:void(0)"
-                                        wire:click="detallePaciente({{$paciente->id}})"
-                                        class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-list"></i>
-                                        </a>
-                                        @endcan
-
                                     </td>
                                 </tr>
                             @endforeach
@@ -112,6 +123,7 @@
     </div>
 
   @include('livewire.pacientes.form')
+  @include('livewire.pacientes.formcitas')
 
 
 </div>
@@ -120,6 +132,66 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function(){
+
+        flatpickr(document.getElementsByClassName('flatpickr'), {
+            enableTime: true,
+            static: true,
+            dateFormat: 'Y-m-d H:i',
+            locale: {
+                firtsDayofWeek: 1,
+                weekdays: {
+                    shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                    longhand: [
+                    "Domingo",
+                    "Lunes",
+                    "Martes",
+                    "Miércoles",
+                    "Jueves",
+                    "Viernes",
+                    "Sábado",
+                    ],
+                },
+                    months: {
+                    shorthand: [
+                    "Ene",
+                    "Feb",
+                    "Mar",
+                    "Abr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Ago",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dic",
+                    ],
+                    longhand: [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre",
+                    ],
+                },
+            }
+        })
+
+
+
+
+
+
+
+
+
 
         window.livewire.on('paciente-added', Msg =>{
             $('#theModal').modal('hide')
@@ -138,9 +210,19 @@
         window.livewire.on('show-modal', Msg =>{
             $('#theModal').modal('show')
         })
+        window.livewire.on('show-modal-', Msg =>{
+            $('#theModalCitasPacientes').modal('show')
+        })
 
         window.livewire.on('show-detail', Msg =>{
             $('#modalDetails').modal('show')
+        })
+        window.livewire.on('cita-error', Msg =>{
+            noty(Msg)
+        })
+        window.livewire.on('cita-added', Msg =>{
+            $('#theModalCitasPacientes').modal('hide')
+            noty(Msg)
         })
 
     });
