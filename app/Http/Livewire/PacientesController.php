@@ -93,8 +93,33 @@ class PacientesController extends Component
         $this->alergias ='';
         $this->search ='';
         $this->selected_id =0;
+        $this->descripcion ='';
+        $this->fecha_ini = '';
+        $this->fecha_fin = '';
+        $this->medico_id = '';
+        $this->receta = '';
+        $this->tratamiento_id = '';
+        $this->precio_tratamiento = '';
+        $this->totalcanceladocita = '';
+        $this->saldo_cita = '';
+        $this->estado_pago = '';
+        $this->estado = '';
         $this->resetValidation();
         $this->resetPage();
+
+        // 'descripcion' => $this->descripcion,
+        //     'fecha_ini' => $this->fecha_ini,
+        //     'fecha_fin' => $this->fecha_fin,
+        //     'paciente_id' => $this->selected_id,
+        //     'medico_id' => $this->medico_id,
+        //     'receta' => $this->receta,
+        //     'user_id' => Auth::user()->id,
+        //     'tratamiento_id' => $this->tratamiento_id,
+        //     'precio_tratamiento' => $this->precio_tratamiento,
+        //     'total' => $this->total,
+        //     'saldo_cita' => $this->saldo_cita,
+        //     //'estado_pago' => $this->estado_pago,
+        //     'estado_id' => $this->estado
     }
 
     public function Store()
