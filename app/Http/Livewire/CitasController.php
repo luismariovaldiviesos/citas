@@ -152,6 +152,8 @@ class CitasController extends Component
          $this->precio_tratamiento ='';
          $this->total = 0;
          $this->saldo_cita ="";
+         $this->nombre ="";
+         $this->title="";
         $this->resetValidation();
         $this->resetPage();
     }
@@ -357,17 +359,19 @@ class CitasController extends Component
     ];
 
     public function Destroy(Cita $cita)
-    {
+    {            
 
-            $cita->delete();
-            $this->resetUI();
-            $this->emit('cita-deleted','Cita@ eliminado correctamente');
-
-
-    }
-
-
-
-
+           $estado_cita = $cita->estado_id;
+            if ($estado_cita == 1) {
+                    $cita->delete();
+                    $this->resetUI();
+                    $this->emit('cita-deleted','Cita@ eliminado correctamente');
+                }
+                else{
+                    $this->resetUI();
+                    $this->emit('cita-deleted','la cita no se puede eliminar, tiene estado finalizado o en proceso');
+                }
+            
+            }
 
 }

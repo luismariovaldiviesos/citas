@@ -229,6 +229,9 @@
         window.livewire.on('cita-error', Msg =>{
             noty(Msg)
         })
+        window.livewire.on('cita-deleted', Msg =>{
+            noty(Msg)
+        })
         window.livewire.on('show-detail', Msg =>{
             $('#modalDetails').modal('show')
         })

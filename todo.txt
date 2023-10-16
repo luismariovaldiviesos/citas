@@ -27,5 +27,5 @@ eso vinculado al procedimiento
 
 editar tratamientos simre y cuabndo no haya saldos pendientes
 
-prueba despues de formateo
+me quedo en la logica para eliminar citas 
 
