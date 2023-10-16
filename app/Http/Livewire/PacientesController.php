@@ -39,7 +39,7 @@ class PacientesController extends Component
     public $saldoFavor =0;
 
     // varaibles para agendar
-    public $fecha_ini, $fecha_fin,$descripcion,$medico_id,$receta,$tratamiento_id,$totalcanceladocita,$estado;
+    public $fecha_ini, $fecha_fin,$descripcion,$medico_id,$receta,$tratamiento_id,$totalcanceladocita=0,$estado;
 
     public function paginationView()
     {
@@ -100,7 +100,7 @@ class PacientesController extends Component
         $this->receta = '';
         $this->tratamiento_id = '';
         $this->precio_tratamiento = '';
-        $this->totalcanceladocita = '';
+        $this->totalcanceladocita = 0;
         $this->saldo_cita = '';
         $this->estado_pago = '';
         $this->estado = '';
