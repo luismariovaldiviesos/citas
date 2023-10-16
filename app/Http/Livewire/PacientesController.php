@@ -107,19 +107,6 @@ class PacientesController extends Component
         $this->resetValidation();
         $this->resetPage();
 
-        // 'descripcion' => $this->descripcion,
-        //     'fecha_ini' => $this->fecha_ini,
-        //     'fecha_fin' => $this->fecha_fin,
-        //     'paciente_id' => $this->selected_id,
-        //     'medico_id' => $this->medico_id,
-        //     'receta' => $this->receta,
-        //     'user_id' => Auth::user()->id,
-        //     'tratamiento_id' => $this->tratamiento_id,
-        //     'precio_tratamiento' => $this->precio_tratamiento,
-        //     'total' => $this->total,
-        //     'saldo_cita' => $this->saldo_cita,
-        //     //'estado_pago' => $this->estado_pago,
-        //     'estado_id' => $this->estado
     }
 
     public function Store()
@@ -317,7 +304,7 @@ class PacientesController extends Component
          $tratamiento =  Tratamiento::find($this->tratamiento_id);
 
         // dd($this->selected_id, $this->fecha_ini, $this->fecha_fin, $this->descripcion, $this->medico_id, $this->receta, $this->tratamiento_id,
-        //     $this->totalcanceladocita, $this->saldo_cita, $this->estado);
+        //      $this->totalcanceladocita, $this->saldo_cita, $this->estado);
         $cita = Cita::create([
             'descripcion' => $this->descripcion,
             'fecha_ini' => $this->fecha_ini,
@@ -328,7 +315,7 @@ class PacientesController extends Component
             'user_id' => Auth::user()->id,
             'tratamiento_id' => $this->tratamiento_id,
             'precio_tratamiento' => $this->precio_tratamiento,
-            'total' => $this->total,
+            'total' => $this->totalcanceladocita,
             'saldo_cita' => $this->saldo_cita,
             //'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado
