@@ -111,6 +111,7 @@ class CalendarController extends Component
             'tratamiento_id' => $this->tratamiento_id,
             'precio_tratamiento' => $this->precio_tratamiento,
             'total' => $this->total,
+            'total_ini' => $this->total,
             'saldo_cita' => $this->saldo_cita,
             //'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado

@@ -15,7 +15,7 @@ class CreateLiquidacionsTable extends Migration
     {
         Schema::create('liquidacions', function (Blueprint $table) {
             $table->id();
-            $table->string('observaciones');
+            $table->string('observaciones')->nullable();
             $table->decimal('monto_liquidado');
            // $table->datetime('fecha_ini'); fecha de pago created _at
             $table->unsignedBigInteger('cita_id');

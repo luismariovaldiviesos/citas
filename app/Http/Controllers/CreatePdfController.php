@@ -43,10 +43,10 @@ class CreatePdfController extends Controller
         ->select('citas.*','m.nombre as medico')
         ->where(function($query) use ($from,$to)
                 {
-                    $query->whereBetween('citas.created_at', [$from,$to])
-                           ->orwhereBetween('citas.updated_at', [$from,$to]);
+                    $query->whereBetween('citas.created_at', [$from,$to]);
+                           //->orwhereBetween('citas.updated_at', [$from,$to]);
                 })
-                ->where('citas.total','!=','0.00')
+                ->where('citas.total_ini','!=','0.00')
                  ->get();
                  $liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
                 // dd('todos');
@@ -55,18 +55,18 @@ class CreatePdfController extends Controller
         ->select('citas.*','m.nombre as medico')
         ->where(function($query) use ($from,$to)
         {
-            $query->whereBetween('citas.created_at', [$from,$to])
-                   ->orwhereBetween('citas.updated_at', [$from,$to]);
+            $query->whereBetween('citas.created_at', [$from,$to]);
+                   //->orwhereBetween('citas.updated_at', [$from,$to]);
         })
         ->where('medico_id', $medico_id)
-        ->where('citas.total','!=','0.00')
+        ->where('citas.total_ini','!=','0.00')
         ->get();
         $liquidaciones =  Liquidacion::join('citas as c','c.id','liquidacions.cita_id')
         ->select('liquidacions.*')
         ->where(function($query) use ($from,$to)
         {
-            $query->whereBetween('liquidacions.created_at', [$from,$to])
-                   ->orwhereBetween('liquidacions.updated_at', [$from,$to]);
+            $query->whereBetween('liquidacions.created_at', [$from,$to]);
+                   //->orwhereBetween('liquidacions.updated_at', [$from,$to]);
         })
         ->where('c.medico_id','=',$medico_id)
          ->get();

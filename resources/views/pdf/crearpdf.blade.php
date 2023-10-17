@@ -41,7 +41,7 @@
                             <span style="font-size: 16px"><strong>Fecha de Consulta : {{\Carbon\Carbon::now()->format('d-M-Y')}}</strong></span>
                         @endif
                         <br>
-                        {{-- <span style="font-size: 14px">Usuario: {{$user}}</span> --}}
+                        
                     </td>
                 </tr>
             </table>
@@ -53,47 +53,42 @@
             <table cellpadding ="0" cellspacing="0" class="table-items" width="100%">
                 <thead>
                     <tr>
+                        <th width="10%">NUM CITA</th>
                         <th width="10%">PACIENTE</th>
                         <th width="12%">TRATAMIENTO</th>
                         <th width="10%">MEDICO</th>
-                        <th width="12%">VALOR TRATAMIENTO</th>
+                        <th width="12%">VALOR CANCELADO</th>
 
-
-                        {{-- <th>USUARIO</th>
-                        <th width="18%">FECHA</th> --}}
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($citas as $c )
                     <tr>
+
+                        <td align="center">{{$c->id}}</td>
                         <td align="center">{{$c->paciente->nombre}}</td>
-                        <td align="center">{{$c->tratamiento->nombre}}</td>
+                        <td align="center">{{$c->tratamiento->nombre}}  {{$c->tratamiento->precio}}</td>
                         <td align="center">{{$c->medico}}</td>
-                        <td align="center">{{$c->total }}</td>
+                        <td align="center">{{$c->total_ini }}</td>
 
                         @php
-                            $total_diario = $total_diario+$c->total
+                            $total_diario = $total_diario+$c->total_ini
                         @endphp
                         {{-- <td align="center">{{$item->user}}</td>
                         <td align="center">{{\Carbon\Carbon::parse($item->created_at)->format('d-m-y')}}</td> --}}
                     </tr>
                     @endforeach
                 </tbody>
-                {{-- <tfoot>
-                    <tr>
-                        <th>
-                            <h2 class="">CITAS: {{$total_diario}} </h2>
-                        </th>
-                    </tr>
-                </tfoot> --}}
+              
             </table>
 
 
             {{-- TABLA DE PAGOS EXTRAS  --}}
-            <h4 class="card-title text-center"><b>Liquidacin de citas</b></h4>
+            <h4 class="card-title text-center"><b>Liquidaciones de citas</b></h4>
             <table cellpadding ="0" cellspacing="0" class="table-items" width="100%">
                 <thead>
                     <tr>
+                        <th width="10%">NUM CITA</th>
                         <th width="10%">NOTA</th>
                         <th width="12%">PACIENTE</th>
                         <th width="10%">MONTO</th>
@@ -102,6 +97,7 @@
                 <tbody>
                     @foreach ($liquidaciones as $pe )
                     <tr>
+                        <td align="center">{{$pe->cita_id}}</td>
                         <td align="center">{{$pe->observaciones}}</td>
                         <td align="center">{{$pe->cita->paciente->nombre}}</td>
                         <td align="center">{{$pe->monto_liquidado}}</td>
@@ -113,18 +109,12 @@
                     </tr>
                     @endforeach
                 </tbody>
-                {{-- <tfoot>
-                    <tr>
-                        <th>
-                            <h2 class="">LIQUIDACIONES: $ {{$extras}} </h2>
-                        </th>
-                    </tr>
-                </tfoot> --}}
+              
             </table>
 
-            <h3>Subotal citas</h3>
-            <h3>Subotal liquidaciones</h3>
-            <h2>TOTAL: $ {{ $total_diario + $extras }}</h2>
+            <h3>SubTotal citas  {{$total_diario}}</h3>
+            <h3>SubTotal liquidaciones {{ $extras }}</h3>
+            <h2>TOTAL REPORTE:  {{ $total_diario + $extras }}</h2>
 
         </section>
 

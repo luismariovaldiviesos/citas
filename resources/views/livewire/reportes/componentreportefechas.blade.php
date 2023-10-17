@@ -58,15 +58,17 @@
                     <div class="col-12 col-md-9">
                         <!--TABLAE-->
                         <div class="table-responsive">
-                            <table class="table table-bordered table striped mt-1">
+                            <table class="table table-bordered table striped ">
                                 <thead class="text-white" style="background: #3B3F5C">
                                     <tr>
-                                        <th class="text-white table-th text-center">PACIENTE</th>
+                                            <th class="text-white table-th text-center" style="width: 5%">cita</th>
+                                            <th class="text-white table-th text-center">PACIENTE</th>
                                             <th class="text-white table-th text-center">TRATAMIENTO</th>
                                             <th class="text-white table-th text-center">MÉDIC@</th>
                                             <th class="text-white table-th text-center">PRECIO</th>
                                             <th class="text-white table-th text-center">CANCELADO</th>
                                             <th class="text-white table-th text-center">SALDO</th>
+                                            <th class="text-white table-th text-center">FECHA</th>                                           
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,40 +77,58 @@
                                     @endif
                                     @foreach ($citas as $c )
                                         <tr>
+
+                                            <td class="text-center" ><h6>{{$c->id}}</h6></td>
                                             <td class="text-center"><h6>{{$c->paciente->nombre}}</h6></td>
                                             <td class="text-center"><h6>{{$c->tratamiento->nombre}}</h6></td>
-                                            <td hidden><h6>{{$sumCitas = $sumCitas+$c->total }}</h6></td>
+                                            <td hidden><h6>{{$sumCitas = $sumCitas+$c->total_ini }}</h6></td>
                                             <td class="text-center"><h6>{{$c->nombremedico}}</h6></td>
                                            <td class="text-center"><h6>{{$c->precio_tratamiento}}</h6></td>
-                                           <td class="text-center"><h6>{{$c->total}}</h6></td>
+                                           <td class="text-center"><h6>{{$c->total_ini}}</h6></td>
                                            <td class="text-center"><h6>{{$c->saldo_cita}}</h6></td>
+                                           <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->created_at)->isoFormat('LL')}}</h6></td>
+                                        
 
                                        </tr>
                                         @endforeach
                                 </tbody>
-                                <tfoot class="p-3 mb-2 bg-white text-dark">
+                                {{-- <tfoot class="p-3 mb-2 bg-white text-dark">
                                     <tr>
-                                        {{-- <th><h3 class="badge badge-primary">CAJA:  {{$total_diario}}</h3></th> --}}
                                         <th>
-                                            <h4 class="">CITAS :  {{$sumCitas}} </h4>
+                                            <h6 class="badge bage-info"> subtotal en citas :  {{$sumCitas}} </h6>
                                         </th>
+                                       
                                     </tr>
-                                </tfoot>
+                                </tfoot>  --}}
+                              
+                                
                             </table>
+                            <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                                <div class="card-body  badge badge-info">
+                                  <h5 class="card-title">SUBTOTAL CITAS</h5>
+                                  <h4 class="card-text">{{$sumCitas}}</h4>
+                                </div>
+                            </div>
+                        
+                          
                         </div>
+
+                        <br>
 
 
                          {{-- TABLA DE PAGOS --}}
 
                          <div class="table-responsive">
-                            <table class="table mt-1 table-bordered table-striped">
+                            <table class="table mt-1 table-bordered table-striped ">
                                 <h4 class="card-title text-center"><b>Valores Liquidados</b></h4>
                                 <thead class="text-white" style="background: #3B3F5C">
                                     <tr>
-                                        <th class="text-white table-th text-center">DESCRIPCION DEL PAGO</th>
+                                        <th class="text-white table-th text-center" style="width: 5%">cita</th>
+                                        <th class="text-white table-th text-center">DESCRIPCION</th>
                                         <th class="text-white table-th text-center">PACIENTE</th>
                                         <th class="text-white table-th text-center">medico</th>
                                         <th class="text-white table-th text-center">MONTO</th>
+                                        <th class="text-white table-th text-center">FECHA</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,28 +137,41 @@
                                     @endif
                                     @foreach ($liquidaciones as $pe )
                                     <tr>
+                                        <td class="text-center"><h6>{{$pe->cita_id}}</h6></td>
                                          <td class="text-center"><h6>{{$pe->observaciones}}</h6></td>
                                          <td class="text-center"><h6>{{$pe->cita->paciente->nombre}}</h6></td>
                                          <td class="text-center"><h6>{{$pe->cita->medico->nombre}}</h6></td>
                                          <td class="text-center"><h6>{{$pe->monto_liquidado}}</h6></td>
                                          <td hidden><h6>{{$sumExtras = $sumExtras+$pe->monto_liquidado }}</h6></td>
+                                         <td class="text-center"><h6>{{\Carbon\Carbon::parse($pe->created_at)->isoFormat('LL')}}</h6></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
-                                <tfoot class="p-3 mb-2 bg-white text-dark">
+                                {{-- <tfoot class="p-3 mb-2 bg-white text-dark">
                                     <tr>
                                         <th>
-                                            <h4 class="">LIQUIDACIONES:  {{$sumExtras}} </h4>
+                                            <h4 class="">subtotal en liquidaciones:  {{$sumExtras}} </h4>
                                         </th>
                                     </tr>
-                                </tfoot>
+                                </tfoot> --}}
                             </table>
-
+                            <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                                <div class="card-body  badge badge-success">
+                                  <h5 class="card-title">SUBTOTAL LIQUIDACIONES</h5>
+                                  <h4 class="card-text">{{$sumExtras}}</h4>
+                                </div>
+                            </div>
                         </div>
-
-                        <h2>TOTAL: {{ $sumCitas + $sumExtras }}</h2>
-
+                        {{-- <h2>TOTAL en CAJA: {{ $sumCitas + $sumExtras }}</h2> --}}
+                        <div class="card text-bg-dark mb-3" style="max-width: 18rem; margin: 0 auto; text-align: center;">
+                            <div class="card-body badge badge-dark" style="color: white;">
+                                <h5 class="card-title" style="color: white;">TOTAL REPORTE</h5>
+                                <h4 class="card-text" style="color: white;">{{ $sumCitas + $sumExtras}}</h4>
+                            </div>
+                        </div>
+                        
                     </div>
+                   
                 </div>
             </div>
             @endcan

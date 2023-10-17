@@ -316,6 +316,7 @@ class PacientesController extends Component
             'tratamiento_id' => $this->tratamiento_id,
             'precio_tratamiento' => $this->precio_tratamiento,
             'total' => $this->totalcanceladocita,
+            'total_ini' => $this->totalcanceladocita,
             'saldo_cita' => $this->saldo_cita,
             //'estado_pago' => $this->estado_pago,
             'estado_id' => $this->estado

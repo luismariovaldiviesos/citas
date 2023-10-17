@@ -39,6 +39,7 @@
                                 <th class="text-center text-white table-th">HORA CITA</th>
                                 <th class="text-center text-white table-th">TELÉFONO</th>
                                 <th class="text-center text-white table-th">TRATAMIENTO</th>
+                                <th class="text-center text-white table-th">cancelado</th>
                                 <th class="text-center text-white table-th">SALDO CITA</th>
                                 <th class="text-center text-white table-th">CITA</th>
                                 {{-- <th class="text-center text-white table-th">IMÁGEN</th> --}}
@@ -57,6 +58,7 @@
                                         <td class="text-center"><h6>{{\Carbon\Carbon::parse($c->fecha_ini)->format('H:i');}}</h6></td>
                                         <td class="text-center"><h6>{{$c->paciente->telefono}}</h6></td>
                                         <td class="text-center"><h6>{{$c->tratamiento->nombre}}  {{$c->tratamiento->precio}}</h6></td>
+                                        <td class="text-center "><span class="badge badge-info">  {{$c->total}}</span></td>
 
                                         <td class="text-center">
                                             <span class="badge {{$c->saldo_cita == '0.00' ? 'badge-success' : 'badge-danger'}} text-uppercase">

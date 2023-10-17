@@ -67,10 +67,10 @@ class ReportsFechasController extends Component
             ->select('citas.*','m.nombre as nombremedico')
             ->where(function($query) use ($from,$to)
                     {
-                        $query->whereBetween('citas.created_at', [$from,$to])
-                               ->orwhereBetween('citas.updated_at', [$from,$to]);
+                        $query->whereBetween('citas.created_at', [$from,$to]);
+                               //->orwhereBetween('citas.updated_at', [$from,$to]);
                     })
-                    ->where('citas.total','!=','0.00')
+                    ->where('citas.total_ini','!=','0.00')
                      ->get();
                      $this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
                     //dd($this->citas);
@@ -80,11 +80,11 @@ class ReportsFechasController extends Component
                 ->select('citas.*','m.nombre as nombremedico')
                 ->where(function($query) use ($from,$to)
                 {
-                    $query->whereBetween('citas.created_at', [$from,$to])
-                           ->orwhereBetween('citas.updated_at', [$from,$to]);
+                    $query->whereBetween('citas.created_at', [$from,$to]);
+                           //->orwhereBetween('citas.updated_at', [$from,$to]);
                 })
                 ->where('medico_id', $this->medico_id)
-                ->where('citas.total','!=','0.00')
+                ->where('citas.total_ini','!=','0.00')
                 ->get();
                 //$this->liquidaciones = Liquidacion::whereBetween('created_at',[$from,$to])->get();
 

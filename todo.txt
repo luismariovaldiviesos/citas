@@ -27,5 +27,6 @@ eso vinculado al procedimiento
 
 editar tratamientos simre y cuabndo no haya saldos pendientes
 
-me quedo en la logica para eliminar citas 
+poner en produccion null observaciones en liquidaciones 
+agregar a citas total_ini
 
