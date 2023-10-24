@@ -45,7 +45,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/tratamientos', TratamientosController::class);
     Route::get('/procedimientos', ProcedimientosController::class);
     Route::get('/estados', EstadosController::class);
-    Route::get('/pagos', PagosController::class); // TIPOS PAGOS
     Route::get('/medicos', MedicosController::class);
     Route::get('/usuarios', UsersController::class);
     Route::get('roles', RolesController::class);
