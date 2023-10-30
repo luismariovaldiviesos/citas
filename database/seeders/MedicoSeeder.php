@@ -15,7 +15,7 @@ class MedicoSeeder extends Seeder
     public function run()
     {
         Medico::create([
-            'nombre' => 'juan perez',
+            'nombre' => 'Pedro Roca',
             'ci' => '01045677',
             'telefono' => '072255181',
             'email' => 'medico@gmail.com',
@@ -24,10 +24,10 @@ class MedicoSeeder extends Seeder
         ]);
 
         Medico::create([
-            'nombre' => 'maria luecero',
+            'nombre' => 'Maria Ruflo',
             'ci' => '01045677',
             'telefono' => '072255181',
-            'email' => 'lucero@gmail.com',
+            'email' => 'maria@gmail.com',
             'direccion' => 'centro',
 
         ]);
